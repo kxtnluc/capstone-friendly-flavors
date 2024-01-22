@@ -3,6 +3,7 @@ using System;
 using FriendlyFlavors.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,10 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace CapstoneFriendlyFlavors.Migrations
 {
     [DbContext(typeof(FriendlyFlavorsDbContext))]
-    partial class FriendlyFlavorsDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240122182118_InitialSeed")]
+    partial class InitialSeed
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -39,7 +41,7 @@ namespace CapstoneFriendlyFlavors.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("CookBooks");
+                    b.ToTable("CookBook");
 
                     b.HasData(
                         new
@@ -64,7 +66,7 @@ namespace CapstoneFriendlyFlavors.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Ingredients");
+                    b.ToTable("Ingredient");
 
                     b.HasData(
                         new
@@ -183,7 +185,7 @@ namespace CapstoneFriendlyFlavors.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Measurements");
+                    b.ToTable("Measurement");
 
                     b.HasData(
                         new
@@ -259,8 +261,8 @@ namespace CapstoneFriendlyFlavors.Migrations
                     b.Property<int>("CookTime")
                         .HasColumnType("integer");
 
-                    b.Property<string>("CoverImageUrl")
-                        .HasColumnType("text");
+                    b.Property<int>("CoverImageUrl")
+                        .HasColumnType("integer");
 
                     b.Property<string>("Title")
                         .IsRequired()
@@ -268,7 +270,7 @@ namespace CapstoneFriendlyFlavors.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Recipes");
+                    b.ToTable("Recipe");
 
                     b.HasData(
                         new
@@ -278,6 +280,7 @@ namespace CapstoneFriendlyFlavors.Migrations
                             Complexity = 2,
                             CookBookId = 1,
                             CookTime = 1,
+                            CoverImageUrl = 0,
                             Title = "The Best Recipe Ever"
                         });
                 });
@@ -304,7 +307,7 @@ namespace CapstoneFriendlyFlavors.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("RecipeIngredients");
+                    b.ToTable("RecipeIngredient");
 
                     b.HasData(
                         new
@@ -400,7 +403,7 @@ namespace CapstoneFriendlyFlavors.Migrations
                         new
                         {
                             Id = "c3aaeb97-d2ba-4a53-a521-4eea61e59b35",
-                            ConcurrencyStamp = "3c92800e-6a16-4b30-b80a-9dc05a69c197",
+                            ConcurrencyStamp = "a2de0872-ca95-4fa9-acb2-3ed02d5eb0bb",
                             Name = "Admin",
                             NormalizedName = "admin"
                         });
@@ -499,13 +502,13 @@ namespace CapstoneFriendlyFlavors.Migrations
                         {
                             Id = "dbc40bc6-0829-4ac5-a3ed-180f5e916a5f",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "90f8643c-b1e5-4879-bfc9-d32d04ffdb74",
+                            ConcurrencyStamp = "73c3bd8c-07bd-420a-9e93-d14064abdc50",
                             Email = "admina@strator.comx",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
-                            PasswordHash = "AQAAAAEAACcQAAAAEPVbGEQ4jn07gCuKwfjkg3AQ5e/2c15HSCwImfYnzBFcutwHnUB6ee2/75ob0RpMyw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEI/Pl05mxlewgy7lsv/3ycKywFf3ML5o2H1MjHIRpJsPb8BDBh7LS1l8wlSzjff8wQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "9017ca7f-22d5-424a-b98d-d27604da4149",
+                            SecurityStamp = "f2bfa48b-fd35-42b4-b338-fd2f234ac1b6",
                             TwoFactorEnabled = false,
                             UserName = "Administrator"
                         });

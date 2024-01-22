@@ -8,6 +8,12 @@ public class FriendlyFlavorsDbContext : IdentityDbContext<IdentityUser>
 {
     private readonly IConfiguration _configuration;
     public DbSet<UserProfile> UserProfiles { get; set; }
+    public DbSet<CookBook> CookBooks { get; set; }
+    public DbSet<Recipe> Recipes { get; set; }
+    public DbSet<RecipeIngredient> RecipeIngredients { get; set; }
+    public DbSet<Ingredient> Ingredients { get; set; }
+    public DbSet<Measurement> Measurements { get; set; }
+
 
     public FriendlyFlavorsDbContext(DbContextOptions<FriendlyFlavorsDbContext> context, IConfiguration config) : base(context)
     {
@@ -49,5 +55,81 @@ public class FriendlyFlavorsDbContext : IdentityDbContext<IdentityUser>
                 Email = "admina@strator.comx"
             }
         );
+
+        //===============================================DATABASE SEEDING PART 2========================================================
+        modelBuilder.Entity<Ingredient>().HasData(
+            new Ingredient { Id = 1, Name = "Flour" },
+            new Ingredient { Id = 2, Name = "Sugar" },
+            new Ingredient { Id = 3, Name = "Salt" },
+            new Ingredient { Id = 4, Name = "Butter" },
+            new Ingredient { Id = 5, Name = "Egg" },
+            new Ingredient { Id = 6, Name = "Milk" },
+            new Ingredient { Id = 7, Name = "Baking Powder" },
+            new Ingredient { Id = 8, Name = "Vanilla Extract" },
+            new Ingredient { Id = 9, Name = "Olive Oil" },
+            new Ingredient { Id = 10, Name = "Onions" },
+            new Ingredient { Id = 11, Name = "Garlic" },
+            new Ingredient { Id = 12, Name = "Tomatos" },
+            new Ingredient { Id = 13, Name = "Chicken Breast" },
+            new Ingredient { Id = 14, Name = "Beef" },
+            new Ingredient { Id = 15, Name = "Potatoes" },
+            new Ingredient { Id = 16, Name = "Carrots" },
+            new Ingredient { Id = 17, Name = "Broccoli" },
+            new Ingredient { Id = 18, Name = "Spinach" },
+            new Ingredient { Id = 19, Name = "Cheese" },
+            new Ingredient { Id = 20, Name = "Pasta"}
+        );
+
+        modelBuilder.Entity<CookBook>().HasData(
+            new CookBook {Id = 1, UserProfileId = 1, Title = "The First Cookbook"}
+            // new CookBook {Id = 2, UserProfileId = 2, Title = "The Second Cookbook"}
+            // new CookBook {Id = 3, UserProfileId = 3}
+
+        );
+
+        modelBuilder.Entity<Measurement>().HasData(
+            new Measurement { Id = 1, Type = "Cup" },
+            new Measurement { Id = 2, Type = "Tablespoon" },
+            new Measurement { Id = 3, Type = "Teaspoon" },
+            new Measurement { Id = 4, Type = "Pound" },
+            new Measurement { Id = 5, Type = "Ounce" },
+            new Measurement { Id = 6, Type = "Gram" },
+            new Measurement { Id = 7, Type = "Quart" },
+            new Measurement { Id = 8, Type = "Whole" }, //like a Whole Egg, or Whole Vanila Bean
+            new Measurement { Id = 9, Type = "Fluid Ounce" },
+            new Measurement { Id = 10, Type = "Milliliter" }
+        );
+
+        modelBuilder.Entity<Recipe>().HasData(
+            new Recipe
+            {
+                Id = 1,
+                CookBookId = 1,
+                Title = "The Best Recipe Ever",
+                Body = "1. Preheat Oven To 350°F and line a baking sheet with parchment paper. 2. In a large bowl, cream together softened butter and brown sugar until light and fluffy. 3. Add eggs one at a time, beating well after each addition. 4. In a separate bowl, whisk together all-purpose flour, baking soda, and a pinch of salt. 5. Gradually add the dry ingredients to the wet ingredients, mixing until just combined. 6. Fold in chocolate chips or your favorite mix-ins (e.g., nuts, dried fruits). 7. Use a cookie scoop to drop rounded tablespoons of dough onto the prepared baking sheet. 8. Bake in the preheated oven for 10-12 minutes or until the edges are golden brown. 9. Allow the cookies to cool on the baking sheet for 5 minutes before transferring them to a wire rack to cool completely. 10. Enjoy your delicious homemade cookies with a glass of milk!",
+                CookTime = 1,
+                Complexity = 2
+            }
+        );
+
+        modelBuilder.Entity<RecipeIngredient>().HasData(
+            new RecipeIngredient
+            {
+                Id = 1,
+                RecipeId = 1,
+                IngredientId = 4, //Butter
+                MeasurementId = 2, //Tablespoons of Butter
+                Amount = 8 //8 Tablespoons of Butter
+            },
+            new RecipeIngredient
+            {
+                Id = 2,
+                RecipeId = 1,
+                IngredientId = 5, //Egg
+                MeasurementId = 8, //Whole Egg
+                Amount = 2 //2 Whole Eggs
+            }
+        );
+
     }
 }

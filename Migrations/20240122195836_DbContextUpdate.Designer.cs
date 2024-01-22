@@ -3,6 +3,7 @@ using System;
 using FriendlyFlavors.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,10 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace CapstoneFriendlyFlavors.Migrations
 {
     [DbContext(typeof(FriendlyFlavorsDbContext))]
-    partial class FriendlyFlavorsDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240122195836_DbContextUpdate")]
+    partial class DbContextUpdate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -259,8 +261,8 @@ namespace CapstoneFriendlyFlavors.Migrations
                     b.Property<int>("CookTime")
                         .HasColumnType("integer");
 
-                    b.Property<string>("CoverImageUrl")
-                        .HasColumnType("text");
+                    b.Property<int>("CoverImageUrl")
+                        .HasColumnType("integer");
 
                     b.Property<string>("Title")
                         .IsRequired()
@@ -278,6 +280,7 @@ namespace CapstoneFriendlyFlavors.Migrations
                             Complexity = 2,
                             CookBookId = 1,
                             CookTime = 1,
+                            CoverImageUrl = 0,
                             Title = "The Best Recipe Ever"
                         });
                 });
@@ -400,7 +403,7 @@ namespace CapstoneFriendlyFlavors.Migrations
                         new
                         {
                             Id = "c3aaeb97-d2ba-4a53-a521-4eea61e59b35",
-                            ConcurrencyStamp = "3c92800e-6a16-4b30-b80a-9dc05a69c197",
+                            ConcurrencyStamp = "792390dd-9594-4f59-bea8-c2c7717aaad3",
                             Name = "Admin",
                             NormalizedName = "admin"
                         });
@@ -499,13 +502,13 @@ namespace CapstoneFriendlyFlavors.Migrations
                         {
                             Id = "dbc40bc6-0829-4ac5-a3ed-180f5e916a5f",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "90f8643c-b1e5-4879-bfc9-d32d04ffdb74",
+                            ConcurrencyStamp = "250d4125-9260-487f-9b8d-ae15c75f9fae",
                             Email = "admina@strator.comx",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
-                            PasswordHash = "AQAAAAEAACcQAAAAEPVbGEQ4jn07gCuKwfjkg3AQ5e/2c15HSCwImfYnzBFcutwHnUB6ee2/75ob0RpMyw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEHjf/cxRlk+dUw2WGVdjGYyUFI1yX/zmZEjDQme3b2Ib8vGelyVnRwyax5NDC+yxcw==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "9017ca7f-22d5-424a-b98d-d27604da4149",
+                            SecurityStamp = "0c986a0a-8ac5-43a2-a15a-d6fb13ff8df2",
                             TwoFactorEnabled = false,
                             UserName = "Administrator"
                         });

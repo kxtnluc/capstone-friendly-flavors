@@ -1,0 +1,49 @@
+
+
+/* Your CSS File */
+
+.rp-main{
+
+    background-color: rgb(255, 236, 201);
+
+    .rp-section-header {
+        .rp-title {
+        }
+    }
+    .rp-section-sidebar {
+        .rp-sidebar {
+
+            font-size: large;
+
+            background-color: wheat;
+            width: 26rem;
+            padding-left: 1.5rem;
+
+            .rp-sidebar-item {
+                margin-bottom: 0.25rem;
+                margin-top: 0.25rem;
+            }
+        }
+    }
+    .rp-section-body {
+
+        margin-top: 2rem;
+        margin-left: 5rem;
+        margin-right: 30rem;
+
+        padding: 1rem;
+
+        background-color: wheat;
+
+        .rp-body {
+        }
+    }
+    
+}
+  
+  
+  
+  
+  
+  
+  
