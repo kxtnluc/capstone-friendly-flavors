@@ -1,0 +1,32 @@
+.navbar{
+    background-color: rgb(244, 204, 130);
+    border-bottom: 5px solid rgb(85, 76, 60);
+    border-radius: 7px;
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+
+    .navbarbrand{
+
+        font-weight: 800;
+        font-size: xx-large;
+    }
+
+    
+}
+.nav-ul{
+    font-size: larger;
+    font-weight: 500;
+    border: 3px solid rgb(85, 76, 60);
+    border-radius: 7px;    
+
+    .nav-li{
+        margin-left: 1rem;
+        margin-right: 2rem;
+        transition: 0.25s;
+        border-radius: 5px;
+    }
+}
+
+.nav-li:hover{
+    background-color: rgb(197, 165, 105);
+    
+}

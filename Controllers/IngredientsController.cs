@@ -25,4 +25,24 @@ public class IngredientsController : ControllerBase
         return Ok(_dbContext.Ingredients.ToList());
 
     }
+
+    [HttpGet("{name}")]
+    // [Authorize]
+    public IActionResult GetByName(string name)
+    {
+        Ingredient foundIngredient = _dbContext.Ingredients.SingleOrDefault(i => i.Name == name);
+
+        if(foundIngredient == null)
+        {
+            return NotFound();
+        }
+
+        var result = new IngredientDTO
+        {
+            Id = foundIngredient.Id,
+            Name = foundIngredient.Name
+        };
+
+        return Ok(result);
+    }
 }

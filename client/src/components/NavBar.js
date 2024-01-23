@@ -24,9 +24,9 @@ export default function NavBar({ loggedInUser, setLoggedInUser }) {
 
     return (
         <div>
-            <Navbar color="light" light fixed="true" expand="lg">
-                <NavbarBrand className="mr-auto" tag={RRNavLink} to="/">
-                    🍜🍴 Friendly Flavors
+            <Navbar className="navbar" light fixed="true" expand="lg">
+                <NavbarBrand className="mr-auto navbarbrand" tag={RRNavLink} to="/">
+                    🍜🍴 Friendly Flavors ~
                 </NavbarBrand>
 
                 <NavbarToggler onClick={toggleNavbar} />

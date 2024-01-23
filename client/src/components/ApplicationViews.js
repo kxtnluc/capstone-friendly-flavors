@@ -3,6 +3,7 @@ import Login from "./auth/Login";
 import Register from "./auth/Register";
 import { RecipeList } from "./recipes/RecipeList";
 import { RecipePage } from "./recipes/RecipePage";
+import { CreateRecipe } from "./recipes/CreateRecipe";
 
 
 export default function ApplicationViews({ loggedInUser, setLoggedInUser }) {
@@ -24,7 +25,7 @@ export default function ApplicationViews({ loggedInUser, setLoggedInUser }) {
 
           <Route
             path="create"
-            element={<>create recipe form</>}
+            element={<CreateRecipe/>}
           />
 
         </Route>
