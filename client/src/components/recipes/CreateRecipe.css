@@ -1,0 +1,8 @@
+.suggestion-item{
+    transition: 0.2s;
+}
+
+.suggestion-item:hover {
+    background-color: #ededed; /* Change the background color on hover */
+    cursor: pointer;
+  }

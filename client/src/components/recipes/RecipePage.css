@@ -5,29 +5,85 @@
 .rp-main{
 
     background-color: rgb(255, 236, 201);
+    padding-bottom: 10rem;
 
     .rp-section-header {
+
+        padding-top: 1rem;
+        padding-left: 3rem;
+        
         .rp-title {
+            font-weight: 700;
+            font-size: 4rem;
+        }
+
+        .rp-card{
+            margin-top: 1rem;
+            float: left;
+            height: 33rem;
+            width: 20rem;
+            background-color: rgb(146, 117, 63);
+            border: 3px rgb(85, 76, 60) solid;
+            border-left: none;
+            border-top-left-radius: 0;
+            border-bottom-left-radius: 0;
+            .rp-card-body{
+                .rp-card-text{
+
+                }
+            }
+        }
+
+        .rp-image-div{
+
+            float: left;
+
+            .rp-img{
+                width: 50rem;
+                margin-left: 7rem;
+                margin-top: 1rem;
+                border: 3px rgb(85, 76, 60) solid;
+                border-radius: 6px;
+                border-top-right-radius: 0;
+                border-bottom-right-radius: 0;
+                border-right: none;
+                height: 33rem;
+            }
         }
     }
     .rp-section-sidebar {
         .rp-sidebar {
 
+            position: fixed;
             font-size: large;
-
+            right: 0;
             background-color: wheat;
             width: 26rem;
             padding-left: 1.5rem;
+            height: 39rem;
+            border: 3px rgb(85, 76, 60) solid;
+            border-right: none;
+            border-radius: 6px;
+            border-top-right-radius: 0;
+            border-bottom-right-radius: 0;
+
+            .rp-sidebar-header{
+                margin-top: 0.5rem;
+            }
 
             .rp-sidebar-item {
                 margin-bottom: 0.25rem;
                 margin-top: 0.25rem;
+                background-color: rgb(234, 210, 165);
+                border: 2px;
+                border-color: rgb(85, 76, 60);
+
             }
         }
     }
     .rp-section-body {
 
-        margin-top: 2rem;
+        margin-top: 36rem;
         margin-left: 5rem;
         margin-right: 30rem;
 
@@ -35,7 +91,19 @@
 
         background-color: wheat;
 
-        .rp-body {
+        .rp-bc {
+
+            background-color: rgb(241, 214, 159);
+
+            .rp-bc-header{
+
+            }
+
+            .rp-bc-body{
+                .rp-bc-text{
+
+                }
+            }
         }
     }
     

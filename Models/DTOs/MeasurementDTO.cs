@@ -7,4 +7,5 @@ public class MeasurementDTO
     public int Id { get; set; }
     [Required]
     public string Type { get; set; }
+    public string? Abv { get; set; }
 }

@@ -88,16 +88,16 @@ public class FriendlyFlavorsDbContext : IdentityDbContext<IdentityUser>
         );
 
         modelBuilder.Entity<Measurement>().HasData(
-            new Measurement { Id = 1, Type = "Cup" },
-            new Measurement { Id = 2, Type = "Tablespoon" },
-            new Measurement { Id = 3, Type = "Teaspoon" },
-            new Measurement { Id = 4, Type = "Pound" },
-            new Measurement { Id = 5, Type = "Ounce" },
-            new Measurement { Id = 6, Type = "Gram" },
-            new Measurement { Id = 7, Type = "Quart" },
-            new Measurement { Id = 8, Type = "Whole" }, //like a Whole Egg, or Whole Vanila Bean
-            new Measurement { Id = 9, Type = "Fluid Ounce" },
-            new Measurement { Id = 10, Type = "Milliliter" }
+            new Measurement { Id = 1, Type = "Cup"},
+            new Measurement { Id = 2, Type = "Tablespoon", Abv = "tbsp" },
+            new Measurement { Id = 3, Type = "Teaspoon", Abv = "tsp" },
+            new Measurement { Id = 4, Type = "Pound", Abv = "lbs" },
+            new Measurement { Id = 5, Type = "Ounce", Abv = "oz" },
+            new Measurement { Id = 6, Type = "Gram", Abv = "gm" },
+            new Measurement { Id = 7, Type = "Quart", Abv = "qt" },
+            new Measurement { Id = 8, Type = "Whole", Abv = ""}, //like a Whole Egg, or Whole Vanila Bean
+            new Measurement { Id = 9, Type = "Fluid Ounce", Abv = "fl oz" },
+            new Measurement { Id = 10, Type = "Milliliter", Abv = "mL"}
         );
 
         modelBuilder.Entity<Recipe>().HasData(
