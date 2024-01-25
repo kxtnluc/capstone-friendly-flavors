@@ -20,8 +20,8 @@ public class RecipesController : ControllerBase
 
 //==============================================================================<ENDPOINTS>=============================================================================================
                                                                                                                                                         //===============GETS
-    [HttpGet]
                                                                                                                                                             //============all
+    [HttpGet]
     // [Authorize]
     public IActionResult Get()
     {
@@ -68,7 +68,8 @@ public class RecipesController : ControllerBase
                 Measurement = new MeasurementDTO
                 {
                     Id = ri.Measurement.Id,
-                    Type = ri.Measurement.Type
+                    Type = ri.Measurement.Type,
+                    Abv = ri.Measurement.Abv
                 },
                 RecipeId = ri.RecipeId
             }).ToList()
@@ -77,6 +78,54 @@ public class RecipesController : ControllerBase
         return Ok(result);
 
     }                                                                                                                                                      //============one
+
+                                                                                                                                                        //=================POSTS
+                                                                                                                                                            //recipe+ingredients
+[HttpPost("composite")]
+public IActionResult CreateRecipeComposition([FromBody] CompositeDataDTO compositeData)
+{
+    // Access compositeData.RecipeData and compositeData.IngredientData
+    // Perform database operations to save data in the respective tables
+
+    if(compositeData.RecipeData == null || compositeData.RecipeIngredientData == null) return BadRequest();
+
+    Recipe recipeToPost = new Recipe
+    {
+        CoverImageUrl = compositeData.RecipeData.CoverImageUrl,
+        Title = compositeData.RecipeData.Title,
+        Body = compositeData.RecipeData.Body,
+        CookTime = compositeData.RecipeData.CookTime,
+        Complexity = compositeData.RecipeData.Complexity
+    };
+
+    _dbContext.Recipes.Add(recipeToPost);
+    _dbContext.SaveChanges();
+
+    List<RecipeIngredient> recipeIngredients = compositeData.RecipeIngredientData.Select(ri => new RecipeIngredient
+    {
+        RecipeId = recipeToPost.Id,
+        IngredientId = ri.IngredientId,
+        MeasurementId = ri.MeasurementId,
+        Amount = ri.Amount
+    }).ToList();
+
+    foreach (RecipeIngredient ri in recipeIngredients)
+    {
+        _dbContext.RecipeIngredients.Add(ri);
+    }
+
+        _dbContext.SaveChanges();
+
+
+    // Example:
+    // _dbContext.Recipes.Add(compositeData.RecipeData);
+    // _dbContext.RecipeIngredients.Add(compositeData.RecipeIngredientData.ToEntity());
+
+    // _dbContext.SaveChanges();
+
+    return Created($"/api/recipes/{recipeToPost.Id}", recipeToPost);
+}
+                                                                                                                    
 //==============================================================================</ENDPOINTS>=============================================================================================
 
 

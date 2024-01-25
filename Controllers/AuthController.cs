@@ -122,44 +122,66 @@ public class AuthController : ControllerBase
     [HttpPost("register")]
     public async Task<IActionResult> Register(RegistrationDTO registration)
     {
-        var user = new IdentityUser
+        try
         {
-            UserName = registration.UserName,
-            Email = registration.Email
-        };
-
-        var password = Encoding
-            .GetEncoding("iso-8859-1")
-            .GetString(Convert.FromBase64String(registration.Password));
-
-        var result = await _userManager.CreateAsync(user, password);
-        if (result.Succeeded)
-        {
-            _dbContext.UserProfiles.Add(new UserProfile
+            var user = new IdentityUser
             {
-                FirstName = registration.FirstName,
-                LastName = registration.LastName,
-                Address = registration.Address,
-                Email = registration.Email,
-                IdentityUserId = user.Id,
-            });
-            _dbContext.SaveChanges();
+                UserName = registration.UserName,
+                Email = registration.Email
+            };
 
-            var claims = new List<Claim>
+            var password = Encoding
+                .GetEncoding("iso-8859-1")
+                .GetString(Convert.FromBase64String(registration.Password));
+
+            var result = await _userManager.CreateAsync(user, password);
+
+            if (result.Succeeded)
+            {
+                // Explicitly set UserName for UserProfile
+                var userProfile = new UserProfile
                 {
-                    new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
-                    new Claim(ClaimTypes.Name, user.UserName.ToString()),
-                    new Claim(ClaimTypes.Email, user.Email)
-
+                    FirstName = registration.FirstName,
+                    LastName = registration.LastName,
+                    Address = registration.Address,
+                    Email = user.Email,
+                    UserName = user.UserName,  // Set UserName explicitly
+                    IdentityUserId = user.Id
                 };
-            var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
 
-            HttpContext.SignInAsync(
-            CookieAuthenticationDefaults.AuthenticationScheme,
-            new ClaimsPrincipal(claimsIdentity)).Wait();
+                // Add debug statements
+                Console.WriteLine($"UserProfile.UserName: {userProfile.UserName}");
 
-            return Ok();
+                _dbContext.UserProfiles.Add(userProfile);
+                _dbContext.SaveChanges();
+
+                var claims = new List<Claim>
+            {
+                new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
+                new Claim(ClaimTypes.Name, user.UserName.ToString()),
+                new Claim(ClaimTypes.Email, user.Email)
+            };
+
+                var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+
+                HttpContext.SignInAsync(
+                    CookieAuthenticationDefaults.AuthenticationScheme,
+                    new ClaimsPrincipal(claimsIdentity)).Wait();
+
+                return Ok();
+            }
+            else
+            {
+                // Add debug statements
+                Console.WriteLine($"User creation failed. Errors: {string.Join(", ", result.Errors.Select(e => e.Description))}");
+            }
         }
+        catch (Exception ex)
+        {
+            // Log the exception for further analysis
+            Console.WriteLine($"Exception: {ex}");
+        }
+
         return StatusCode(500);
     }
 }

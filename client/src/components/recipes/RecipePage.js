@@ -17,9 +17,60 @@ export const RecipePage = () => {
         });
     }, [recipeid]);
 
-    if (!recipe) {
-        return <div>Loading...</div>;
+    
+    function convertDecimalToMixedNumber(decimalValue) {
+        const integerPart = Math.floor(decimalValue);
+        const fractionalPart = decimalValue - integerPart;
+    
+        if (fractionalPart === 0) {
+            return `${integerPart}`;
+        }
+    
+        let fractionString = '';
+        if (fractionalPart === 0.25) {
+            fractionString = '1/4';
+        } else if (fractionalPart === 0.5) {
+            fractionString = '1/2';
+        } else if (fractionalPart === 0.75) {
+            fractionString = '3/4';
+        } else if (fractionalPart === 0.125) {
+            fractionString = '1/8'
+        } else if (fractionalPart === 0.33) {
+            fractionString = '1/3'
+        } 
+        else if (fractionalPart === 0.66) {
+            fractionString = '1/8'
+        } 
+        else {
+            fractionString = fractionalPart.toFixed(2); // Use the decimal value as-is if not a common fraction
+        }
+
+        if(integerPart === 0)
+        {
+            return `${fractionString}`
+        }
+        else{
+            return `${integerPart} ${fractionString}`;
+        }
+    
     }
+
+    console.log(convertDecimalToMixedNumber(1.5))
+
+    const isDecimal = (num) =>
+    {
+        if(num % 1 !== 0)
+        {
+            return true
+        }
+        else
+        {
+            return false
+        }
+    }
+
+    if (recipe === undefined) return <div>Loading...</div>
+    if (recipe.title === 'Not Found') return <div>Recipe Not Found.</div>
 
     return (
         <main className="rp-main">
@@ -57,7 +108,7 @@ export const RecipePage = () => {
                     {recipe.recipeIngredients.map((ri) => {
                         return (
                             <ListGroupItem className="rp-sidebar-item">
-                                • <strong>{ri.amount} {ri.measurement.type} {ri.ingredient.name}</strong>
+                                • <strong>{isDecimal(ri.amount) ? (<>{convertDecimalToMixedNumber(ri.amount)}</>):(ri.amount)} {!ri.measurement.abv ? (ri.measurement.type):(ri.measurement.abv)} {ri.ingredient.name}</strong>
                             </ListGroupItem>
                         )
                     })}

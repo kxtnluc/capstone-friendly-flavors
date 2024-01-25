@@ -4,6 +4,7 @@ import Register from "./auth/Register";
 import { RecipeList } from "./recipes/RecipeList";
 import { RecipePage } from "./recipes/RecipePage";
 import { CreateRecipe } from "./recipes/CreateRecipe";
+import { CookBookPage } from "./cookbook/CookBookPage";
 
 
 export default function ApplicationViews({ loggedInUser, setLoggedInUser }) {
@@ -25,7 +26,7 @@ export default function ApplicationViews({ loggedInUser, setLoggedInUser }) {
 
           <Route
             path="create"
-            element={<CreateRecipe/>}
+            element={<CreateRecipe loggedInUser={loggedInUser}/>}
           />
 
         </Route>
@@ -33,7 +34,7 @@ export default function ApplicationViews({ loggedInUser, setLoggedInUser }) {
         <Route path="cookbook">
           <Route
             path=":userid"
-            element={<>Cookbook of user</>}
+            element={<CookBookPage loggedInUser={loggedInUser}/>}
           />
 
 
