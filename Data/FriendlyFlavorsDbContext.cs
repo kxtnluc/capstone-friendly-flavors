@@ -52,7 +52,8 @@ public class FriendlyFlavorsDbContext : IdentityDbContext<IdentityUser>
                 FirstName = "Admina",
                 LastName = "Strator",
                 Address = "101 Main Street",
-                Email = "admina@strator.comx"
+                Email = "admina@strator.comx",
+                UserName = "admingirly"
             }
         );
 
@@ -62,7 +63,7 @@ public class FriendlyFlavorsDbContext : IdentityDbContext<IdentityUser>
             new Ingredient { Id = 2, Name = "Sugar" },
             new Ingredient { Id = 3, Name = "Salt" },
             new Ingredient { Id = 4, Name = "Butter" },
-            new Ingredient { Id = 5, Name = "Egg" },
+            new Ingredient { Id = 5, Name = "Eggs" },
             new Ingredient { Id = 6, Name = "Milk" },
             new Ingredient { Id = 7, Name = "Baking Powder" },
             new Ingredient { Id = 8, Name = "Vanilla Extract" },
@@ -77,12 +78,19 @@ public class FriendlyFlavorsDbContext : IdentityDbContext<IdentityUser>
             new Ingredient { Id = 17, Name = "Broccoli" },
             new Ingredient { Id = 18, Name = "Spinach" },
             new Ingredient { Id = 19, Name = "Cheese" },
-            new Ingredient { Id = 20, Name = "Pasta"}
+            new Ingredient { Id = 20, Name = "Pasta"},
+            new Ingredient { Id = 21, Name = "softened Butter"},
+            new Ingredient { Id = 22, Name = "Lemon Zest"},
+            new Ingredient { Id = 23, Name = "Lemon Juice"},
+            new Ingredient { Id = 24, Name = "large Eggs"},
+            new Ingredient { Id = 25, Name = "all-purpose Flour"},
+            new Ingredient { Id = 26, Name = "Confectioner's Sugar"}
+
         );
 
         modelBuilder.Entity<CookBook>().HasData(
-            new CookBook {Id = 1, UserProfileId = 1, Title = "The First Cookbook"}
-            // new CookBook {Id = 2, UserProfileId = 2, Title = "The Second Cookbook"}
+            new CookBook {Id = 1, UserProfileId = 1, Title = "The First Cookbook"},
+            new CookBook {Id = 2, UserProfileId = 2, Title = "Karamel"}
             // new CookBook {Id = 3, UserProfileId = 3}
 
         );

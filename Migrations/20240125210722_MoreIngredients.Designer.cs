@@ -3,6 +3,7 @@ using System;
 using FriendlyFlavors.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,10 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace CapstoneFriendlyFlavors.Migrations
 {
     [DbContext(typeof(FriendlyFlavorsDbContext))]
-    partial class FriendlyFlavorsDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240125210722_MoreIngredients")]
+    partial class MoreIngredients
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

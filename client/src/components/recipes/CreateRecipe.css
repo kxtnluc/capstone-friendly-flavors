@@ -1,3 +1,179 @@
+.cr-main{
+
+    .cr-section-header{
+
+        margin-top: 1rem;
+        margin-left: 1rem;
+        float: left;
+
+        .cr-header{
+            font-weight: 700;
+            font-size: 70px;
+        }
+    }
+
+    .cr-section-form{
+        
+        z-index: 1;
+        position: fixed;
+        margin-top: 7rem;
+        margin-left: 5rem;
+        margin-right: 40rem;
+    
+
+        
+        .cr-form{
+            
+            border: 3px rgb(85, 76, 60) solid;
+            border-radius: 5px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+
+            background-color: wheat;
+            font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+
+            padding: 1rem;
+
+            
+            .cr-formgroup-title,
+            .cr-formgroup-cooktime,
+            .cr-formgroup-complexity{
+
+                width: 33%;
+
+                .cr-label-title,
+                .cr-label-cooktime,
+                .cr-label-complexity{
+
+                    width: 450px;
+
+                }
+
+            }
+
+            .cr-br{
+                width: 100%;
+                height: 2px;
+                border: 2px solid rgb(118, 108, 83);
+                margin-top: 1rem;
+                margin-bottom: 1rem;
+            }
+
+            .cr-formgroup-ingredient,
+            .cr-formgroup-amount,
+            .cr-formgroup-measurement{
+
+                width: 33%;
+
+                .cr-label-ingredient,
+                .cr-label-amount,
+                .cr-label-measurement{
+
+                    width: 450px;
+
+                }
+
+            }
+
+            .cr-button-addingredient{
+                width: 100px;
+                margin-left: auto;
+                margin-right: 5.5%;
+            }
+
+            .cr-formgroup-body{
+                width: 100%;
+
+                .cr-label-body{
+                    width: 100%;
+                }
+
+                .cr-input-body{
+                    width: 120%;
+                }
+
+            }
+
+            .cr-formgroup-fileupload{
+                width: 30rem;
+
+                .cr-label-fileupload{
+                    width: 100%;
+                }
+
+            }
+
+            .cr-formgroup-submit{
+                
+                margin-left: auto;
+                margin-right: auto;
+
+                .cr-button-submit{
+                    width: 40rem;
+                    background-color: rgb(197, 158, 84);
+                    color: rgb(255, 255, 255);
+                }
+
+            }
+
+        }
+        
+    }
+    .cr-section-table{
+        float: right;
+        width: 36rem;
+        margin-right: 2rem;
+        margin-top: 2rem;
+        border: 3px rgb(85, 76, 60) solid;
+        border-radius: 5px;
+        z-index: -1;
+
+        .cr-card{
+
+            min-height: 49rem;
+
+            background-color: wheat;
+            .cr-card-body{
+                .cr-table-recipeingredients{
+                    background-color: wheat;
+                    border: 3px rgb(76, 63, 39) solid;
+        border-radius: 5px;
+                    padding: 2rem;
+                }
+            }
+        }
+    }
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.cr-label{
+    font-weight: 600;
+    font-size: 20px;
+}
+
 .suggestion-item{
     transition: 0.2s;
 }

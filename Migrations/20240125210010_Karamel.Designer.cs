@@ -3,6 +3,7 @@ using System;
 using FriendlyFlavors.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,10 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace CapstoneFriendlyFlavors.Migrations
 {
     [DbContext(typeof(FriendlyFlavorsDbContext))]
-    partial class FriendlyFlavorsDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240125210010_Karamel")]
+    partial class Karamel
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -96,7 +98,7 @@ namespace CapstoneFriendlyFlavors.Migrations
                         new
                         {
                             Id = 5,
-                            Name = "Eggs"
+                            Name = "Egg"
                         },
                         new
                         {
@@ -172,36 +174,6 @@ namespace CapstoneFriendlyFlavors.Migrations
                         {
                             Id = 20,
                             Name = "Pasta"
-                        },
-                        new
-                        {
-                            Id = 21,
-                            Name = "softened Butter"
-                        },
-                        new
-                        {
-                            Id = 22,
-                            Name = "Lemon Zest"
-                        },
-                        new
-                        {
-                            Id = 23,
-                            Name = "Lemon Juice"
-                        },
-                        new
-                        {
-                            Id = 24,
-                            Name = "large Eggs"
-                        },
-                        new
-                        {
-                            Id = 25,
-                            Name = "all-purpose Flour"
-                        },
-                        new
-                        {
-                            Id = 26,
-                            Name = "Confectioner's Sugar"
                         });
                 });
 
@@ -459,7 +431,7 @@ namespace CapstoneFriendlyFlavors.Migrations
                         new
                         {
                             Id = "c3aaeb97-d2ba-4a53-a521-4eea61e59b35",
-                            ConcurrencyStamp = "5ec9e155-bbe0-431e-ba6c-25a9ec6ac6a9",
+                            ConcurrencyStamp = "10d180c1-d43a-4571-b269-2ef7d228b36e",
                             Name = "Admin",
                             NormalizedName = "admin"
                         });
@@ -558,13 +530,13 @@ namespace CapstoneFriendlyFlavors.Migrations
                         {
                             Id = "dbc40bc6-0829-4ac5-a3ed-180f5e916a5f",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "964156e8-f2aa-4f9e-b374-2a852f3a5ea7",
+                            ConcurrencyStamp = "dd8fac41-f2c3-47a2-b813-2c730e7d590b",
                             Email = "admina@strator.comx",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
-                            PasswordHash = "AQAAAAEAACcQAAAAEMTXGqUVUSf2YD3evY487TX57wbtavIxpiMPMnUpgivzU9DRwIX+5JwU5X3Pf3iAkg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEHMX86dVkkm0c9vtRsSFaOawPHn6UT/sZWE2Gkr5mnT4rczsxO1gvBCOLSpydzJBTQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "09866b78-5e01-4b46-8299-ec4f9b7da692",
+                            SecurityStamp = "8ebbb4c9-4606-4ed7-bfb1-6d2091a28b82",
                             TwoFactorEnabled = false,
                             UserName = "Administrator"
                         });

@@ -10,10 +10,10 @@ public class RecipeIngredientDTO
     public int RecipeId { get; set; }
     [Required]
     public int IngredientId { get; set; }
-    public IngredientDTO Ingredient { get; set; }
+    public IngredientDTO? Ingredient { get; set; }
     [Required]
     public int MeasurementId { get; set; }
-    public MeasurementDTO Measurement { get; set; }
+    public MeasurementDTO? Measurement { get; set; }
     [Required]
     public decimal Amount { get; set; }
 

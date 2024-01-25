@@ -37,16 +37,18 @@ export default function NavBar({ loggedInUser, setLoggedInUser }) {
                                 Recipes
                             </NavLink>
                         </NavItem>
-                        <NavItem className="nav-li" onClick={() => setOpen(false)}>
-                            <NavLink tag={RRNavLink} to="/recipes/create">
-                                Create
-                            </NavLink>
-                        </NavItem>
-                        {loggedInUser ? (<NavItem className="nav-li" onClick={() => setOpen(false)}>
-                            <NavLink tag={RRNavLink} to={`/cookbook/${loggedInUser.id}`}>
-                                My Cookbook
-                            </NavLink>
-                        </NavItem>) : ("")}
+                        {loggedInUser ? (<>
+                            <NavItem className="nav-li" onClick={() => setOpen(false)}>
+                                <NavLink tag={RRNavLink} to="/recipes/create">
+                                    Create
+                                </NavLink>
+                            </NavItem>
+                            <NavItem className="nav-li" onClick={() => setOpen(false)}>
+                                <NavLink tag={RRNavLink} to={`/cookbook/${loggedInUser.id}`}>
+                                    My Cookbook
+                                </NavLink>
+                            </NavItem>
+                        </>) : ("")}
                     </Nav>
                 </Collapse>
 

@@ -16,6 +16,6 @@ public class Recipe
     [Required]
     public int Complexity { get; set; }
     public string? CoverImageUrl { get; set; }
-    public List<RecipeIngredient> RecipeIngredients { get; set; }
+    public List<RecipeIngredient>? RecipeIngredients { get; set; }
 
 }

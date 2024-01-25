@@ -1,0 +1,37 @@
+{
+    "recipeData": {
+        "cookBookId": 1,
+        "title": "second Best Recipe",
+        "body": "blahblahblahsomethingsomethignsomethigniasjdioasjhodasoidjasoi",
+        "cookTime": 2,
+        "complexity": 4
+    },
+    "recipeIngredientData": {
+        "ingredientId": 2,
+        "measurementId": 1,
+        "amount": 2
+    }
+}
+
+//multiple recipeIngredients: WORKS!!!!!
+{
+    "recipeData": {
+        "cookBookId": 1,
+        "title": "Third Best Recipe",
+        "body": "ungaybgabgyaungaungaungaungaunguanguangu",
+        "cookTime": 5,
+        "complexity": 5
+    },
+    "recipeIngredientData": [
+        {
+            "ingredientId": 2,
+            "measurementId": 1,
+            "amount": 2
+        },
+        {
+            "ingredientId": 5,
+            "measurementId": 8,
+            "amount": 3
+        }
+    ]
+}

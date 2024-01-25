@@ -28,6 +28,29 @@ public class CookbooksController : ControllerBase
         return Ok(_dbContext.CookBooks.ToList());
 
     }
-}
+
                                                                                                                                                             //============one
+    [HttpGet("user/{userid}")]
+    // [Authorize]
+    public IActionResult GetByUserId(int userid)
+    {
+        CookBook foundCookBook = _dbContext.CookBooks.SingleOrDefault(c => c.UserProfileId == userid);
+
+        if(foundCookBook == null)
+        {
+            return NotFound();
+        }
+
+        var result = new CookBookDTO 
+        {
+            Id = foundCookBook.Id,
+            UserProfileId = foundCookBook.UserProfileId,
+            Title = foundCookBook.Title
+        };
+
+        return Ok(result);
+
+    }
 //==============================================================================</ENDPOINTS>=============================================================================================
+
+}

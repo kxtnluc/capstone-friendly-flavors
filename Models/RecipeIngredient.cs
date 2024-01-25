@@ -9,10 +9,10 @@ public class RecipeIngredient
     public int RecipeId { get; set; }
     [Required]
     public int IngredientId { get; set; }
-    public Ingredient Ingredient { get; set; }
+    public Ingredient? Ingredient { get; set; }
     [Required]
     public int MeasurementId { get; set; }
-    public Measurement Measurement { get; set; }
+    public Measurement? Measurement { get; set; }
     [Required]
     public decimal Amount { get; set; }
 

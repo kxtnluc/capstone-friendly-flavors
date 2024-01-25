@@ -3,6 +3,7 @@ using System;
 using FriendlyFlavors.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,10 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace CapstoneFriendlyFlavors.Migrations
 {
     [DbContext(typeof(FriendlyFlavorsDbContext))]
-    partial class FriendlyFlavorsDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240125205308_MaybeIChangedSomething")]
+    partial class MaybeIChangedSomething
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -47,12 +49,6 @@ namespace CapstoneFriendlyFlavors.Migrations
                             Id = 1,
                             Title = "The First Cookbook",
                             UserProfileId = 1
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Title = "Karamel",
-                            UserProfileId = 2
                         });
                 });
 
@@ -96,7 +92,7 @@ namespace CapstoneFriendlyFlavors.Migrations
                         new
                         {
                             Id = 5,
-                            Name = "Eggs"
+                            Name = "Egg"
                         },
                         new
                         {
@@ -172,36 +168,6 @@ namespace CapstoneFriendlyFlavors.Migrations
                         {
                             Id = 20,
                             Name = "Pasta"
-                        },
-                        new
-                        {
-                            Id = 21,
-                            Name = "softened Butter"
-                        },
-                        new
-                        {
-                            Id = 22,
-                            Name = "Lemon Zest"
-                        },
-                        new
-                        {
-                            Id = 23,
-                            Name = "Lemon Juice"
-                        },
-                        new
-                        {
-                            Id = 24,
-                            Name = "large Eggs"
-                        },
-                        new
-                        {
-                            Id = 25,
-                            Name = "all-purpose Flour"
-                        },
-                        new
-                        {
-                            Id = 26,
-                            Name = "Confectioner's Sugar"
                         });
                 });
 
@@ -459,7 +425,7 @@ namespace CapstoneFriendlyFlavors.Migrations
                         new
                         {
                             Id = "c3aaeb97-d2ba-4a53-a521-4eea61e59b35",
-                            ConcurrencyStamp = "5ec9e155-bbe0-431e-ba6c-25a9ec6ac6a9",
+                            ConcurrencyStamp = "6793233f-9f3f-4181-a94b-e9f9b15e96e5",
                             Name = "Admin",
                             NormalizedName = "admin"
                         });
@@ -558,13 +524,13 @@ namespace CapstoneFriendlyFlavors.Migrations
                         {
                             Id = "dbc40bc6-0829-4ac5-a3ed-180f5e916a5f",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "964156e8-f2aa-4f9e-b374-2a852f3a5ea7",
+                            ConcurrencyStamp = "d6108b6e-f9cd-4deb-b98d-1511a97e8ca3",
                             Email = "admina@strator.comx",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
-                            PasswordHash = "AQAAAAEAACcQAAAAEMTXGqUVUSf2YD3evY487TX57wbtavIxpiMPMnUpgivzU9DRwIX+5JwU5X3Pf3iAkg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEBYlsR3ElvkehRrzc8ffZaon9I/KQ95FNTJWFcYkCIsjKCi6f2wZYQAgfn1JLqITzA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "09866b78-5e01-4b46-8299-ec4f9b7da692",
+                            SecurityStamp = "c7ba295d-dafc-4f97-a2ce-54cf99bc063d",
                             TwoFactorEnabled = false,
                             UserName = "Administrator"
                         });
