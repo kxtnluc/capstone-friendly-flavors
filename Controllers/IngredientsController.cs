@@ -45,4 +45,22 @@ public class IngredientsController : ControllerBase
 
         return Ok(result);
     }
+
+    [HttpPost("{name}")]
+    //[Authorize]
+    public IActionResult Post(string name)
+    {
+
+        string modifiedName = name.Replace("+", " ");
+
+        Ingredient i = new Ingredient
+        {
+            Name = modifiedName
+        };
+
+        _dbContext.Ingredients.Add(i);
+        _dbContext.SaveChanges();
+
+        return Created($"/api/ingredients/{i.Id}", i);
+    }
 }

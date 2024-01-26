@@ -31,9 +31,9 @@ export const CreateRecipe = ({ loggedInUser }) => {
     let ingredientId = 0;
     
     useEffect(() => {
+        getCookBookByUserId(loggedInUser.id).then(setCookbook)
         getAllIngredients().then(setIngredients)
         getMeasurements().then(setMeasurements)
-        getCookBookByUserId(loggedInUser.id).then(setCookbook)
     }, [])
 
     const getSuggestions = (input) => {
@@ -181,10 +181,11 @@ export const CreateRecipe = ({ loggedInUser }) => {
             //then post that one JSON Composite Package using the endpoint
 
             if (compositeJSONPackage !== null) {
-                postCompositeRecipe(compositeJSONPackage).then((newRecipeObj) => {
-                    console.log(newRecipeObj);
-                    navigate(`/recipes`)
-                })
+                // postCompositeRecipe(compositeJSONPackage).then((newRecipeObj) => {
+                //     console.log(newRecipeObj);
+                //     navigate(`/recipes`)
+                // })
+                console.log(compositeJSONPackage)
             }
         }
         else {
