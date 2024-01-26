@@ -22,7 +22,7 @@
             float: left;
             height: 33rem;
             width: 20rem;
-            background-color: rgb(146, 117, 63);
+            background: linear-gradient(to right, rgb(194, 154, 79), rgb(150, 104, 18));
             border: 3px rgb(85, 76, 60) solid;
             border-left: none;
             border-top-left-radius: 0;
@@ -37,18 +37,48 @@
         .rp-image-div{
 
             float: left;
+            width: 50rem;
+            height: 33rem;
+            margin-top: 1rem;
+            margin-left: 7rem;
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(to right, rgb(223, 200, 156), rgb(194, 154, 79));
+            border: 3px rgb(85, 76, 60) solid;
+            border-radius: 6px;
+            border-top-right-radius: 0;
+            border-bottom-right-radius: 0;
+            border-right: none;
 
-            .rp-img{
-                width: 50rem;
-                margin-left: 7rem;
-                margin-top: 1rem;
-                border: 3px rgb(85, 76, 60) solid;
-                border-radius: 6px;
-                border-top-right-radius: 0;
-                border-bottom-right-radius: 0;
-                border-right: none;
-                height: 33rem;
+            .rp-image-container{
+
+                width: 100%;
+                height: 100%;
+                overflow: hidden;
+
+                .rp-img{
+                    position: absolute;
+                    z-index: 2;
+                    width: 100%;
+                    height: 100%;
+                    object-fit: contain;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%, -50%);
+                }
+
+                .rp-img-blur {
+                    z-index: 1;
+                    position: absolute;
+                    width: 100%;
+                    height: 100%;
+                    object-fit: cover;
+                    filter: blur(10px); /* Adjust the blur amount as needed */
+                    transform: scale(1.1); /* Adjust the scale factor to cover the void */
+                  }
+            
             }
+
         }
     }
     .rp-section-sidebar {

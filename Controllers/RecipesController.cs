@@ -4,6 +4,7 @@ using FriendlyFlavors.Data;
 using Microsoft.EntityFrameworkCore;
 using FriendlyFlavors.Models;
 using FriendlyFlavors.Models.DTOs;
+using Microsoft.OpenApi.Expressions;
 
 namespace BiancasBikes.Controllers;
 
@@ -23,9 +24,28 @@ public class RecipesController : ControllerBase
                                                                                                                                                             //============all
     [HttpGet]
     // [Authorize]
-    public IActionResult Get()
+    public IActionResult Get(int? cookBookId)
     {
-        return Ok(_dbContext.Recipes.ToList());
+        IQueryable<Recipe> query = _dbContext.Recipes;
+
+        if(cookBookId.HasValue)
+        {
+            query = query.Where(r => r.CookBookId == cookBookId);
+        }
+
+        var result = query
+            .Select(r => new RecipeDTO
+            {
+                Id = r.Id,
+                CookBookId = r.CookBookId,
+                CoverImageUrl = r.CoverImageUrl,
+                Title = r.Title,
+                Body = r.Body,
+                CookTime = r.CookTime,
+                Complexity = r.Complexity
+            }).ToList();
+
+        return Ok(result);
 
     }
 
@@ -95,7 +115,8 @@ public IActionResult CreateRecipeComposition([FromBody] CompositeDataDTO composi
         Title = compositeData.RecipeData.Title,
         Body = compositeData.RecipeData.Body,
         CookTime = compositeData.RecipeData.CookTime,
-        Complexity = compositeData.RecipeData.Complexity
+        Complexity = compositeData.RecipeData.Complexity,
+        CookBookId = compositeData.RecipeData.CookBookId
     };
 
     _dbContext.Recipes.Add(recipeToPost);

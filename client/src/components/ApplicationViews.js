@@ -5,6 +5,7 @@ import { RecipeList } from "./recipes/RecipeList";
 import { RecipePage } from "./recipes/RecipePage";
 import { CreateRecipe } from "./recipes/CreateRecipe";
 import { CookBookPage } from "./cookbook/CookBookPage";
+import { CreateIngredient } from "./ingredients/CreateIngredient";
 
 
 export default function ApplicationViews({ loggedInUser, setLoggedInUser }) {
@@ -37,6 +38,14 @@ export default function ApplicationViews({ loggedInUser, setLoggedInUser }) {
             element={<CookBookPage loggedInUser={loggedInUser}/>}
           />
 
+
+        </Route>
+
+        <Route path="ingredient">
+          <Route
+            path="create"
+            element={<CreateIngredient/>}
+          />
 
         </Route>
 

@@ -77,7 +77,10 @@ export const RecipePage = () => {
             <section className="rp-section-header">
                 <h1 className="rp-title">{recipe.title}</h1>
                     <div className="rp-image-div">
-                        {recipe.coverImageUrl ? (<img className="rp-img" src={recipe.coverImageUrl} alt="recipeCover"/>):(<img className="rp-img" src="https://burst.shopifycdn.com/photos/flatlay-iron-skillet-with-meat-and-other-food.jpg?width=1000&format=pjpg&exif=0&iptc=0" alt="FoodImage"/>)}
+                        <div className="rp-image-container">
+                            {recipe.coverImageUrl ? (<img className="rp-img" src={recipe.coverImageUrl} alt="recipeCover"/>):(<img className="rp-img" src="https://burst.shopifycdn.com/photos/flatlay-iron-skillet-with-meat-and-other-food.jpg?width=1000&format=pjpg&exif=0&iptc=0" alt="FoodImage"/>)}
+                            {recipe.coverImageUrl ? (<img className="rp-img-blur" src={recipe.coverImageUrl} alt="recipeCover"/>):(<img className="rp-img-blur" src="https://burst.shopifycdn.com/photos/flatlay-iron-skillet-with-meat-and-other-food.jpg?width=1000&format=pjpg&exif=0&iptc=0" alt="FoodImage"/>)}
+                        </div>
                     </div>
                 <Card inverse className="rp-card">
                     <CardHeader>

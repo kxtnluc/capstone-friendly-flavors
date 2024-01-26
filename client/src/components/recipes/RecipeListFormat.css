@@ -1,0 +1,70 @@
+.rl-section-list{
+
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    margin: 2rem;
+    margin-top: 1rem;
+    padding: 1rem;
+    background-color: wheat;
+    border: 3px rgb(85, 76, 60) solid;
+    border-radius: 7px;
+    
+    .rl-card{
+        
+        cursor: pointer;
+        border: 3px rgb(141, 116, 73) solid;
+        width: 28%;
+        margin-bottom: 1rem;
+        transition: 0.3s ease-in;
+        z-index: 0;
+
+        
+        .rl-card-img-container{
+            height: 15rem;
+            background-color: black;
+            overflow: hidden;
+            
+            .rl-card-img{
+                
+                height: 100%;
+                width: 100%;
+                object-fit: cover;
+                overflow: hidden;
+
+            }
+
+
+        }
+        
+        
+
+        .rl-card-header{
+            
+            background-color: rgb(255, 240, 212);
+            font-weight: 650;
+            font-size: 24px;
+            
+        }
+
+        .rl-card-body{
+            background-color: rgb(252, 244, 230);
+            font-style: italic;
+            
+        }
+        
+        &:hover {
+
+            transform: scale(1.05);
+            z-index: 1;
+
+            .rl-card-img-container{
+
+                .rl-card-img{
+
+                }
+            }
+        }
+
+    }
+}
