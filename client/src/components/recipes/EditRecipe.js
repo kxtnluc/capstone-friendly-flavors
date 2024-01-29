@@ -4,12 +4,15 @@ import { getAllIngredients, getIngredientByName } from "../../managers/ingredien
 import "./CreateRecipe.css"
 import { getMeasurements } from "../../managers/measurementManager";
 import { getCookBookByUserId } from "../../managers/cookBookManager";
-import { postCompositeRecipe } from "../../managers/recipeManager";
-import { useNavigate } from "react-router-dom";
+import { getRecipeById, postCompositeRecipe, updateRecipe } from "../../managers/recipeManager";
+import { useNavigate, useParams } from "react-router-dom";
 
-export const CreateRecipe = ({ loggedInUser }) => {
+export const EditRecipe = ({ loggedInUser }) => {
 
     const navigate = useNavigate();
+    const {recipeid} = useParams();
+
+    const [recipeToEdit, setRecipeToEdit] = useState({})
 
     const [ingredientTextInput, setIngredientTextInput] = useState('')
     const [suggestions, setSuggestions] = useState([]);
@@ -29,12 +32,25 @@ export const CreateRecipe = ({ loggedInUser }) => {
     const [amountInputInvalid, setAmountInputInvalid] = useState(false)
     
     let ingredientId = 0;
+
+    
     
     useEffect(() => {
+
         getCookBookByUserId(loggedInUser.id).then(setCookbook)
         getAllIngredients().then(setIngredients)
         getMeasurements().then(setMeasurements)
-    }, [])
+        getRecipeById(recipeid).then((rObj) => {
+            setRecipeToEdit(rObj)
+            setTitle(rObj.title)
+            setBody(rObj.body)
+            setImageUrl(rObj.coverImageUrl)
+            setCookTime(rObj.cookTime)
+            setComplexity(rObj.complexity)
+            setRecipeIngredientArray(rObj.recipeIngredients)
+        })
+
+    }, [loggedInUser, recipeid])
 
     const getSuggestions = (input) => {
         // Replace this with your actual database or API call
@@ -157,43 +173,37 @@ export const CreateRecipe = ({ loggedInUser }) => {
         if (recipeIngredientArray.length >= 1 && title !== '' && body !== '' && cookbook.id !== null) {
             console.log("adding recipe...")
             //first create the perfectly formated JSON package that has both the recipe as well as all its recipeIngredients
-            const compositeJSONPackage =
-            {
-                recipeData:
-                {
-                    cookBookId: cookbook.id,
-                    title: title,
-                    body: body,
-                    cookTime: cookTime,
-                    complexity: complexity,
-                    coverImageUrl: imageUrl
-                },
-                recipeIngredientData: []
+            const recipeData = {
+                id: recipeToEdit.id,
+                cookBookId: recipeToEdit.cookBookId,
+                title: title,
+                body: body,
+                cookTime: cookTime,
+                complexity: complexity,
+                coverImageUrl: imageUrl //add description eventually
             }
 
-            for (const ria of recipeIngredientArray) {
-                compositeJSONPackage.recipeIngredientData.push(ria)
-            }
+            // for (const ria of recipeIngredientArray) {
+            //     compositeJSONPackage.recipeIngredientData.push(ria)
+            // }
 
             console.log("=======the full thingy========")
-            console.log(compositeJSONPackage)
+            console.log(recipeData)
             console.log("=======/the full thingy========")
             //then post that one JSON Composite Package using the endpoint
 
-            if (compositeJSONPackage !== null) {
-                postCompositeRecipe(compositeJSONPackage).then((newRecipeObj) => {
+            if (recipeData !== null) {
+                updateRecipe(recipeData).then((newRecipeObj) => {
                     console.log(newRecipeObj);
-                    navigate(`/recipes`)
+                    // navigate(`/recipes/${recipeData.id}`)
                 })
-                console.log(compositeJSONPackage)
-                // navigate("/recipes")
             }
         }
         else {
             console.log("invalid inputs, try again.")
         }
-
     }
+
 
     return (
         <main className="cr-main">
@@ -201,7 +211,7 @@ export const CreateRecipe = ({ loggedInUser }) => {
                 <h1 className="cr-header">{cookbook.title}</h1>
             </section>
             <section className="cr-section-form">
-                <h3>New Recipe</h3>
+                <h3>Edit Recipe: {recipeToEdit.title}</h3>
                 <Form className="cr-form">
                     <FormGroup row className="cr-formgroup-title">
                         <Label
@@ -416,7 +426,7 @@ export const CreateRecipe = ({ loggedInUser }) => {
                     <FormGroup className="cr-formgroup-submit">
                         <Col>
                             <Button type="button" className="cr-button-submit" onClick={submitForm}>
-                                Submit
+                                Update
                             </Button>
                         </Col>
                     </FormGroup>
@@ -442,9 +452,9 @@ export const CreateRecipe = ({ loggedInUser }) => {
                                         <tr key={ri.ingredientName}>
 
                                             <th>{index + 1}</th>
-                                            <td>{ri.ingredientName}</td>
+                                            <td>{ri.ingredient.name}</td>
                                             <td>{ri.amount}</td>
-                                            <td>{ri.measurementName}</td>
+                                            <td>{ri.measurement.type}</td>
                                             <td><Button value={index} onClick={() => handleRemoveIngredient(index)} color="danger"><strong>X</strong></Button></td>
 
                                         </tr>

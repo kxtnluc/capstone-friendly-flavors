@@ -38,6 +38,7 @@ public class RecipesController : ControllerBase
             {
                 Id = r.Id,
                 CookBookId = r.CookBookId,
+                Description = r.Description,
                 CoverImageUrl = r.CoverImageUrl,
                 Title = r.Title,
                 Body = r.Body,
@@ -54,6 +55,7 @@ public class RecipesController : ControllerBase
     public IActionResult GetById(int id)
     {
         Recipe foundRecipe = _dbContext.Recipes
+            .Include(r => r.CookBook)
             .Include(r => r.RecipeIngredients)
             .ThenInclude(r => r.Ingredient)
             .Include(r => r.RecipeIngredients)
@@ -69,6 +71,13 @@ public class RecipesController : ControllerBase
         {
             Id = foundRecipe.Id,
             CookBookId = foundRecipe.CookBookId,
+            CookBook = new CookBookDTO
+            {
+                Id = foundRecipe.CookBook.Id,
+                UserProfileId = foundRecipe.CookBook.UserProfileId,
+                Title = foundRecipe.CookBook.Title
+            },
+            Description = foundRecipe.Description,
             Title = foundRecipe.Title,
             Body = foundRecipe.Body,
             CookTime = foundRecipe.CookTime,
@@ -116,7 +125,8 @@ public IActionResult CreateRecipeComposition([FromBody] CompositeDataDTO composi
         Body = compositeData.RecipeData.Body,
         CookTime = compositeData.RecipeData.CookTime,
         Complexity = compositeData.RecipeData.Complexity,
-        CookBookId = compositeData.RecipeData.CookBookId
+        CookBookId = compositeData.RecipeData.CookBookId,
+        Description = compositeData.RecipeData.Description
     };
 
     _dbContext.Recipes.Add(recipeToPost);
@@ -146,7 +156,74 @@ public IActionResult CreateRecipeComposition([FromBody] CompositeDataDTO composi
 
     return Created($"/api/recipes/{recipeToPost.Id}", recipeToPost);
 }
-                                                                                                                    
+
+[HttpPut("{id}")]
+public IActionResult EditRecipeComposition(int id, [FromBody] Recipe recipeData)
+{
+
+    Recipe foundRecipe = _dbContext.Recipes.SingleOrDefault(r => r.Id == id);
+    
+    if(foundRecipe == null) return NotFound();
+    if(recipeData == null) return BadRequest();
+
+    foundRecipe.CoverImageUrl = recipeData.CoverImageUrl;
+    foundRecipe.Title = recipeData.Title;
+    foundRecipe.Body = recipeData.Body;
+    foundRecipe.CookTime = recipeData.CookTime;
+    foundRecipe.Complexity = recipeData.Complexity;
+    foundRecipe.Description = recipeData.Description;
+
+    _dbContext.SaveChanges();
+
+    return NoContent();
+}
+// [HttpPut("ingredients/{id}")]
+// public IActionResult EditRecipeComposition(int id, [FromBody] Recipe recipeData)
+// {
+
+//     Recipe foundRecipe = _dbContext.Recipes.SingleOrDefault(r => r.Id == id);
+    
+//     if(foundRecipe == null) return NotFound();
+//     if(recipeData == null) return BadRequest();
+
+//     foundRecipe = new Recipe
+//     {
+//         CoverImageUrl = recipeData.CoverImageUrl,
+//         Title = recipeData.Title,
+//         Body = recipeData.Body,
+//         CookTime = recipeData.CookTime,
+//         Complexity = recipeData.Complexity,
+//         Description = recipeData.Description
+//     };
+//     _dbContext.SaveChanges();
+
+//     return NoContent();
+// }
+                                                                                                                                                        //===============DELETES
+                                                                                                                                                            //====one ingredient     
+[HttpDelete("{id}")]
+public IActionResult DeleteRecipe(int id)
+{
+    Recipe foundRecipe = _dbContext.Recipes.SingleOrDefault(r => r.Id == id);
+    List<RecipeIngredient> riToDelete = _dbContext.RecipeIngredients.Where(ri => ri.RecipeId == id).ToList();
+
+    if(foundRecipe == null || riToDelete == null)
+    {
+        return NotFound();
+    }
+
+    foreach (RecipeIngredient ri in riToDelete)
+    {
+        _dbContext.RecipeIngredients.Remove(ri);
+    }
+    _dbContext.SaveChanges();
+
+
+    _dbContext.Recipes.Remove(foundRecipe);
+    _dbContext.SaveChanges();
+
+    return NoContent();
+}                                                                                                    
 //==============================================================================</ENDPOINTS>=============================================================================================
 
 

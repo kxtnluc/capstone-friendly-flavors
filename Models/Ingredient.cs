@@ -5,6 +5,6 @@ namespace FriendlyFlavors.Models;
 public class Ingredient
 {
     public int Id { get; set; }
-    [Required] [MaxLength(30, ErrorMessage = "Ingredient Name Too Long")]
+    [Required] [MaxLength(35, ErrorMessage = "Ingredient Name Too Long")]
     public string Name { get; set; }
 }

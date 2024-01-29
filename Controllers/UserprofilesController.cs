@@ -39,6 +39,14 @@ public class UserProfileController : ControllerBase
             .ToList());
     }
 
+        [HttpGet]
+        [Authorize]
+        public IActionResult GetById(int id)
+        {
+            UserProfile foundUser = _dbContext.UserProfiles.SingleOrDefault(u => u.Id == id);
+            return Ok(foundUser);
+        }
+
     [HttpGet("withroles")]
     [Authorize(Roles = "Admin")]
     public IActionResult GetWithRoles()

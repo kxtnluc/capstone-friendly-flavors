@@ -3,6 +3,7 @@ using System;
 using FriendlyFlavors.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,10 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace CapstoneFriendlyFlavors.Migrations
 {
     [DbContext(typeof(FriendlyFlavorsDbContext))]
-    partial class FriendlyFlavorsDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240129195250_AddDescriptions")]
+    partial class AddDescriptions
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -30,9 +32,6 @@ namespace CapstoneFriendlyFlavors.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("Description")
-                        .HasColumnType("text");
-
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasColumnType("text");
@@ -41,8 +40,6 @@ namespace CapstoneFriendlyFlavors.Migrations
                         .HasColumnType("integer");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("UserProfileId");
 
                     b.ToTable("CookBooks");
 
@@ -472,7 +469,7 @@ namespace CapstoneFriendlyFlavors.Migrations
                         new
                         {
                             Id = "c3aaeb97-d2ba-4a53-a521-4eea61e59b35",
-                            ConcurrencyStamp = "add41ae3-9b63-4bab-b9f7-148f739191d1",
+                            ConcurrencyStamp = "00d119d7-5e4e-4f0c-841b-adb1fc7caaf4",
                             Name = "Admin",
                             NormalizedName = "admin"
                         });
@@ -571,13 +568,13 @@ namespace CapstoneFriendlyFlavors.Migrations
                         {
                             Id = "dbc40bc6-0829-4ac5-a3ed-180f5e916a5f",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "cc94f587-efdd-41b8-aef7-2a870b08e505",
+                            ConcurrencyStamp = "a7365540-a993-4fbf-95e9-f39e6b6509f8",
                             Email = "admina@strator.comx",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
-                            PasswordHash = "AQAAAAEAACcQAAAAEDiZR4WpvxvPUN4nnMqBZ1+5/htgp/PR8Wxr41kBwEu4AAij95QUVz0CHx0GGGJHkQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEGQtm3J1FXrcn0n/4+pwNiIe0kPMfb8ZGu8LJYpDIRBo52r45+PCr4wmC9kz+LLGqw==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "fb63df8e-3a08-4a2d-802a-75ef285d53d9",
+                            SecurityStamp = "ae2fdc7e-181f-459c-bebd-4c58d45dc455",
                             TwoFactorEnabled = false,
                             UserName = "Administrator"
                         });
@@ -669,17 +666,6 @@ namespace CapstoneFriendlyFlavors.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens", (string)null);
-                });
-
-            modelBuilder.Entity("FriendlyFlavors.Models.CookBook", b =>
-                {
-                    b.HasOne("FriendlyFlavors.Models.UserProfile", "UserProfile")
-                        .WithMany()
-                        .HasForeignKey("UserProfileId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("UserProfile");
                 });
 
             modelBuilder.Entity("FriendlyFlavors.Models.Recipe", b =>

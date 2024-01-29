@@ -25,7 +25,7 @@ export const RecipeListFormat = ({recipes}) =>
                                 {r.title}
                             </CardHeader>
                             <CardBody className="rl-card-body">
-                                This recipe is very good!!!!!!!! asjudh iua suihui dhiashd iuhasiu dhiusahd iushadui huisa hiusah iudsahiu dhauihd uijahsiu dhiusah iuhads
+                                {r.description ? (`${r.description}`):("See more...")}
                             </CardBody>
                         </Card>
                 )

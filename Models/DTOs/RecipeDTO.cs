@@ -7,6 +7,9 @@ public class RecipeDTO
     public int Id { get; set; }
     [Required]
     public int CookBookId { get; set; }
+    public CookBookDTO? CookBook {get; set;}
+    [MaxLength(180, ErrorMessage = "Ingredient Name Too Long")]
+    public string? Description { get; set; }
     [Required]
     public string Title { get; set; }
     [Required]

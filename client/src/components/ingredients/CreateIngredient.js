@@ -1,14 +1,21 @@
 import { Form, Button, Col, FormGroup, FormText, Input } from "reactstrap"
 import "./CreateIngredient.css"
 import { useState } from "react"
+import {useNavigate} from "react-router-dom"
+import { postIngredient } from "../../managers/ingredientManager"
 
 export const CreateIngredient = () => {
 
     const [nameInput, setNameInput] = useState('')
 
+    const navigate = useNavigate()
+
     const submitForm = () =>
     {
-        let modifiedString = nameInput.replace(' ', /+/g);
+        let modifiedString = nameInput.replace(' ', '+');
+        console.log(modifiedString)
+        postIngredient(modifiedString)
+        navigate("/recipes")
     }
 
     return (
@@ -19,6 +26,7 @@ export const CreateIngredient = () => {
                         <Col className="ci-col">
                             <Input
                                 className="ci-input"
+                                maxLength={35}
                                 type="text"
                                 placeholder="Name..."
                                 value={nameInput}
