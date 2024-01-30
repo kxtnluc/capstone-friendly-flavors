@@ -105,20 +105,23 @@ public class FriendlyFlavorsDbContext : IdentityDbContext<IdentityUser>
             new Measurement { Id = 7, Type = "Quart", Abv = "qt" },
             new Measurement { Id = 8, Type = "Whole", Abv = ""}, //like a Whole Egg, or Whole Vanila Bean
             new Measurement { Id = 9, Type = "Fluid Ounce", Abv = "fl oz" },
-            new Measurement { Id = 10, Type = "Milliliter", Abv = "mL"}
+            new Measurement { Id = 10, Type = "Milliliter", Abv = "mL"},
+            new Measurement { Id = 11, Type = "Tub", Abv = ""},
+            new Measurement { Id = 12, Type = "Can", Abv = ""}
+
         );
 
-        modelBuilder.Entity<Recipe>().HasData(
-            new Recipe
-            {
-                Id = 1,
-                CookBookId = 1,
-                Title = "The Best Recipe Ever",
-                Body = "1. Preheat Oven To 350°F and line a baking sheet with parchment paper. 2. In a large bowl, cream together softened butter and brown sugar until light and fluffy. 3. Add eggs one at a time, beating well after each addition. 4. In a separate bowl, whisk together all-purpose flour, baking soda, and a pinch of salt. 5. Gradually add the dry ingredients to the wet ingredients, mixing until just combined. 6. Fold in chocolate chips or your favorite mix-ins (e.g., nuts, dried fruits). 7. Use a cookie scoop to drop rounded tablespoons of dough onto the prepared baking sheet. 8. Bake in the preheated oven for 10-12 minutes or until the edges are golden brown. 9. Allow the cookies to cool on the baking sheet for 5 minutes before transferring them to a wire rack to cool completely. 10. Enjoy your delicious homemade cookies with a glass of milk!",
-                CookTime = 1,
-                Complexity = 2
-            }
-        );
+        // modelBuilder.Entity<Recipe>().HasData(
+        //     new Recipe
+        //     {
+        //         Id = 1,
+        //         CookBookId = 1,
+        //         Title = "The Best Recipe Ever",
+        //         Body = "1. Preheat Oven To 350°F and line a baking sheet with parchment paper. 2. In a large bowl, cream together softened butter and brown sugar until light and fluffy. 3. Add eggs one at a time, beating well after each addition. 4. In a separate bowl, whisk together all-purpose flour, baking soda, and a pinch of salt. 5. Gradually add the dry ingredients to the wet ingredients, mixing until just combined. 6. Fold in chocolate chips or your favorite mix-ins (e.g., nuts, dried fruits). 7. Use a cookie scoop to drop rounded tablespoons of dough onto the prepared baking sheet. 8. Bake in the preheated oven for 10-12 minutes or until the edges are golden brown. 9. Allow the cookies to cool on the baking sheet for 5 minutes before transferring them to a wire rack to cool completely. 10. Enjoy your delicious homemade cookies with a glass of milk!",
+        //         CookTime = 1,
+        //         Complexity = 2
+        //     }
+        // );
 
         modelBuilder.Entity<RecipeIngredient>().HasData(
             new RecipeIngredient

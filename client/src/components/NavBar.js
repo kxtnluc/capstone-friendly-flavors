@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { NavLink as RRNavLink } from "react-router-dom";
+import { NavLink as RRNavLink, useNavigate } from "react-router-dom";
 import {
     Button,
     Collapse,
@@ -21,6 +21,11 @@ export default function NavBar({ loggedInUser, setLoggedInUser }) {
     const [open, setOpen] = useState(false);
 
     const toggleNavbar = () => setOpen(!open);
+    const navigate = useNavigate();
+
+    console.log(loggedInUser)
+    console.log("=====================================================================================")
+
 
     return (
         <div>
@@ -44,10 +49,19 @@ export default function NavBar({ loggedInUser, setLoggedInUser }) {
                                 </NavLink>
                             </NavItem>
                             <NavItem className="nav-li" onClick={() => setOpen(false)}>
-                                <NavLink tag={RRNavLink} to={`/cookbook/${loggedInUser.id}`}>
+                                <NavLink tag={RRNavLink} to={`/cookbook`}>
                                     My Cookbook
                                 </NavLink>
                             </NavItem>
+                            {loggedInUser.roles.includes("Admin") ? (
+                                <NavItem className="nav-li" onClick={() => setOpen(false)}>
+                                    <NavLink tag={RRNavLink} to={`/ingredient/create`}>
+                                        Ingredients
+                                    </NavLink>
+                                </NavItem>
+                            ) : (
+                                ""
+                            )}
                         </>) : ("")}
                     </Nav>
                 </Collapse>
@@ -58,12 +72,14 @@ export default function NavBar({ loggedInUser, setLoggedInUser }) {
                         <Collapse isOpen={open} navbar>
                             <Nav navbar></Nav>
                         </Collapse>
+                        <i style={{marginRight: "1rem"}}>{loggedInUser.firstName} {loggedInUser.lastName}</i>
                         <Button
                             color="primary"
                             onClick={(e) => {
                                 e.preventDefault();
                                 setOpen(false);
                                 logout().then(() => {
+                                    navigate("/")
                                     setLoggedInUser(null);
                                     setOpen(false);
                                 });

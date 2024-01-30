@@ -34,7 +34,10 @@ public class CookbooksController : ControllerBase
     // [Authorize]
     public IActionResult GetByUserId(int userid)
     {
-        CookBook foundCookBook = _dbContext.CookBooks.SingleOrDefault(c => c.UserProfileId == userid);
+        CookBook foundCookBook = _dbContext
+            .CookBooks
+            .Include(c => c.UserProfile)
+            .SingleOrDefault(c => c.UserProfileId == userid);
 
         if(foundCookBook == null)
         {
@@ -45,12 +48,39 @@ public class CookbooksController : ControllerBase
         {
             Id = foundCookBook.Id,
             UserProfileId = foundCookBook.UserProfileId,
-            Title = foundCookBook.Title
+            Title = foundCookBook.Title,
+            Description = foundCookBook.Description,
+            UserProfile = new UserProfileDTO
+            {
+                Id = foundCookBook.UserProfile.Id,
+                FirstName = foundCookBook.UserProfile.FirstName,
+                LastName = foundCookBook.UserProfile.LastName,
+                Address = foundCookBook.UserProfile.Address,
+                Email = foundCookBook.UserProfile.Email,
+                UserName = foundCookBook.UserProfile.UserName
+            }
         };
 
         return Ok(result);
 
     }
+                                                                                                                                                            //===============POSTS
+                                                                                                                                                            //=================one
+    [HttpPost]
+    // [Authorize]
+    public IActionResult PostCookBook(CookBook cookBookToPost)
+    {
+
+        if(cookBookToPost == null)
+        {
+            return BadRequest();
+        }
+
+        _dbContext.Add(cookBookToPost);
+        _dbContext.SaveChanges();
+
+        return Created($"/api/cookbook/{cookBookToPost.Id}", cookBookToPost);
+    }  
 //==============================================================================</ENDPOINTS>=============================================================================================
 
 }

@@ -1,12 +1,15 @@
 import { useEffect, useState } from "react"
-import { NavLink, useParams } from "react-router-dom"
-import { getRecipeById } from "../../managers/recipeManager";
+import { NavLink, useNavigate, useParams } from "react-router-dom"
+import { deleteRecipe, getRecipeById } from "../../managers/recipeManager";
 import "./RecipePage.css"
-import { Card, CardBody, CardHeader, CardText, CardTitle, ListGroup, ListGroupItem, ListGroupItemHeading, Nav, NavItem, Table } from "reactstrap";
+import { Button, Card, CardBody, CardHeader, CardText, CardTitle, ListGroup, ListGroupItem, ListGroupItemHeading, Nav, NavItem, Table } from "reactstrap";
+import { getCookBookByUserId } from "../../managers/cookBookManager";
 
-export const RecipePage = () => {
+export const RecipePage = ({loggedInUser}) => {
 
     const { recipeid } = useParams()
+
+    const navigate = useNavigate();
 
     const [recipe, setRecipe] = useState();
 
@@ -69,12 +72,26 @@ export const RecipePage = () => {
         }
     }
 
+    const handleDelete = () =>
+    {
+        console.log("deleting recipe..."+recipe.id)
+
+        deleteRecipe(recipe.id)
+        navigate("/recipes")
+    }
+
+    const handleEdit = () =>
+    {
+        navigate(`edit`)
+    }
+
     if (recipe === undefined) return <div>Loading...</div>
     if (recipe.title === 'Not Found') return <div>Recipe Not Found.</div>
 
     return (
         <main className="rp-main">
             <section className="rp-section-header">
+                {loggedInUser?.id === recipe.cookBook.userProfileId || loggedInUser?.roles.includes("Admin") ? (<><Button color="success" onClick={handleEdit} style={{float: "right", marginRight: "1rem", marginTop: "1rem"}}>Edit</Button><Button color="danger" onClick={handleDelete} style={{float: "right", marginRight: "1rem", marginTop: "1rem"}}>Delete Recipe</Button></>):("")}
                 <h1 className="rp-title">{recipe.title}</h1>
                     <div className="rp-image-div">
                         <div className="rp-image-container">

@@ -3,6 +3,7 @@ using System;
 using FriendlyFlavors.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,10 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace CapstoneFriendlyFlavors.Migrations
 {
     [DbContext(typeof(FriendlyFlavorsDbContext))]
-    partial class FriendlyFlavorsDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240129171031_CharacterLimitIncrease")]
+    partial class CharacterLimitIncrease
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -30,9 +32,6 @@ namespace CapstoneFriendlyFlavors.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("Description")
-                        .HasColumnType("text");
-
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasColumnType("text");
@@ -41,8 +40,6 @@ namespace CapstoneFriendlyFlavors.Migrations
                         .HasColumnType("integer");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("UserProfileId");
 
                     b.ToTable("CookBooks");
 
@@ -328,10 +325,6 @@ namespace CapstoneFriendlyFlavors.Migrations
                     b.Property<string>("CoverImageUrl")
                         .HasColumnType("text");
 
-                    b.Property<string>("Description")
-                        .HasMaxLength(180)
-                        .HasColumnType("character varying(180)");
-
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasColumnType("text");
@@ -341,6 +334,17 @@ namespace CapstoneFriendlyFlavors.Migrations
                     b.HasIndex("CookBookId");
 
                     b.ToTable("Recipes");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Body = "1. Preheat Oven To 350°F and line a baking sheet with parchment paper. 2. In a large bowl, cream together softened butter and brown sugar until light and fluffy. 3. Add eggs one at a time, beating well after each addition. 4. In a separate bowl, whisk together all-purpose flour, baking soda, and a pinch of salt. 5. Gradually add the dry ingredients to the wet ingredients, mixing until just combined. 6. Fold in chocolate chips or your favorite mix-ins (e.g., nuts, dried fruits). 7. Use a cookie scoop to drop rounded tablespoons of dough onto the prepared baking sheet. 8. Bake in the preheated oven for 10-12 minutes or until the edges are golden brown. 9. Allow the cookies to cool on the baking sheet for 5 minutes before transferring them to a wire rack to cool completely. 10. Enjoy your delicious homemade cookies with a glass of milk!",
+                            Complexity = 2,
+                            CookBookId = 1,
+                            CookTime = 1,
+                            Title = "The Best Recipe Ever"
+                        });
                 });
 
             modelBuilder.Entity("FriendlyFlavors.Models.RecipeIngredient", b =>
@@ -472,7 +476,7 @@ namespace CapstoneFriendlyFlavors.Migrations
                         new
                         {
                             Id = "c3aaeb97-d2ba-4a53-a521-4eea61e59b35",
-                            ConcurrencyStamp = "add41ae3-9b63-4bab-b9f7-148f739191d1",
+                            ConcurrencyStamp = "ed4d28dd-7f7d-4c34-a979-7df30f42b8c2",
                             Name = "Admin",
                             NormalizedName = "admin"
                         });
@@ -571,13 +575,13 @@ namespace CapstoneFriendlyFlavors.Migrations
                         {
                             Id = "dbc40bc6-0829-4ac5-a3ed-180f5e916a5f",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "cc94f587-efdd-41b8-aef7-2a870b08e505",
+                            ConcurrencyStamp = "18f96cef-80b7-4032-a960-8da29fb85161",
                             Email = "admina@strator.comx",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
-                            PasswordHash = "AQAAAAEAACcQAAAAEDiZR4WpvxvPUN4nnMqBZ1+5/htgp/PR8Wxr41kBwEu4AAij95QUVz0CHx0GGGJHkQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEE1i1LWEE6cUnVFh8ox3BHUGfrTNU32fE9aM7lKOdTExauf2i5yVE3E6u/b8y/Mq9A==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "fb63df8e-3a08-4a2d-802a-75ef285d53d9",
+                            SecurityStamp = "ba95b9d7-599e-42fd-aa4e-ddcb1427f17c",
                             TwoFactorEnabled = false,
                             UserName = "Administrator"
                         });
@@ -669,17 +673,6 @@ namespace CapstoneFriendlyFlavors.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens", (string)null);
-                });
-
-            modelBuilder.Entity("FriendlyFlavors.Models.CookBook", b =>
-                {
-                    b.HasOne("FriendlyFlavors.Models.UserProfile", "UserProfile")
-                        .WithMany()
-                        .HasForeignKey("UserProfileId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("UserProfile");
                 });
 
             modelBuilder.Entity("FriendlyFlavors.Models.Recipe", b =>

@@ -23,3 +23,26 @@ export const getRecipesByCookBookId = (cookbookid) => {
     return fetch(_apiUrl+"?cookBookId="+cookbookid).then((r) =>r.json())
 
 }
+
+export const deleteRecipe = (recipeid) => {
+    return fetch(_apiUrl+"/"+recipeid, {
+        method: "DELETE",
+        headers: {"Content-Type": "application/json"}
+    })
+}
+
+export const updateRecipe = (recipeObj) => {
+    return fetch(_apiUrl+"/"+recipeObj.id, {
+        method: "PUT",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify(recipeObj)
+    })
+}
+
+export const deleteRIs = (riArray) => {
+    return fetch(_apiUrl+"/delete/ri", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify(riArray)
+    })
+}
