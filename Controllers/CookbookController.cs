@@ -81,6 +81,37 @@ public class CookbooksController : ControllerBase
 
         return Created($"/api/cookbook/{cookBookToPost.Id}", cookBookToPost);
     }  
+                                                                                                                                                            //===============PUT
+                                                                                                                                                            //=================one
+    [HttpPut("{id}")]
+    // [Authorize]
+    public IActionResult UpdateCookBook(int id, CookBook updates)
+    {
+
+        CookBook foundCookBook = _dbContext.CookBooks.SingleOrDefault(c=> c.Id == id);
+
+        if(foundCookBook == null)
+        {
+            return NotFound();
+        }
+
+        Console.WriteLine(updates.Title);
+
+        if(string.IsNullOrEmpty(updates.Title)) updates.Title = foundCookBook.Title;
+        if(string.IsNullOrEmpty(updates.Description)) updates.Description = foundCookBook.Description;
+
+        if(updates == null)
+        {
+            return BadRequest();
+        }
+
+        foundCookBook.Title = updates.Title;
+        foundCookBook.Description = updates.Description;
+
+        _dbContext.SaveChanges();
+
+        return NoContent();
+    }  
 //==============================================================================</ENDPOINTS>=============================================================================================
 
 }

@@ -225,7 +225,7 @@ public class RecipesController : ControllerBase
         return NoContent();
     }
 
-    [HttpPost("delete/ri")] //really a delete though
+    [HttpPost("adddelete/ri")]
     public IActionResult MassRIDelete(RiCompositeDTO RiComposite)
     {
 
