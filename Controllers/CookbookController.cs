@@ -64,6 +64,23 @@ public class CookbooksController : ControllerBase
         return Ok(result);
 
     }
+                                                                                                                                                            //===============POSTS
+                                                                                                                                                            //=================one
+    [HttpPost]
+    // [Authorize]
+    public IActionResult PostCookBook(CookBook cookBookToPost)
+    {
+
+        if(cookBookToPost == null)
+        {
+            return BadRequest();
+        }
+
+        _dbContext.Add(cookBookToPost);
+        _dbContext.SaveChanges();
+
+        return Created($"/api/cookbook/{cookBookToPost.Id}", cookBookToPost);
+    }  
 //==============================================================================</ENDPOINTS>=============================================================================================
 
 }

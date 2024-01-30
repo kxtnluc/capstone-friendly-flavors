@@ -32,12 +32,12 @@ export const CookBookPage = ({loggedInUser}) =>
             <section className="cbp-section-body">
                 <div className="cbp-body-header">About</div>
                 <div className="cbp-body">
-                    {cookBook.userProfile?.description ? (`${cookBook.userProfile?.description}`):(<i>No descritpion...</i>)}
+                    {cookBook.description ? (`${cookBook.description}`):(<i>No descritpion...</i>)}
                 </div>
             </section>
                 <div className="cbp-br"></div>
             <div className="cbp-rl-header">Featured Recipes:</div>
-            <RecipeListFormat recipes={usersRecipes}/>
+            {usersRecipes.length !== 0 ? (<RecipeListFormat recipes={usersRecipes} />):(<i style={{display: "flex", justifyContent: "center"}}>No Recipes...</i>)}
         </main>
     )
 }

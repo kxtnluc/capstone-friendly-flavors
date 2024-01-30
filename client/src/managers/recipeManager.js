@@ -38,3 +38,11 @@ export const updateRecipe = (recipeObj) => {
         body: JSON.stringify(recipeObj)
     })
 }
+
+export const deleteRIs = (riArray) => {
+    return fetch(_apiUrl+"/delete/ri", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify(riArray)
+    })
+}

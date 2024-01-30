@@ -24,6 +24,8 @@ export default function NavBar({ loggedInUser, setLoggedInUser }) {
     const navigate = useNavigate();
 
     console.log(loggedInUser)
+    console.log("=====================================================================================")
+
 
     return (
         <div>
@@ -70,6 +72,7 @@ export default function NavBar({ loggedInUser, setLoggedInUser }) {
                         <Collapse isOpen={open} navbar>
                             <Nav navbar></Nav>
                         </Collapse>
+                        <i style={{marginRight: "1rem"}}>{loggedInUser.firstName} {loggedInUser.lastName}</i>
                         <Button
                             color="primary"
                             onClick={(e) => {

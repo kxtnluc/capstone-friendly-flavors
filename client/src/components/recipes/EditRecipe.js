@@ -4,62 +4,77 @@ import { getAllIngredients, getIngredientByName } from "../../managers/ingredien
 import "./CreateRecipe.css"
 import { getMeasurements } from "../../managers/measurementManager";
 import { getCookBookByUserId } from "../../managers/cookBookManager";
-import { getRecipeById, postCompositeRecipe, updateRecipe } from "../../managers/recipeManager";
+import { deleteRIs, getRecipeById, postCompositeRecipe, updateRecipe } from "../../managers/recipeManager";
 import { useNavigate, useParams } from "react-router-dom";
 
 export const EditRecipe = ({ loggedInUser }) => {
 
-    const navigate = useNavigate();
-    const {recipeid} = useParams();
+    const navigate = useNavigate();                                         //navigate stuff
+    const {recipeid} = useParams();                                         //gets the id from the url
 
-    const [recipeToEdit, setRecipeToEdit] = useState({})
+    const [recipeToEdit, setRecipeToEdit] = useState({})                    //an object to hold the recipe which is to be edited
 
-    const [ingredientTextInput, setIngredientTextInput] = useState('')
-    const [suggestions, setSuggestions] = useState([]);
-    const [selectedSuggestion, setSelectedSuggestion] = useState(null);
-    const [ingredients, setIngredients] = useState([]);
-    const [measurements, setMeasurements] = useState([])
-    const [amount, setAmount] = useState(0.0)
-    const [measurement, setMeasurement] = useState({})
-    const [cookbook, setCookbook] = useState({});
-    const [recipeIngredientArray, setRecipeIngredientArray] = useState([]);
-    const [title, setTitle] = useState('')
-    const [body, setBody] = useState('')
-    const [imageUrl, setImageUrl] = useState('')
-    const [cookTime, setCookTime] = useState(0)
-    const [complexity, setComplexity] = useState(0)
-    const [ingredientInputInvalid, setIngredientInputInvalid] = useState(false)
-    const [amountInputInvalid, setAmountInputInvalid] = useState(false)
+    const [ingredientTextInput, setIngredientTextInput] = useState('')      //a string for the ingredient input
+    const [suggestions, setSuggestions] = useState([]);                     //an array of ingredients that filter bassed on what the user types into the input bar, which uses the state above ^
+    const [selectedSuggestion, setSelectedSuggestion] = useState(null);     //whatever the user clicks from the array provided above ^
+    const [ingredients, setIngredients] = useState([]);                     //the whole list of the databases ingredients
+    const [measurements, setMeasurements] = useState([])                    //the whole list of measurements from the database
+    const [amount, setAmount] = useState(0.0)                               //a variable that holds an amount input by the user
+    const [measurement, setMeasurement] = useState({})                      //UNLIKE measurementS, this one represents what measurement object the user selects from the array measurmentS above ^
+    const [cookbook, setCookbook] = useState({});                           //the users cookbook
+    const [recipeIngredientArray, setRecipeIngredientArray] = useState([]); //an array of recipeIngredients 
+    const [title, setTitle] = useState('')                                  //input title for the recipe
+    const [body, setBody] = useState('')                                    //input body for the recipe
+    const [imageUrl, setImageUrl] = useState('')                            //optional image input for the recipe
+    const [cookTime, setCookTime] = useState(0)                             //cooktime input
+    const [complexity, setComplexity] = useState(0)                         //complexity inpout
+
+    const [ingredientInputInvalid, setIngredientInputInvalid] = useState(false) //boolean to check if user put in valid ingredient
+    const [amountInputInvalid, setAmountInputInvalid] = useState(false)         //boolean to check if user put in a valid amount
     
-    let ingredientId = 0;
+    let ingredientId = 0;   //this is supposed to hold the ingredient id, but honestly im not really sure if its nessesary up here
+
+    //stuff to add for editing:
+    const [oldRIArray, setOldRIArray] = useState([])                        //an unchanging array of the old recipeIngredient array to be compared against when making changes
+    const [recipeIngredientArrayOfRemoval, setRIAOR] = useState([])         //an array of recipe ingredients that were removed from the array above
+    const [recipeIngredientArrayToAdd, setRIATA] = useState([])             //an array of recipe ingredients that are added
 
     
     
     useEffect(() => {
 
-        getCookBookByUserId(loggedInUser.id).then(setCookbook)
-        getAllIngredients().then(setIngredients)
-        getMeasurements().then(setMeasurements)
-        getRecipeById(recipeid).then((rObj) => {
-            setRecipeToEdit(rObj)
-            setTitle(rObj.title)
-            setBody(rObj.body)
-            setImageUrl(rObj.coverImageUrl)
-            setCookTime(rObj.cookTime)
-            setComplexity(rObj.complexity)
-            setRecipeIngredientArray(rObj.recipeIngredients)
+        getCookBookByUserId(loggedInUser.id).then(setCookbook)              //gets&sets cookbook
+        getAllIngredients().then(setIngredients)                            //gets&sets ingredients
+        getMeasurements().then(setMeasurements)                             //gets&sets measurments
+        getRecipeById(recipeid).then((rObj) => {                            //gets recipe obj
+            setRecipeToEdit(rObj)                                       //sets recipe to edit
+            setTitle(rObj.title)                                        //sets recipe title
+            setBody(rObj.body)                                          //sets recipe body
+            setImageUrl(rObj.coverImageUrl)                             //sets cover img
+            setCookTime(rObj.cookTime)                                  //sets cooktime
+            setComplexity(rObj.complexity)                              //sets complexity value
+            for (const ri of rObj.recipeIngredients) {                  //loops through each ri in the recipe
+                ri.ingredientName = ri.ingredient.name              //adds an ingredientName value to the parent object to be used later in the table
+                ri.measurementName = ri.measurement.type            //same as above but for measurement type ^
+            }
+            setRecipeIngredientArray(rObj.recipeIngredients)        //sets the initial, changable recipe ingredient array
+            setOldRIArray(rObj.recipeIngredients)                   //sets the old, unchanging recipe ingredient array
         })
 
     }, [loggedInUser, recipeid])
-
-    const getSuggestions = (input) => {
+    
+    const getSuggestions = (input) => {                             //gets a list of suggestions bassed on what was typed into the ingredient input bar
         // Replace this with your actual database or API call
         const filteredSuggestions = ingredients.filter((i) => i.name.toLowerCase().includes(input.toLowerCase()));
-
+        
         return filteredSuggestions.slice(0, 5);
     };
 
-    const handleIngredientInputChange = (e) => {
+    const handleInputBlur = () => { //if user clicks off of the input bar, the suggestions will dissapear
+        setSuggestions([]);
+    };
+
+    const handleIngredientInputChange = (e) => {                    //changes the value of the ingredient input bar, and sets suggestion filter using function above^
 
         const value = e.target.value
         setIngredientTextInput(value)
@@ -69,14 +84,14 @@ export const EditRecipe = ({ loggedInUser }) => {
         setSuggestions(filteredSuggestions);
     }
 
-    const handleSuggestionClick = (suggestion) => {
+    const handleSuggestionClick = (suggestion) => {                 //auto fills the ingredient input by the cliicked on item from the filtered suggestion list
 
         setIngredientTextInput(suggestion.name);
         setSuggestions([]); // Clear suggestions
         setSelectedSuggestion(null);
     };
 
-    const handleImgChange = (e) => {
+    const handleImgChange = (e) => {                                //creates an imageURL from the files chosen on the local machine to then be set as the coverImgUrl             
         let files = e.target.files;
 
         if (files.length > 0) {
@@ -91,34 +106,32 @@ export const EditRecipe = ({ loggedInUser }) => {
         }
     };
 
-    const handleAddRecipeIngredient = async (e) => 
+    const handleAddRecipeIngredient = async (e) =>                  //handles the addition of an ingredient recipe
     {
 
-        e.preventDefault();
+        e.preventDefault(); //prevents reload because Form
 
-        if(ingredients.some((i) => i.name === ingredientTextInput)) setIngredientInputInvalid(false)
+        if(ingredients.some((i) => i.name === ingredientTextInput)) setIngredientInputInvalid(false) //checks if ingredient name exists in database
         else setIngredientInputInvalid(true)
 
-        console.log(amount)
-
-        if(amount > 0) setAmountInputInvalid(false)
+        if(amount > 0) setAmountInputInvalid(false) //checks if amount input is > 0
         else setAmountInputInvalid(true)
 
-        console.log(ingredientTextInput);
+        // console.log(ingredientTextInput);
 
-        console.log(measurement)
-        console.log(measurement.id)
-        console.log(measurement.type)
+        // console.log(measurement)
+        // console.log(measurement.id)
+        // console.log(measurement.type)
 
-        if (ingredientTextInput === '' || isNaN(measurement.id) || measurement.type === undefined || amount <= 0) {
-            console.log('try again shmucko')
+        if (ingredientTextInput === '' || isNaN(measurement.id) || measurement.type === undefined || amount <= 0) { //makes sure all the data is valid before adding to array
+            console.log('try again shmucko') //maybe put a window prompt?
         }
         else {
             try {
-                const iObj = await getIngredientByName(ingredientTextInput);
-                ingredientId = iObj.id;
+                const iObj = await getIngredientByName(ingredientTextInput); //gets the ingredientObj from the database bassed on the name placed into the input
+                ingredientId = iObj.id; //not sure if this is a nessesary step
 
-                const newRecipeIngredientWithNames = {
+                const newRecipeIngredientWithNames = {  //creates a clean ri object with extra details.
                     ingredientId: ingredientId,
                     measurementId: parseInt(measurement.id),
                     amount: amount,
@@ -126,11 +139,12 @@ export const EditRecipe = ({ loggedInUser }) => {
                     measurementName: measurement.type
                 }
 
-                setRecipeIngredientArray((prevArray) => [...prevArray, newRecipeIngredientWithNames]);
+                setRecipeIngredientArray((prevArray) => [...prevArray, newRecipeIngredientWithNames]); //adds the clean ri object to the ri array
+                setRIATA((prevArray) => [...prevArray, newRecipeIngredientWithNames]);                  //adds the clean ri object to the ri array of additions!
 
                 console.log(recipeIngredientArray); // Log the updated array here
 
-                setIngredientTextInput('')
+                setIngredientTextInput('')  //clears the input bar
 
             } catch (error) {
                 console.error('Error fetching ingredient:', error);
@@ -139,38 +153,50 @@ export const EditRecipe = ({ loggedInUser }) => {
 
     };
 
-    const handleRemoveIngredient = (indexToRemove) => {
+    const handleRemoveIngredient = (indexToRemove, recipeIngredientToRemove) => { //removes an ri bassed on index in the array
 
-        console.log(indexToRemove)
+        console.log(indexToRemove) //logs index
 
-        setRecipeIngredientArray((prevArray) => {
+        setRecipeIngredientArray((prevArray) => { //REMOVES ri using on its index
           // Use filter to create a new array excluding the item with the specified index
           return prevArray.filter((_, index) => index !== indexToRemove);
         });
+        if(oldRIArray.includes(recipeIngredientToRemove)) //if the ri trying to be removed was part of the intial recipe, then it is set to the REMOVE array
+        {
+            console.log("adding to removal array...")
+            setRIAOR((prevArray) => [...prevArray, recipeIngredientToRemove]); //this remove DOES NOT use index
+        }
+        if(recipeIngredientArrayToAdd.includes(recipeIngredientToRemove)) //if the ri trying to be removed was added to the riAdd array, it will remove it from that array
+        {
+            console.log("adding to removal array from add array...")
+            setRIATA((prevArray) => {
+                // Use filter to create a new array excluding the item with the specified ids
+                return prevArray.filter((item) => 
+                  item.ingredientId !== recipeIngredientToRemove.ingredientId || item.measurementId !== recipeIngredientToRemove.measurementId //THIS COULD CAUSE ERRORS, because its only finding the correct item bassed on its measurement and ingredient
+                );
+              });
+        }
       };
 
 
-    const handleInputBlur = () => {
-        setSuggestions([]);
-    };
 
-    const submitForm = () => {
-        console.log("=====cookbookId=====")
-        console.log(cookbook.id)
-        console.log("=====recipeIngredientArray=====")
-        console.log(recipeIngredientArray)
-        console.log("=====title=====")
-        console.log(title)
-        console.log("=====cooktime=====")
-        console.log(cookTime)
-        console.log("=====complexity=====")
-        console.log(complexity)
-        console.log("=====body=====")
-        console.log(body)
-        console.log("=====imageUrl=====")
-        console.log(imageUrl)
+    const submitForm = () => { //UPDATE RECIPE FORM BUTTON 
+        // console.log("=====cookbookId=====")
+        // console.log(cookbook.id)
+        // console.log("=====recipeIngredientArray=====")
+        // console.log(recipeIngredientArray)
+        // console.log("=====title=====")
+        // console.log(title)
+        // console.log("=====cooktime=====")
+        // console.log(cookTime)
+        // console.log("=====complexity=====")
+        // console.log(complexity)
+        // console.log("=====body=====")
+        // console.log(body)
+        // console.log("=====imageUrl=====")
+        // console.log(imageUrl)
 
-        if (recipeIngredientArray.length >= 1 && title !== '' && body !== '' && cookbook.id !== null) {
+        if (recipeIngredientArray.length >= 1 && title !== '' && body !== '' && cookbook.id !== null) { //checks to make sure everything has a value before adding
             console.log("adding recipe...")
             //first create the perfectly formated JSON package that has both the recipe as well as all its recipeIngredients
             const recipeData = {
@@ -193,9 +219,43 @@ export const EditRecipe = ({ loggedInUser }) => {
             //then post that one JSON Composite Package using the endpoint
 
             if (recipeData !== null) {
+
+                const riAddDeleteCompositeObj = {
+                    riAdd: [],
+                    riDelete: []
+                }
+
+                for (const ri of recipeIngredientArrayOfRemoval) {
+                    delete ri.measurementName
+                    delete ri.measurement
+                    delete ri.ingredientName
+                    delete ri.ingredient
+                    ri.recipeId = parseInt(recipeid)
+                    riAddDeleteCompositeObj.riDelete.push(ri)
+                }
+                
+                for (const ri of recipeIngredientArrayToAdd) {
+                    delete ri.measurementName
+                    delete ri.measurement
+                    delete ri.ingredientName
+                    delete ri.ingredient
+                    ri.recipeId = parseInt(recipeid)
+                    riAddDeleteCompositeObj.riAdd.push(ri)
+                }
+
+                console.log("===Add Array===")
+                console.log(recipeIngredientArrayToAdd)
+                console.log("===Remove Array===")
+                console.log(recipeIngredientArrayOfRemoval)
+                console.log("=========COMPOSITE=========")
+                console.log(riAddDeleteCompositeObj)
+
+
+                deleteRIs(riAddDeleteCompositeObj)
+
                 updateRecipe(recipeData).then((newRecipeObj) => {
                     console.log(newRecipeObj);
-                    // navigate(`/recipes/${recipeData.id}`)
+                    navigate(`/recipes/${recipeData.id}`)
                 })
             }
         }
@@ -434,7 +494,7 @@ export const EditRecipe = ({ loggedInUser }) => {
             </section>
             <section className="cr-section-table">
                 <Card className="cr-card">
-                    <CardHeader className="cr-card-header"><th>Recipe Ingredients</th></CardHeader>
+                    <CardHeader className="cr-card-header"><h5>Recipe Ingredients</h5></CardHeader>
                     <CardBody className="cr-card-body">
                         <Table className="cr-table-recipeingredients">
                             <thead>
@@ -452,10 +512,10 @@ export const EditRecipe = ({ loggedInUser }) => {
                                         <tr key={ri.ingredientName}>
 
                                             <th>{index + 1}</th>
-                                            <td>{ri.ingredient.name}</td>
+                                            <td>{ri.ingredientName}</td>
                                             <td>{ri.amount}</td>
-                                            <td>{ri.measurement.type}</td>
-                                            <td><Button value={index} onClick={() => handleRemoveIngredient(index)} color="danger"><strong>X</strong></Button></td>
+                                            <td>{ri.measurementName}</td>
+                                            <td><Button value={index} onClick={() => handleRemoveIngredient(index, ri)} color="danger"><strong>X</strong></Button></td>
 
                                         </tr>
                                     )
