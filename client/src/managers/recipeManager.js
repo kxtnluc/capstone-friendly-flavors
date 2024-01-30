@@ -40,7 +40,7 @@ export const updateRecipe = (recipeObj) => {
 }
 
 export const deleteRIs = (riArray) => {
-    return fetch(_apiUrl+"/delete/ri", {
+    return fetch(_apiUrl+"/adddelete/ri", {
         method: "POST",
         headers: {"Content-Type": "application/json"},
         body: JSON.stringify(riArray)

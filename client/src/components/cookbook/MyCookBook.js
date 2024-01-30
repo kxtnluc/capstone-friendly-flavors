@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { createCookBook, getCookBookByUserId } from "../../managers/cookBookManager"
+import { createCookBook, getCookBookByUserId, updateCookBook } from "../../managers/cookBookManager"
 import { getRecipesByCookBookId } from "../../managers/recipeManager"
 import { RecipeListFormat } from "../recipes/RecipeListFormat"
 import { Button, Input } from "reactstrap"
@@ -12,11 +12,17 @@ export const MyCookBook = ({ loggedInUser }) => {
     const [name, setName] = useState('')
     const [desc, setDesc] = useState('')
 
+    const [editMode, setEditMode] = useState(false)
+
+    const [titleInput, setTitleInput] = useState('')
+    const [descInput, setDescInput] = useState('')
+
     useEffect(() => {
         getCookBookByUserId(loggedInUser.id).then(setCookBook)
         if (cookBook.id !== undefined) getRecipesByCookBookId(cookBook.id).then(setUsersRecipes)
         console.log(usersRecipes)
-
+        setTitleInput(cookBook.title)
+        setDescInput(cookBook.description)
     }, [loggedInUser, cookBook.id])
 
     const handleCreate = () => {
@@ -35,27 +41,39 @@ export const MyCookBook = ({ loggedInUser }) => {
         // window.location.reload();
     }
 
+    const toggleEdit = () =>
+    {
+        setEditMode(!editMode)
+    }
+
+    const handleTitleChange = (e) =>
+    {
+        setTitleInput(e.target.value)
+    }
+
+    const handleDescChange = (e) =>
+    {
+        setDescInput(e.target.value)
+    }
+
+    const handleUpdate = () =>
+    {
+        const updates = 
+        {
+            id: cookBook.id,
+            title: titleInput,
+            description: descInput
+        }
+
+        updateCookBook(updates)
+
+        toggleEdit();
+        window.location.reload();
+    }
 
     return (
         <>
-            {cookBook.title !== "Not Found" ? (
-                <main className="cbp-main">
-                    <section className="cbp-section-header">
-                        <div className="cbp-header">{cookBook.title}</div>
-                        <div className="cbp-subheader">by {cookBook.userProfile?.firstName} {cookBook.userProfile?.lastName}</div>
-                    </section>
-                    <div className="cbp-br"></div>
-                    <section className="cbp-section-body">
-                        <div className="cbp-body-header">About</div>
-                        <div className="cbp-body">
-                            {cookBook.description ? (`${cookBook.description}`) : (<i>No descritpion...</i>)}
-                        </div>
-                    </section>
-                    <div className="cbp-br"></div>
-                    <div className="cbp-rl-header">Featured Recipes:</div>
-                    {usersRecipes.length !== 0 ? (<RecipeListFormat recipes={usersRecipes} />):(<i style={{display: "flex", justifyContent: "center"}}>No Recipes...</i>)}
-                </main>
-            ) : (
+            {cookBook.title === "Not Found" ? (
                 <main>
                     <section style={{ textAlign: "center", marginTop: "5rem" }}>
                         <strong>No Cookbook Found</strong>
@@ -86,6 +104,48 @@ export const MyCookBook = ({ loggedInUser }) => {
                     </section>
 
                 </main>
+            ) : (
+                <>
+                    {editMode ? (
+                        <main className="cbp-main">
+                            <section className="cbp-section-header">
+                                <div><Button color="primary" style={{ float: "right", marginRight: "1rem" }} onClick={handleUpdate}>Save</Button></div>
+                                <div><Button color="danger" style={{ float: "right", marginRight: "1rem" }} onClick={toggleEdit}>Cancel</Button></div>
+                                <Input onChange={handleTitleChange} style={{width: "50rem"}} type="text" placeholder="Cookbook Title..." value={titleInput} className="cbp-header"/>
+                                <div className="cbp-subheader">by {cookBook.userProfile?.firstName} {cookBook.userProfile?.lastName}</div>
+                            </section>
+                            <div className="cbp-br"></div>
+                            <section className="cbp-section-body">
+                                <div className="cbp-body-header">About</div>
+                                <div className="cbp-body">
+                                    <Input onChange={handleDescChange} style={{width: "100%"}} type="textarea" placeholder="Description..." value={descInput} className="cbp-header"/>
+                                </div>
+                            </section>
+                            <div className="cbp-br"></div>
+                            <div className="cbp-rl-header">Featured Recipes:</div>
+                            {usersRecipes.length !== 0 ? (<RecipeListFormat recipes={usersRecipes} />) : (<i style={{ display: "flex", justifyContent: "center" }}>No Recipes...</i>)}
+                        </main>
+                    ) : (
+                        <main className="cbp-main">
+                            <section className="cbp-section-header">
+                                <div><Button color="success" style={{ float: "right", marginRight: "1rem" }} onClick={toggleEdit}>Edit</Button></div>
+                                <div className="cbp-header">{cookBook.title}</div>
+                                <div className="cbp-subheader">by {cookBook.userProfile?.firstName} {cookBook.userProfile?.lastName}</div>
+                            </section>
+                            <div className="cbp-br"></div>
+                            <section className="cbp-section-body">
+                                <div className="cbp-body-header">About</div>
+                                <div className="cbp-body">
+                                    {cookBook.description ? (`${cookBook.description}`) : (<i>No descritpion...</i>)}
+                                </div>
+                            </section>
+                            <div className="cbp-br"></div>
+                            <div className="cbp-rl-header">Featured Recipes:</div>
+                            {usersRecipes.length !== 0 ? (<RecipeListFormat recipes={usersRecipes} />) : (<i style={{ display: "flex", justifyContent: "center" }}>No Recipes...</i>)}
+                        </main>
+                    )}
+                </>
+
             )}
         </>
     )

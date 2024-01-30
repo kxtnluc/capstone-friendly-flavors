@@ -13,3 +13,12 @@ export const createCookBook = (cookbook) =>
         body: JSON.stringify(cookbook)
     })
 }
+
+export const updateCookBook = (updates) =>
+{
+    return fetch(_apiUrl+"/"+updates.id, {
+        method: "PUT",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify(updates)
+    })
+}
