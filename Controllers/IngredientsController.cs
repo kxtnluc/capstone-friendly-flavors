@@ -19,7 +19,6 @@ public class IngredientsController : ControllerBase
     }
 
     [HttpGet]
-    // [Authorize]
     public IActionResult Get()
     {
         return Ok(_dbContext.Ingredients.ToList());
@@ -27,7 +26,6 @@ public class IngredientsController : ControllerBase
     }
 
     [HttpGet("{name}")]
-    // [Authorize]
     public IActionResult GetByName(string name)
     {
         Ingredient foundIngredient = _dbContext.Ingredients.SingleOrDefault(i => i.Name == name);
@@ -47,7 +45,7 @@ public class IngredientsController : ControllerBase
     }
 
     [HttpPost("{name}")]
-    //[Authorize]
+    [Authorize(Roles = "Admin")]
     public IActionResult Post(string name)
     {
 

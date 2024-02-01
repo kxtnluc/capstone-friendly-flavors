@@ -9,8 +9,18 @@
 
     .rp-section-header {
 
+        
         padding-top: 1rem;
         padding-left: 3rem;
+
+        .rp-i{
+            color: black;
+            transition: 0.25s;
+        }
+
+        .rp-i:hover{
+            color: rgb(77, 131, 248);
+        }
         
         .rp-title {
             font-weight: 700;

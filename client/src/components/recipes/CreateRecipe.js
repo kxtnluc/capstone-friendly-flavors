@@ -7,7 +7,7 @@ import { getCookBookByUserId } from "../../managers/cookBookManager";
 import { postCompositeRecipe } from "../../managers/recipeManager";
 import { useNavigate } from "react-router-dom";
 
-export const CreateRecipe = ({ loggedInUser }) => {
+export const CreateRecipe = ({ loggedInUser }) => { //if you want comments on how everything works, checkout the editRecipe.js
 
     const navigate = useNavigate();
 
@@ -22,6 +22,7 @@ export const CreateRecipe = ({ loggedInUser }) => {
     const [recipeIngredientArray, setRecipeIngredientArray] = useState([]);
     const [title, setTitle] = useState('')
     const [body, setBody] = useState('')
+    const [description, setDescription] = useState('')
     const [imageUrl, setImageUrl] = useState('')
     const [cookTime, setCookTime] = useState(0)
     const [complexity, setComplexity] = useState(0)
@@ -31,7 +32,10 @@ export const CreateRecipe = ({ loggedInUser }) => {
     let ingredientId = 0;
     
     useEffect(() => {
-        getCookBookByUserId(loggedInUser.id).then(setCookbook)
+        getCookBookByUserId(loggedInUser.id).then((cObj) => {
+            if(cObj.title === "Not Found") navigate("/cookbook")
+            else setCookbook(cObj)
+        })
         getAllIngredients().then(setIngredients)
         getMeasurements().then(setMeasurements)
     }, [])
@@ -166,7 +170,8 @@ export const CreateRecipe = ({ loggedInUser }) => {
                     body: body,
                     cookTime: cookTime,
                     complexity: complexity,
-                    coverImageUrl: imageUrl
+                    coverImageUrl: imageUrl,
+                    description: description
                 },
                 recipeIngredientData: []
             }
@@ -181,12 +186,11 @@ export const CreateRecipe = ({ loggedInUser }) => {
             //then post that one JSON Composite Package using the endpoint
 
             if (compositeJSONPackage !== null) {
-                postCompositeRecipe(compositeJSONPackage).then((newRecipeObj) => {
-                    console.log(newRecipeObj);
-                    navigate(`/recipes`)
-                })
+                // postCompositeRecipe(compositeJSONPackage).then((newRecipeObj) => {
+                //     console.log(newRecipeObj);
+                //     navigate(`/recipes`)
+                // })
                 console.log(compositeJSONPackage)
-                // navigate("/recipes")
             }
         }
         else {
@@ -366,6 +370,27 @@ export const CreateRecipe = ({ loggedInUser }) => {
 
                     <div className="cr-br"></div>
 
+                    <FormGroup row className="cr-formgroup-description">
+                        <Label
+                            className="cr-label cr-label-description"
+                            for="Body"
+                            sm={2}
+                        >
+                            Description:
+                        </Label>
+                        <Col sm={10}>
+                            <Input
+                                className="cr-input-description"
+                                placeholder="Short Description..."
+                                id="Description"
+                                name="description"
+                                type="text"
+                                value={description}
+                                onChange={(e) => setDescription(e.target.value)}
+                            />
+                        </Col>
+                    </FormGroup>
+
                     <FormGroup row className="cr-formgroup-body">
                         <Label
                             className="cr-label cr-label-body"
@@ -377,6 +402,7 @@ export const CreateRecipe = ({ loggedInUser }) => {
                         <Col sm={10}>
                             <Input
                                 className="cr-input-body"
+                                placeholder="Recipe Instructions..."
                                 id="Body"
                                 name="body"
                                 type="textarea"

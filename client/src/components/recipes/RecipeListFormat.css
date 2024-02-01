@@ -12,7 +12,6 @@
     
     .rl-card{
         
-        cursor: pointer;
         border: 3px rgb(141, 116, 73) solid;
         width: 28%;
         margin-bottom: 1rem;
@@ -27,6 +26,7 @@
             
             .rl-card-img{
                 
+                border-radius: 0;
                 height: 100%;
                 width: 100%;
                 object-fit: cover;
@@ -38,8 +38,35 @@
         }
         
         
+        .rl-card-hh{
+
+            cursor: pointer;
+
+            padding: 0.25rem;
+            text-align: center;
+            font-weight: bold;
+            background-color: rgb(248, 229, 193);
+            transition: .5s;
+            .rl-i{
+                font-size: 1.2rem;
+                transition: .5s;
+
+            }
+
+        }
+
+        .rl-card-hh:hover{
+            background-color: rgb(237, 210, 163);
+
+            .rl-i{
+                
+                color: rgb(0, 0, 0);
+            }
+
+        }
 
         .rl-card-header{
+            cursor: pointer;
             
             background-color: rgb(255, 240, 212);
             font-weight: 650;
@@ -48,6 +75,8 @@
         }
 
         .rl-card-body{
+            cursor: pointer;
+
             background-color: rgb(252, 244, 230);
             font-style: italic;
             

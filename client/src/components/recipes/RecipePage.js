@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { NavLink, useNavigate, useParams } from "react-router-dom"
+import { Link, NavLink, useNavigate, useParams } from "react-router-dom"
 import { deleteRecipe, getRecipeById } from "../../managers/recipeManager";
 import "./RecipePage.css"
 import { Button, Card, CardBody, CardHeader, CardText, CardTitle, ListGroup, ListGroupItem, ListGroupItemHeading, Nav, NavItem, Table } from "reactstrap";
@@ -92,7 +92,7 @@ export const RecipePage = ({loggedInUser}) => {
         <main className="rp-main">
             <section className="rp-section-header">
                 {loggedInUser?.id === recipe.cookBook.userProfileId || loggedInUser?.roles.includes("Admin") ? (<><Button color="success" onClick={handleEdit} style={{float: "right", marginRight: "1rem", marginTop: "1rem"}}>Edit</Button><Button color="danger" onClick={handleDelete} style={{float: "right", marginRight: "1rem", marginTop: "1rem"}}>Delete Recipe</Button></>):("")}
-                <h1 className="rp-title">{recipe.title}</h1>
+                <span><h1 className="rp-title">{recipe.title}</h1><h5>From ~ <Link style={{textDecoration: "none"}} to={`/cookbook/${recipe.cookBookId}`}><i className="rp-i">{recipe.cookBook.title}</i></Link></h5></span>
                     <div className="rp-image-div">
                         <div className="rp-image-container">
                             {recipe.coverImageUrl ? (<img className="rp-img" src={recipe.coverImageUrl} alt="recipeCover"/>):(<img className="rp-img" src="https://burst.shopifycdn.com/photos/flatlay-iron-skillet-with-meat-and-other-food.jpg?width=1000&format=pjpg&exif=0&iptc=0" alt="FoodImage"/>)}
