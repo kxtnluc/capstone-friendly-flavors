@@ -23,10 +23,11 @@ public class RecipesController : ControllerBase
     //===============GETS
     //============all
     [HttpGet]
-    // [Authorize]
+    [Authorize]
     public IActionResult Get(int? cookBookId)
     {
-        IQueryable<Recipe> query = _dbContext.Recipes;
+        IQueryable<Recipe> query = _dbContext.Recipes
+            .Include(r => r.CookBook);
 
         if (cookBookId.HasValue)
         {
@@ -38,6 +39,11 @@ public class RecipesController : ControllerBase
             {
                 Id = r.Id,
                 CookBookId = r.CookBookId,
+                CookBook = new CookBookDTO{
+                    Id = r.CookBook.Id,
+                    Title = r.CookBook.Title,
+                    Description = r.CookBook.Description
+                },
                 Description = r.Description,
                 CoverImageUrl = r.CoverImageUrl,
                 Title = r.Title,
@@ -111,6 +117,7 @@ public class RecipesController : ControllerBase
     //=================POSTS
     //recipe+ingredients
     [HttpPost("composite")]
+    [Authorize]
     public IActionResult CreateRecipeComposition([FromBody] CompositeDataDTO compositeData)
     {
         // Access compositeData.RecipeData and compositeData.IngredientData
@@ -158,6 +165,7 @@ public class RecipesController : ControllerBase
     }
 
     [HttpPut("{id}")]
+    [Authorize]
     public IActionResult EditRecipeComposition(int id, [FromBody] Recipe recipeData)
     {
 
@@ -202,6 +210,7 @@ public class RecipesController : ControllerBase
     //===============DELETES
     //====one ingredient     
     [HttpDelete("{id}")]
+    [Authorize]
     public IActionResult DeleteRecipe(int id)
     {
         Recipe foundRecipe = _dbContext.Recipes.SingleOrDefault(r => r.Id == id);
@@ -226,6 +235,7 @@ public class RecipesController : ControllerBase
     }
 
     [HttpPost("adddelete/ri")]
+    [Authorize]
     public IActionResult MassRIDelete(RiCompositeDTO RiComposite)
     {
 

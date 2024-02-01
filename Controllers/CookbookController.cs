@@ -22,7 +22,6 @@ public class CookbooksController : ControllerBase
                                                                                                                                                         //===============GETS
                                                                                                                                                             //============all
     [HttpGet]
-    // [Authorize]
     public IActionResult Get()
     {
         return Ok(_dbContext.CookBooks.ToList());
@@ -31,7 +30,6 @@ public class CookbooksController : ControllerBase
 
                                                                                                                                                             //============one
     [HttpGet("user/{userid}")]
-    // [Authorize]
     public IActionResult GetByUserId(int userid)
     {
         CookBook foundCookBook = _dbContext
@@ -67,7 +65,7 @@ public class CookbooksController : ControllerBase
                                                                                                                                                             //===============POSTS
                                                                                                                                                             //=================one
     [HttpPost]
-    // [Authorize]
+    [Authorize]
     public IActionResult PostCookBook(CookBook cookBookToPost)
     {
 
@@ -84,7 +82,7 @@ public class CookbooksController : ControllerBase
                                                                                                                                                             //===============PUT
                                                                                                                                                             //=================one
     [HttpPut("{id}")]
-    // [Authorize]
+    [Authorize]
     public IActionResult UpdateCookBook(int id, CookBook updates)
     {
 

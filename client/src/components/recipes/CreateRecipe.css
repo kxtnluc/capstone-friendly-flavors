@@ -64,7 +64,7 @@
             .cr-formgroup-amount,
             .cr-formgroup-measurement{
 
-                width: 33%;
+                width: 29%;
 
                 .cr-label-ingredient,
                 .cr-label-amount,
@@ -77,9 +77,23 @@
             }
 
             .cr-button-addingredient{
-                width: 100px;
+                width: 150px;
+                height: 3rem;
                 margin-left: auto;
                 margin-right: 5.5%;
+                margin-top: 1.7rem;
+            }
+
+            .cr-formgroup-description{
+                width: 85.5%;
+
+                .cr-label-description{
+                }
+
+                .cr-input-description{
+                    width: 120%;
+                }
+
             }
 
             .cr-formgroup-body{
@@ -88,12 +102,13 @@
                 .cr-label-body{
                     width: 100%;
                 }
-
+                
                 .cr-input-body{
                     width: 120%;
                 }
 
             }
+
 
             .cr-formgroup-fileupload{
                 width: 30rem;

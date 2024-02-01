@@ -5,16 +5,61 @@ import { useNavigate } from "react-router-dom"
 import { RecipeListFormat } from "./RecipeListFormat"
 
 
-export const RecipeList = () => 
-{
+export const RecipeList = () => {
 
     const navigate = useNavigate()
     const [recipes, setRecipes] = useState([])
+    const [filteredRecipes, setFilteredRecipes] = useState([])
 
-    useEffect(()=>{
-        getAllRecipes().then(setRecipes)
-    },[])
+    const [complexityFilter, setComplexityFilter] = useState(0)
+    const [cookTimeFilter, setCookTimeFilter] = useState(0)
 
+    useEffect(() => {
+        getAllRecipes().then((rArray) => {
+            setRecipes(rArray)
+            setFilteredRecipes(rArray)
+        })
+    }, [])
+
+    const filterChange = () => {
+
+        let filteredArray = []
+
+        if(cookTimeFilter === 0 && complexityFilter === 0)
+        {
+            filteredArray = recipes;
+        }
+        else if (cookTimeFilter !== 0 && complexityFilter === 0)
+        {
+            filteredArray = recipes.filter((r) => r.cookTime === cookTimeFilter)
+        }
+        else if (cookTimeFilter === 0 && complexityFilter !== 0)
+        {
+            filteredArray = recipes.filter((r) => r.complexity === complexityFilter)
+        }
+        else if (cookTimeFilter !== 0 && complexityFilter !== 0)
+        {
+            filteredArray = recipes.filter((r) => r.complexity === complexityFilter && r.cookTime === cookTimeFilter)
+        }
+        console.log(filteredArray)
+        setFilteredRecipes(filteredArray)
+    }
+
+    const handleComplexityChange = (e) => {
+        setComplexityFilter(parseInt(e.target.value))
+    }
+
+    const handleCookTimeChange = (e) => {
+        setCookTimeFilter(parseInt(e.target.value))
+    }
+
+        useEffect(() => {
+    
+    
+            filterChange();
+    
+    
+        }, [cookTimeFilter, complexityFilter]);
 
     return (
         <main className="rl-main">
@@ -23,7 +68,7 @@ export const RecipeList = () =>
                 <div className="rl-selects">
                     <div className="rl-complexity-div">
                         <Label className="rl-complexity-label">Complexity:</Label>
-                        <Input className="rl-complexity-input" type="select">
+                        <Input value={complexityFilter} onChange={handleComplexityChange} className="rl-complexity-input" type="select">
                             <option value={0}>All</option>
                             <option value={1}>1</option>
                             <option value={2}>2</option>
@@ -34,7 +79,7 @@ export const RecipeList = () =>
                     </div>
                     <div className="rl-cooktime-div">
                         <Label className="rl-cooktime-label">Cooktime:</Label>
-                        <Input className="rl-cooktime-input" type="select">
+                        <Input value={cookTimeFilter} onChange={handleCookTimeChange} className="rl-cooktime-input" type="select">
                             <option value={0}>All</option>
                             <option value={1}>1</option>
                             <option value={2}>2</option>
@@ -45,8 +90,8 @@ export const RecipeList = () =>
                     </div>
                 </div>
             </section>
-            <RecipeListFormat recipes={recipes}/>
-            
+            <RecipeListFormat recipes={filteredRecipes} />
+
         </main>
     )
 }

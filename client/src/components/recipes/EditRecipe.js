@@ -25,6 +25,7 @@ export const EditRecipe = ({ loggedInUser }) => {
     const [recipeIngredientArray, setRecipeIngredientArray] = useState([]); //an array of recipeIngredients 
     const [title, setTitle] = useState('')                                  //input title for the recipe
     const [body, setBody] = useState('')                                    //input body for the recipe
+    const [description, setDescription] = useState('')
     const [imageUrl, setImageUrl] = useState('')                            //optional image input for the recipe
     const [cookTime, setCookTime] = useState(0)                             //cooktime input
     const [complexity, setComplexity] = useState(0)                         //complexity inpout
@@ -206,6 +207,7 @@ export const EditRecipe = ({ loggedInUser }) => {
                 body: body,
                 cookTime: cookTime,
                 complexity: complexity,
+                description: description,
                 coverImageUrl: imageUrl //add description eventually
             }
 
@@ -435,6 +437,27 @@ export const EditRecipe = ({ loggedInUser }) => {
                     <Button className="cr-button-addingredient" type="button" onClick={handleAddRecipeIngredient} size="sm" color="success">Add Recipe Ingredient</Button>
 
                     <div className="cr-br"></div>
+
+                    <FormGroup row className="cr-formgroup-description">
+                        <Label
+                            className="cr-label cr-label-description"
+                            for="Body"
+                            sm={2}
+                        >
+                            Description:
+                        </Label>
+                        <Col sm={10}>
+                            <Input
+                                className="cr-input-description"
+                                placeholder="Short Description..."
+                                id="Description"
+                                name="description"
+                                type="text"
+                                value={description}
+                                onChange={(e) => setDescription(e.target.value)}
+                            />
+                        </Col>
+                    </FormGroup>
 
                     <FormGroup row className="cr-formgroup-body">
                         <Label

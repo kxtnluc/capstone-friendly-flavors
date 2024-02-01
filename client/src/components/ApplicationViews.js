@@ -8,6 +8,7 @@ import { CookBookPage } from "./cookbook/CookBookPage";
 import { CreateIngredient } from "./ingredients/CreateIngredient";
 import { EditRecipe } from "./recipes/EditRecipe";
 import { MyCookBook } from "./cookbook/MyCookBook";
+import { AuthorizedRoute } from "./auth/AuthorizedRoute";
 
 
 export default function ApplicationViews({ loggedInUser, setLoggedInUser }) {
@@ -42,7 +43,9 @@ export default function ApplicationViews({ loggedInUser, setLoggedInUser }) {
         <Route path="cookbook">
           <Route
             index
-            element={<MyCookBook loggedInUser={loggedInUser}/>}
+            element={
+              <MyCookBook loggedInUser={loggedInUser}/>
+            }
           />
           <Route
             path=":userid"
@@ -53,9 +56,14 @@ export default function ApplicationViews({ loggedInUser, setLoggedInUser }) {
         </Route>
 
         <Route path="ingredient">
+            
           <Route
             path="create"
-            element={<CreateIngredient/>}
+            element={
+              <AuthorizedRoute loggedInUser={loggedInUser} roles={['Admin']}>
+                <CreateIngredient/>
+              </AuthorizedRoute>
+            }
           />
 
         </Route>

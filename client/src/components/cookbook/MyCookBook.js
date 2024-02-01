@@ -18,6 +18,7 @@ export const MyCookBook = ({ loggedInUser }) => {
     const [descInput, setDescInput] = useState('')
 
     useEffect(() => {
+
         getCookBookByUserId(loggedInUser.id).then(setCookBook)
         if (cookBook.id !== undefined) getRecipesByCookBookId(cookBook.id).then(setUsersRecipes)
         console.log(usersRecipes)
@@ -70,6 +71,8 @@ export const MyCookBook = ({ loggedInUser }) => {
         toggleEdit();
         window.location.reload();
     }
+
+
 
     return (
         <>

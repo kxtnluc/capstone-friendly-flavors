@@ -22,7 +22,6 @@ public class MeasurementsController : ControllerBase
                                                                                                                                                         //===============GETS
                                                                                                                                                             //============all
     [HttpGet]
-    // [Authorize]
     public IActionResult Get()
     {
         return Ok(_dbContext.Measurements.ToList());
