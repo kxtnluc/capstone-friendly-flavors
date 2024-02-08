@@ -1,157 +1,375 @@
+@media(orientation: landscape) {
 
 
-/* Your CSS File */
+    /* Your CSS File */
 
-.rp-main{
+    .rp-main {
 
-    background-color: rgb(255, 236, 201);
-    padding-bottom: 10rem;
+        background-color: rgb(255, 236, 201);
+        padding-bottom: 10rem;
 
-    .rp-section-header {
+        .rp-section-header {
 
-        
-        padding-top: 1rem;
-        padding-left: 3rem;
 
-        .rp-i{
-            color: black;
-            transition: 0.25s;
-        }
+            padding-top: 1rem;
+            padding-left: 3rem;
 
-        .rp-i:hover{
-            color: rgb(77, 131, 248);
-        }
-        
-        .rp-title {
-            font-weight: 700;
-            font-size: 4rem;
-        }
+            .rp-i {
+                color: black;
+                transition: 0.25s;
+            }
 
-        .rp-card{
-            margin-top: 1rem;
-            float: left;
-            height: 33rem;
-            width: 20rem;
-            background: linear-gradient(to right, rgb(194, 154, 79), rgb(150, 104, 18));
-            border: 3px rgb(85, 76, 60) solid;
-            border-left: none;
-            border-top-left-radius: 0;
-            border-bottom-left-radius: 0;
-            .rp-card-body{
-                .rp-card-text{
+            .rp-i:hover {
+                color: rgb(77, 131, 248);
+            }
 
+            .rp-edit-btn{
+                float: right;
+                margin-right: 1rem;
+                margin-top: 1rem;
+            }
+
+            .rp-delete-btn{
+                float: right;
+                margin-right: 1rem;
+                margin-top: 1rem;
+            }
+
+            .rp-title {
+                font-weight: 700;
+                font-size: 4rem;
+            }
+
+            .rp-card {
+                margin-top: 1rem;
+                float: left;
+                height: 33rem;
+                width: 20rem;
+                background: linear-gradient(to right, rgb(194, 154, 79), rgb(150, 104, 18));
+                border: 3px rgb(85, 76, 60) solid;
+                border-left: none;
+                border-top-left-radius: 0;
+                border-bottom-left-radius: 0;
+
+                .rp-card-body {
+                    .rp-card-text {}
                 }
             }
-        }
 
-        .rp-image-div{
+            .rp-image-div {
 
-            float: left;
-            width: 50rem;
-            height: 33rem;
-            margin-top: 1rem;
-            margin-left: 7rem;
-            position: relative;
-            overflow: hidden;
-            background: linear-gradient(to right, rgb(223, 200, 156), rgb(194, 154, 79));
-            border: 3px rgb(85, 76, 60) solid;
-            border-radius: 6px;
-            border-top-right-radius: 0;
-            border-bottom-right-radius: 0;
-            border-right: none;
-
-            .rp-image-container{
-
-                width: 100%;
-                height: 100%;
+                float: left;
+                width: 50rem;
+                height: 33rem;
+                margin-top: 1rem;
+                margin-left: 7rem;
+                position: relative;
                 overflow: hidden;
+                background: linear-gradient(to right, rgb(223, 200, 156), rgb(194, 154, 79));
+                border: 3px rgb(85, 76, 60) solid;
+                border-radius: 6px;
+                border-top-right-radius: 0;
+                border-bottom-right-radius: 0;
+                border-right: none;
 
-                .rp-img{
-                    position: absolute;
-                    z-index: 2;
+                .rp-image-container {
+
                     width: 100%;
                     height: 100%;
-                    object-fit: contain;
-                    top: 50%;
-                    left: 50%;
-                    transform: translate(-50%, -50%);
+                    overflow: hidden;
+
+                    .rp-img {
+                        position: absolute;
+                        z-index: 2;
+                        width: 100%;
+                        height: 100%;
+                        object-fit: contain;
+                        top: 50%;
+                        left: 50%;
+                        transform: translate(-50%, -50%);
+                    }
+
+                    .rp-img-blur {
+                        z-index: 1;
+                        position: absolute;
+                        width: 100%;
+                        height: 100%;
+                        object-fit: cover;
+                        filter: blur(10px);
+                        /* Adjust the blur amount as needed */
+                        transform: scale(1.1);
+                        /* Adjust the scale factor to cover the void */
+                    }
+
                 }
 
-                .rp-img-blur {
-                    z-index: 1;
-                    position: absolute;
-                    width: 100%;
-                    height: 100%;
-                    object-fit: cover;
-                    filter: blur(10px); /* Adjust the blur amount as needed */
-                    transform: scale(1.1); /* Adjust the scale factor to cover the void */
-                  }
-            
             }
-
         }
-    }
-    .rp-section-sidebar {
-        .rp-sidebar {
 
-            position: fixed;
-            font-size: large;
-            right: 0;
+        .rp-section-sidebar {
+            .rp-sidebar {
+
+                position: fixed;
+                font-size: large;
+                right: 0;
+                background-color: wheat;
+                width: 26rem;
+                padding-left: 1.5rem;
+                height: 39rem;
+                border: 3px rgb(85, 76, 60) solid;
+                border-right: none;
+                border-radius: 6px;
+                border-top-right-radius: 0;
+                border-bottom-right-radius: 0;
+
+                .rp-sidebar-header {
+                    margin-top: 0.5rem;
+                }
+
+                .rp-sidebar-item {
+                    margin-bottom: 0.25rem;
+                    margin-top: 0.25rem;
+                    background-color: rgb(234, 210, 165);
+                    border: 2px;
+                    border-color: rgb(85, 76, 60);
+
+                }
+            }
+        }
+
+        .rp-section-body {
+
+            margin-top: 36rem;
+            margin-left: 5rem;
+            margin-right: 30rem;
+
+            padding: 1rem;
+
             background-color: wheat;
-            width: 26rem;
-            padding-left: 1.5rem;
-            height: 39rem;
-            border: 3px rgb(85, 76, 60) solid;
-            border-right: none;
-            border-radius: 6px;
-            border-top-right-radius: 0;
-            border-bottom-right-radius: 0;
 
-            .rp-sidebar-header{
-                margin-top: 0.5rem;
+            .rp-bc {
+
+                background-color: rgb(241, 214, 159);
+
+                .rp-bc-header {}
+
+                .rp-bc-body {
+                    .rp-bc-text {}
+                }
+            }
+        }
+
+    }
+
+
+
+
+
+
+
+}
+
+@media (orientation: portrait) {
+
+
+    /* Your CSS File */
+
+    .rp-main {
+
+        background-color: rgb(255, 236, 201);
+        padding-bottom: 10rem;
+
+        .rp-section-header {
+
+
+            padding-top: 1rem;
+            padding-left: 1rem;
+
+            .rp-i {
+                /* color: blue; */
             }
 
-            .rp-sidebar-item {
-                margin-bottom: 0.25rem;
-                margin-top: 0.25rem;
-                background-color: rgb(234, 210, 165);
-                border: 2px;
-                border-color: rgb(85, 76, 60);
+            .rp-edit-btn{
+                margin-right: 1rem;
+                margin-top: 1rem;
+            }
+
+            .rp-delete-btn{
+                margin-right: 1rem;
+                margin-top: 1rem;
+            }
+
+            .rp-title {
+                font-weight: 700;
+                font-size: 2rem;
+            }
+
+            .rp-card {
+                margin-top: 0;
+                margin-left: 0.5rem;
+                float: left;
+                height: 9rem;
+                width: 20rem;
+                background: linear-gradient(to right, rgb(194, 154, 79), rgb(150, 104, 18));
+                border: 3px rgb(85, 76, 60) solid;
+                
+                border-top: none;
+                border-top-left-radius: 0;
+                border-top-right-radius: 0;
+
+                .rp-card-body {
+                    .rp-card-text {}
+                }
+            }
+
+            .rp-image-div {
+
+                float: left;
+                width: 20rem;
+                height: 13rem;
+                margin-top: 1rem;
+                margin-left: 0.5rem;
+                position: relative;
+                overflow: hidden;
+                background: linear-gradient(to right, rgb(223, 200, 156), rgb(194, 154, 79));
+                border: 3px rgb(85, 76, 60) solid;
+                border-radius: 6px;
+
+                border-bottom: none;
+                border-bottom-left-radius: 0;
+                border-bottom-right-radius: 0;
+
+
+
+                .rp-image-container {
+
+                    width: 100%;
+                    height: 100%;
+                    overflow: hidden;
+
+                    .rp-img {
+                        position: absolute;
+                        z-index: 2;
+                        width: 100%;
+                        height: 100%;
+                        object-fit: contain;
+                        top: 50%;
+                        left: 50%;
+                        transform: translate(-50%, -50%);
+                    }
+
+                    .rp-img-blur {
+                        z-index: 1;
+                        position: absolute;
+                        width: 100%;
+                        height: 100%;
+                        object-fit: cover;
+                        filter: blur(10px);
+                        /* Adjust the blur amount as needed */
+                        transform: scale(1.1);
+                        /* Adjust the scale factor to cover the void */
+                    }
+
+                }
 
             }
         }
-    }
-    .rp-section-body {
 
-        margin-top: 36rem;
-        margin-left: 5rem;
-        margin-right: 30rem;
+        .rp-section-sidebar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            border: 2px rgb(85, 76, 60) solid;
+            border-radius: 5px;
+            z-index: 2;
+            .rp-sidebar {
+                font-size: 12px;
+                width: 100%;
+                background-color: wheat;
+                padding-left: 1rem;
 
-        padding: 1rem;
+                height: 2.5rem; /* This is the value that needs to change to 35rem to be viewable */
+                transition: 0.5s;
 
-        background-color: wheat;
+                border-right: none;
+                border-radius: 6px;
+                border-top-right-radius: 0;
+                border-bottom-right-radius: 0;
 
-        .rp-bc {
+                .rp-sidebar-header {
+                    margin-top: 0.5rem;
+                }
 
-            background-color: rgb(241, 214, 159);
+                .rp-sidebar-item {
+                    margin-bottom: 0.25rem;
+                    margin-right: 1rem;
+                    margin-top: 0.25rem;
+                    background-color: rgb(234, 210, 165);
+                    border: 2px;
+                    border-color: rgb(85, 76, 60);
 
-            .rp-bc-header{
-
+                }
             }
 
-            .rp-bc-body{
-                .rp-bc-text{
+            .rp-sidebar-active {
+                font-size: 12px;
+                width: 100%;
+                background-color: wheat;
+                padding-left: 1rem;
+
+                height: 35rem; /* This is the value that needs to change to 35rem to be viewable */
+                transition: 0.5s;
+
+                border-right: none;
+                border-radius: 6px;
+                border-top-right-radius: 0;
+                border-bottom-right-radius: 0;
+
+                .rp-sidebar-header {
+                    margin-top: 0.5rem;
+                }
+
+                .rp-sidebar-item {
+                    margin-bottom: 0.25rem;
+                    margin-right: 1rem;
+                    margin-top: 0.25rem;
+                    background-color: rgb(234, 210, 165);
+                    border: 2px;
+                    border-color: rgb(85, 76, 60);
 
                 }
             }
         }
+
+        .rp-section-body {
+
+            margin-top: 25rem;
+            margin-left: 1rem;
+            margin-right: 1rem;
+
+            padding: 1rem;
+
+            background-color: wheat;
+
+            .rp-bc {
+
+                background-color: rgb(241, 214, 159);
+
+                .rp-bc-header {}
+
+                .rp-bc-body {
+                    .rp-bc-text {}
+                }
+            }
+        }
+
     }
-    
+
+
+
+
+
+
+
 }
-  
-  
-  
-  
-  
-  
-  

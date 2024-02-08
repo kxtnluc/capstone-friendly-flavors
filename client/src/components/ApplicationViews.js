@@ -9,12 +9,21 @@ import { CreateIngredient } from "./ingredients/CreateIngredient";
 import { EditRecipe } from "./recipes/EditRecipe";
 import { MyCookBook } from "./cookbook/MyCookBook";
 import { AuthorizedRoute } from "./auth/AuthorizedRoute";
+import { CookBookList } from "./cookbook/CookBookList";
+import { AdminPortal } from "./admin/AdminPortal";
+import { AdminPromote } from "./admin/AdminPromote";
+import { Home } from "./home/Home";
 
 
 export default function ApplicationViews({ loggedInUser, setLoggedInUser }) {
   return (
     <Routes>
       <Route path="/">
+
+        <Route
+          index
+          element={<Home/>}
+        />
 
         <Route path="recipes">
 
@@ -25,17 +34,17 @@ export default function ApplicationViews({ loggedInUser, setLoggedInUser }) {
 
           <Route
             path=":recipeid"
-            element={<RecipePage loggedInUser={loggedInUser}/>}
+            element={<RecipePage loggedInUser={loggedInUser} />}
           />
 
           <Route
             path=":recipeid/edit"
-            element={<EditRecipe loggedInUser={loggedInUser}/>}
+            element={<EditRecipe loggedInUser={loggedInUser} />}
           />
 
           <Route
             path="create"
-            element={<CreateRecipe loggedInUser={loggedInUser}/>}
+            element={<CreateRecipe loggedInUser={loggedInUser} />}
           />
 
         </Route>
@@ -44,28 +53,52 @@ export default function ApplicationViews({ loggedInUser, setLoggedInUser }) {
           <Route
             index
             element={
-              <MyCookBook loggedInUser={loggedInUser}/>
+              <MyCookBook loggedInUser={loggedInUser} />
             }
           />
           <Route
             path=":userid"
-            element={<CookBookPage loggedInUser={loggedInUser}/>}
+            element={<CookBookPage loggedInUser={loggedInUser} />}
+          />
+          <Route
+            path="list"
+            element={<CookBookList loggedInUser={loggedInUser} />}
           />
 
 
         </Route>
 
-        <Route path="ingredient">
-            
+        <Route path="ingredients">
+
           <Route
             path="create"
             element={
               <AuthorizedRoute loggedInUser={loggedInUser} roles={['Admin']}>
-                <CreateIngredient/>
+                <CreateIngredient />
               </AuthorizedRoute>
             }
           />
 
+        </Route>
+
+        <Route path="admin">
+            <Route
+              index
+              element={
+                <AuthorizedRoute loggedInUser={loggedInUser} roles={["Admin"]}>
+                  <AdminPortal loggedInUser={loggedInUser} />
+                </AuthorizedRoute>
+              }
+            />
+
+            <Route
+              path="promote"
+              element={
+                <AuthorizedRoute loggedInUser={loggedInUser} roles={["Admin"]}>
+                  <AdminPromote loggedInUser={loggedInUser}/>
+                </AuthorizedRoute>
+              }
+            />
         </Route>
 
 

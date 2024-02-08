@@ -23,7 +23,6 @@ public class RecipesController : ControllerBase
     //===============GETS
     //============all
     [HttpGet]
-    [Authorize]
     public IActionResult Get(int? cookBookId)
     {
         IQueryable<Recipe> query = _dbContext.Recipes

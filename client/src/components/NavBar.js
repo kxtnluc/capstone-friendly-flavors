@@ -42,6 +42,11 @@ export default function NavBar({ loggedInUser, setLoggedInUser }) {
                                 Recipes
                             </NavLink>
                         </NavItem>
+                        <NavItem className="nav-li" onClick={() => setOpen(false)}>
+                            <NavLink tag={RRNavLink} to="/cookbook/list">
+                                Cookbooks
+                            </NavLink>
+                        </NavItem>
                         {loggedInUser ? (<>
                             <NavItem className="nav-li" onClick={() => setOpen(false)}>
                                 <NavLink tag={RRNavLink} to="/recipes/create">
@@ -55,48 +60,40 @@ export default function NavBar({ loggedInUser, setLoggedInUser }) {
                             </NavItem>
                             {loggedInUser.roles.includes("Admin") ? (
                                 <NavItem className="nav-li" onClick={() => setOpen(false)}>
-                                    <NavLink tag={RRNavLink} to={`/ingredient/create`}>
-                                        Ingredients
+                                    <NavLink className="nav-link" tag={RRNavLink} to={`/admin`}>
+                                         • Admin •
                                     </NavLink>
                                 </NavItem>
                             ) : (
                                 ""
                             )}
-                        </>) : ("")}
+                            <NavItem className="nav-li">
+                                {/* <i className="nav-username">{loggedInUser.firstName} {loggedInUser.lastName}</i> */}
+                                <Button
+                                    className="nav-log-btn"
+                                    size="sm"
+                                    color="primary"
+                                    onClick={(e) => {
+                                        e.preventDefault();
+                                        setOpen(false);
+                                        logout().then(() => {
+                                            navigate("/")
+                                            setLoggedInUser(null);
+                                            setOpen(false);
+                                        });
+                                    }}
+                                >
+                                    Logout
+                                </Button>
+                                
+                            </NavItem>
+                        </>) : (<Nav navbar>
+                            <NavItem className="nav-li">
+                                <Button className="nav-log-btn" size="sm" onClick={()=>navigate("/login")} color="primary">Login</Button>
+                            </NavItem>
+                        </Nav>)}
                     </Nav>
                 </Collapse>
-
-                {loggedInUser ? (
-                    <>
-                        <NavbarToggler onClick={toggleNavbar} />
-                        <Collapse isOpen={open} navbar>
-                            <Nav navbar></Nav>
-                        </Collapse>
-                        <i style={{marginRight: "1rem"}}>{loggedInUser.firstName} {loggedInUser.lastName}</i>
-                        <Button
-                            color="primary"
-                            onClick={(e) => {
-                                e.preventDefault();
-                                setOpen(false);
-                                logout().then(() => {
-                                    navigate("/")
-                                    setLoggedInUser(null);
-                                    setOpen(false);
-                                });
-                            }}
-                        >
-                            Logout
-                        </Button>
-                    </>
-                ) : (
-                    <Nav navbar>
-                        <NavItem>
-                            <NavLink tag={RRNavLink} to="/login">
-                                <Button color="primary">Login</Button>
-                            </NavLink>
-                        </NavItem>
-                    </Nav>
-                )}
             </Navbar>
         </div>
     );

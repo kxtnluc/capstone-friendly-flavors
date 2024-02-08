@@ -22,3 +22,8 @@ export const updateCookBook = (updates) =>
         body: JSON.stringify(updates)
     })
 }
+
+export const getAllCookBooks = () =>
+{
+    return fetch(_apiUrl).then((r) => r.json())
+}

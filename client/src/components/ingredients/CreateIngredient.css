@@ -59,5 +59,65 @@
 
 }
 
+@media (orientation: portrait)
+{
+    .ci-main {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        /* Style the form section */
+        .ci-section {
+            width: 150px;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            background-color: #fff;
+            .ci-form {
+                width: 100%;
+                .ci-formgroup-input {
+                    margin-bottom: 15px;
+                    .ci-col {
+                        padding: 0;
+                        .ci-input {
+                            width: 100%;
+                            padding: 10px;
+                            border: 1px solid #ccc;
+                            border-radius: 4px;
+                            outline: none;
+                        }
+                }
+            }
+            .ci-formtext {
+                font-size: 10px;
+                color: #777;
+            }
+            .ci-formgroup-submit {
+                margin-top: 1rem;
+                text-align: center;
+                .ci-button-submit {
+                    padding: 10px 20px;
+                    cursor: pointer;
+                    background-color: #28a745;
+                    border: 1px solid #218838;
+                    border-radius: 4px;
+                    color: #fff;
+                }
+                
+                .ci-button-submit:hover {
+                    background-color: #218838;
+                }
+            }
+            
+        }
+    }
+    
+    
+    /* Style the form elements */
+    
+    
+    }
+}
+
 
 

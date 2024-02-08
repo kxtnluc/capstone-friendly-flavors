@@ -1,0 +1,31 @@
+@media (orientation: landscape)
+{
+    .cl-main{
+        .cl-section-header{
+            margin-left: 4rem;
+            overflow: hidden;
+            .cl-header{
+                margin-top: 1rem;
+                float: left;
+                font-size: 60px;
+                font-weight: 600;
+            }
+        }
+    }
+}
+
+@media (orientation: portrait)
+{
+    .cl-main{
+        .cl-section-header{
+            margin-left: 1rem;
+            overflow: hidden;
+            .cl-header{
+                margin-top: 1rem;
+                float: left;
+                font-size: 30px;
+                font-weight: 600;
+            }
+        }
+    }
+}

@@ -1,0 +1,39 @@
+.ap-main{
+    .ap-section{
+        margin-top: 1rem;
+        display: flex;
+        justify-content: center;
+        margin-left: 4rem;
+        margin-right: 4rem;
+        .ap-card{
+            margin-left: 1rem;
+            margin-right: 1rem;
+            align-self: center;
+            width: 30%;
+            border: 3px rgb(85, 76, 60) solid;
+            border-radius: 6px;
+            background-color: wheat;
+            transition: 0.5s;
+            .ap-card-imgcontainer{
+                height: 25rem;
+                overflow: hidden;
+                .ap-card-img{
+                    height: 100%;
+                    object-fit: cover;
+                    overflow: hidden;
+                }
+            }
+            .ap-card-header{
+                font-weight: 600;
+                font-size: 24px;
+            }
+            .ap-card-body{
+                background-color: rgb(247, 233, 207);
+            }
+        }
+
+        .ap-card:hover{
+            transform: scale(1.05);
+        }
+    }
+}

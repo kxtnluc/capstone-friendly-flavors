@@ -143,7 +143,7 @@ export const MyCookBook = ({ loggedInUser }) => {
                                 </div>
                             </section>
                             <div className="cbp-br"></div>
-                            <div className="cbp-rl-header">Featured Recipes:</div>
+                            <div className="cbp-rl-header">Featured Recipes</div>
                             {usersRecipes.length !== 0 ? (<RecipeListFormat recipes={usersRecipes} />) : (<i style={{ display: "flex", justifyContent: "center" }}>No Recipes...</i>)}
                         </main>
                     )}
