@@ -1,32 +1,102 @@
-.navbar{
-    background-color: rgb(244, 204, 130);
-    border-bottom: 5px solid rgb(85, 76, 60);
-    border-radius: 7px;
-    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-
-    .navbarbrand{
-
-        font-weight: 800;
-        font-size: xx-large;
-    }
-
+@media (orientation: landscape)
+{
+    .navbar{
+        background-color: rgb(244, 204, 130);
+        border-bottom: 5px solid rgb(85, 76, 60);
+        border-radius: 7px;
+        font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
     
-}
-.nav-ul{
-    font-size: larger;
-    font-weight: 500;
-    border: 3px solid rgb(85, 76, 60);
-    border-radius: 7px;    
+        .navbarbrand{
+            font-weight: 800;
+            font-size: xx-large;
+        }
 
-    .nav-li{
-        margin-left: 1rem;
-        margin-right: 2rem;
-        transition: 0.25s;
-        border-radius: 5px;
+        .navbar-collapse{
+            display: flex;
+            justify-content: right;
+        }
+    
+        .nav-ul{
+            font-size: larger;
+            font-weight: 500;
+            border: 3px solid rgb(85, 76, 60);
+            border-radius: 7px;    
+        
+            .nav-li{
+                margin-left: 1rem;
+                margin-right: 1rem;
+                transition: 0.25s;
+                border-radius: 5px;
+    
+                /* .nav-username{
+                    color: blue;
+                    padding: 5rem;
+                } */
+                
+                .nav-log-btn{
+                    margin-top: 0.4rem;
+                    width: 5rem;
+                    background-color: rgb(174, 143, 85);
+                    border-color: wheat;
+                }
+            }
+        }
+        
+        .nav-li:hover{
+            .nav-link{
+                background-color: rgb(197, 165, 105);
+            }
+        }
+        
     }
 }
 
-.nav-li:hover{
-    background-color: rgb(197, 165, 105);
+@media (orientation: portrait)
+{
+    .navbar{
+        background-color: rgb(244, 204, 130);
+        border-bottom: 5px solid rgb(85, 76, 60);
+        border-radius: 7px;
+        font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+        padding: 0;
     
+        .navbarbrand{
+    
+            font-weight: 800;
+            font-size: 18px;
+        }
+    
+        
+    }
+    .nav-ul{
+        font-size: small;
+        font-weight: 500;
+        border: 3px solid rgb(85, 76, 60);
+        border-radius: 7px;    
+        margin-bottom: 0.5rem;
+        margin-top: 0.5rem;
+    
+        .nav-li{
+            transition: 0.25s;
+            border-radius: 5px;
+            margin-bottom: 0.15rem;
+            .nav-link{
+                margin-left: 1rem;
+                margin-right: 1rem;
+
+            }
+        }
+
+        .nav-log-btn{
+            margin-left: 0.7rem;
+            width: 5rem;
+            background-color: rgb(174, 143, 85);
+            border-color: wheat;
+        }
+    }
+    
+    .nav-li:hover{
+        background-color: rgb(197, 165, 105);
+        
+    }
 }

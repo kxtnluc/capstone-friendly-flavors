@@ -13,6 +13,15 @@ export const RecipePage = ({loggedInUser}) => {
 
     const [recipe, setRecipe] = useState();
 
+    const [isActive, setIsActive] = useState(false);
+
+    const handleActive=()=>{
+        if(/Android|iPhone/i.test(navigator.userAgent))
+        {
+            setIsActive(!isActive)
+        }
+    }
+
     useEffect(() => {
         getRecipeById(recipeid).then((rObj) => {
             console.log(rObj);
@@ -91,7 +100,7 @@ export const RecipePage = ({loggedInUser}) => {
     return (
         <main className="rp-main">
             <section className="rp-section-header">
-                {loggedInUser?.id === recipe.cookBook.userProfileId || loggedInUser?.roles.includes("Admin") ? (<><Button color="success" onClick={handleEdit} style={{float: "right", marginRight: "1rem", marginTop: "1rem"}}>Edit</Button><Button color="danger" onClick={handleDelete} style={{float: "right", marginRight: "1rem", marginTop: "1rem"}}>Delete Recipe</Button></>):("")}
+                {loggedInUser?.id === recipe.cookBook.userProfileId || loggedInUser?.roles.includes("Admin") ? (<><Button className="rp-edit-btn" color="success" onClick={handleEdit}>Edit</Button><Button color="danger" onClick={handleDelete} className="rp-delete-btn">Delete Recipe</Button></>):("")}
                 <span><h1 className="rp-title">{recipe.title}</h1><h5>From ~ <Link style={{textDecoration: "none"}} to={`/cookbook/${recipe.cookBookId}`}><i className="rp-i">{recipe.cookBook.title}</i></Link></h5></span>
                     <div className="rp-image-div">
                         <div className="rp-image-container">
@@ -122,8 +131,8 @@ export const RecipePage = ({loggedInUser}) => {
                 </Card>
             </section>
 
-            <section className="rp-section-sidebar">
-                <ListGroup vertical className="rp-sidebar">
+            <section onClick={handleActive} className="rp-section-sidebar">
+                <ListGroup vertical className={isActive ? 'rp-sidebar-active':'rp-sidebar'}>
                     <ListGroupItemHeading className="rp-sidebar-header">Ingredients:</ListGroupItemHeading>
                     {recipe.recipeIngredients.map((ri) => {
                         return (

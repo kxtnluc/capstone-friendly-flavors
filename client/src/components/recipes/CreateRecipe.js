@@ -28,6 +28,15 @@ export const CreateRecipe = ({ loggedInUser }) => { //if you want comments on ho
     const [complexity, setComplexity] = useState(0)
     const [ingredientInputInvalid, setIngredientInputInvalid] = useState(false)
     const [amountInputInvalid, setAmountInputInvalid] = useState(false)
+
+    const [isActive, setIsActive] = useState(false)
+
+    const handleActive=()=>{
+        if(/Android|iPhone/i.test(navigator.userAgent))
+        {
+            setIsActive(!isActive)
+        }
+    }
     
     let ingredientId = 0;
     
@@ -142,7 +151,7 @@ export const CreateRecipe = ({ loggedInUser }) => { //if you want comments on ho
         setSuggestions([]);
     };
 
-    const submitForm = () => {
+    const submitForm = async () => {
         console.log("=====cookbookId=====")
         console.log(cookbook.id)
         console.log("=====recipeIngredientArray=====")
@@ -186,11 +195,9 @@ export const CreateRecipe = ({ loggedInUser }) => { //if you want comments on ho
             //then post that one JSON Composite Package using the endpoint
 
             if (compositeJSONPackage !== null) {
-                // postCompositeRecipe(compositeJSONPackage).then((newRecipeObj) => {
-                //     console.log(newRecipeObj);
-                //     navigate(`/recipes`)
-                // })
+                await postCompositeRecipe(compositeJSONPackage)
                 console.log(compositeJSONPackage)
+                navigate(`/recipes`)
             }
         }
         else {
@@ -449,29 +456,29 @@ export const CreateRecipe = ({ loggedInUser }) => { //if you want comments on ho
                 </Form>
             </section>
             <section className="cr-section-table">
-                <Card className="cr-card">
+                <Card onClick={handleActive} className={isActive ? 'cr-card-active' : 'cr-card'}>
                     <CardHeader className="cr-card-header"><th>Recipe Ingredients</th></CardHeader>
                     <CardBody className="cr-card-body">
                         <Table className="cr-table-recipeingredients">
-                            <thead>
-                                <tr>
-                                    <th>#</th>
-                                    <th>Ingredient</th>
-                                    <th>Amount</th>
-                                    <th>Measurement</th>
-                                    <th></th>
+                            <thead className="cr-thead">
+                                <tr className="cr-thead-row">
+                                    <th className="cr-th">#</th>
+                                    <th className="cr-thead-th">Ingredient</th>
+                                    <th className="cr-thead-th">Amount</th>
+                                    <th className="cr-thead-th">Measurement</th>
+                                    <th className="cr-thead-th"></th>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody className="cr-tbody">
                                 {recipeIngredientArray.map((ri, index) => {
                                     return (
-                                        <tr key={ri.ingredientName}>
+                                        <tr className="cr-tbody-row" key={ri.ingredientName}>
 
-                                            <th>{index + 1}</th>
-                                            <td>{ri.ingredientName}</td>
-                                            <td>{ri.amount}</td>
-                                            <td>{ri.measurementName}</td>
-                                            <td><Button value={index} onClick={() => handleRemoveIngredient(index)} color="danger"><strong>X</strong></Button></td>
+                                            <th className="cr-tbody-td">{index + 1}</th>
+                                            <td className="cr-tbody-td">{ri.ingredientName}</td>
+                                            <td className="cr-tbody-td">{ri.amount}</td>
+                                            <td className="cr-tbody-td">{ri.measurementName}</td>
+                                            <td className="cr-tbody-td"><button className="cr-remove-btn" value={index} onClick={() => handleRemoveIngredient(index)} color="danger">X</button></td>
 
                                         </tr>
                                     )
@@ -481,6 +488,7 @@ export const CreateRecipe = ({ loggedInUser }) => { //if you want comments on ho
                     </CardBody>
                 </Card>
             </section>
+            <div className="cr-br">-</div>
         </main>
     )
 }

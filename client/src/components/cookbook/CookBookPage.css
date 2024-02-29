@@ -1,59 +1,123 @@
-.cbp-main {
-    .cbp-section-header {
-        margin-left: 2.5rem;
-        margin-top: 1rem;
-
-        .cbp-header {
-            font-size: 50px;
-            font-weight: 600;
-            
+@media (orientation: landscape)
+{
+    .cbp-main {
+        .cbp-section-header {
+            margin-left: 2.5rem;
+            margin-top: 1rem;
+    
+            .cbp-header {
+                font-size: 50px;
+                font-weight: 600;
+                
+            }
+    
+            .cbp-subheader {
+                font-style: italic;
+                font-size: 24px;
+                margin-left: 1rem;
+            }
         }
-
-        .cbp-subheader {
+    
+        .cbp-br {
+            width: 100%;
+            height: 2px;
+            border: 2px solid rgb(118, 108, 83);
+            margin-top: 1rem;
+            margin-bottom: 1rem;
+            margin-left: 3rem;
+            margin-right: 3rem;
+        }
+    
+        .cbp-section-body{
+    
+            margin-bottom: 2rem;
+            margin-left: 2rem;
+            margin-right: 2rem;
+            
+            .cbp-body-header{
+                font-weight: 600;
+                font-size: 24px;
+                margin-left: 1rem;
+                
+            }
+            .cbp-body{
+                padding: 0.7rem;
+                background-color: wheat;
+                border: 3px rgb(85, 76, 60) solid;
+                border-radius: 7px;
+                margin-top: 0.5rem;
+                margin-left: 1rem;
+                margin-right: 1rem;
+    
+            }
+        }
+    
+        .cbp-rl-header{
+            font-size: 32px;
+            font-weight: 600;
             font-style: italic;
-            font-size: 24px;
-            margin-left: 1rem;
+            margin-left: 2rem;
         }
     }
-
-    .cbp-br {
-        width: 100%;
-        height: 2px;
-        border: 2px solid rgb(118, 108, 83);
-        margin-top: 1rem;
-        margin-bottom: 1rem;
-        margin-left: 3rem;
-        margin-right: 3rem;
-    }
-
-    .cbp-section-body{
-
-        margin-bottom: 2rem;
-        margin-left: 2rem;
-        margin-right: 2rem;
-        
-        .cbp-body-header{
-            font-weight: 600;
-            font-size: 24px;
+}
+@media (orientation: portrait)
+{
+    .cbp-main {
+        .cbp-section-header {
             margin-left: 1rem;
+            margin-top: 1rem;
+    
+            .cbp-header {
+                font-size: 45px;
+                font-weight: 600;
+                
+            }
+    
+            .cbp-subheader {
+                font-style: italic;
+                font-size: 20px;
+                margin-left: 1rem;
+            }
+        }
+    
+        .cbp-br {
+            width: 100%;
+            height: 2px;
+            border: 2px solid rgb(118, 108, 83);
+            margin-top: 1rem;
+            margin-bottom: 1rem;
+            margin-left: 1rem;
+        }
+    
+        .cbp-section-body{
+    
+            margin-bottom: 2rem;
+            margin-left: 0.25rem;
+            margin-right: 0.25rem;
             
+            .cbp-body-header{
+                font-weight: 600;
+                font-size: 20px;
+                margin-left: 1rem;
+                
+            }
+            .cbp-body{
+                padding: 0.5rem;
+                background-color: wheat;
+                border: 2px rgb(85, 76, 60) solid;
+                border-radius: 7px;
+                margin-top: 0.5rem;
+                margin-left: 1rem;
+                margin-right: 1rem;
+    
+            }
         }
-        .cbp-body{
-            padding: 0.7rem;
-            background-color: wheat;
-            border: 3px rgb(85, 76, 60) solid;
-            border-radius: 7px;
-            margin-top: 0.5rem;
+    
+        .cbp-rl-header{
+            font-size: 25px;
+            font-weight: 600;
+            font-style: italic;
             margin-left: 1rem;
-            margin-right: 1rem;
-
         }
-    }
-
-    .cbp-rl-header{
-        font-size: 32px;
-        font-weight: 600;
-        font-style: italic;
-        margin-left: 2rem;
     }
 }

@@ -1,0 +1,102 @@
+@media (orientation: landscape)
+{
+    .clf-section{
+
+        margin-top: 1rem;
+        margin-left: 4rem;
+        margin-right: 4rem;
+    
+        display: flex;
+        flex-flow: row wrap;
+        justify-content: space-evenly;
+        padding: 1rem;
+        background-color: wheat;
+        border: 3px rgb(85, 76, 60) solid;
+        border-radius: 7px;
+        
+        .clf-card{
+            
+            cursor: pointer;
+            border: 3px rgb(141, 116, 73) solid;
+            width: 28%;
+            margin-bottom: 1rem;
+            transition: 0.3s ease-in;
+            z-index: 0;
+    
+            .clf-card-header{
+                text-align: center;
+                font-size: 24px;
+                font-weight: bold;
+                background-color: rgb(255, 236, 201);
+            }
+    
+            .clf-card-body{
+                font-style: italic;
+                font-size: small;
+                height: 4.25rem;
+                background-color: #fffbf3;
+                overflow: hidden;
+                overflow-y:auto;
+            }
+    
+            .clf-card-footer{
+                font-weight: bolder;
+                font-size: 12px;
+                background-color: rgb(255, 214, 139);
+            }
+    
+        }
+    }
+}
+
+@media (orientation: portrait)
+{
+    .clf-section{
+
+        margin-top: 1rem;
+        margin-left: 0rem;
+        margin-right: 0rem;
+    
+        display: flex;
+        flex-flow: row wrap;
+        justify-content: space-evenly;
+        padding: 0.5rem;
+        background-color: wheat;
+        border: 3px rgb(85, 76, 60) solid;
+        border-radius: 7px;
+        
+        .clf-card{
+            
+            border: 3px rgb(141, 116, 73) solid;
+            width: 100%;
+            margin-bottom: 1rem;
+            transition: 0.3s ease-in;
+            z-index: 0;
+    
+            .clf-card-header{
+                text-align: center;
+                font-size: 18px;
+                font-weight: bold;
+                background-color: rgb(255, 236, 201);
+            }
+    
+            .clf-card-body{
+                font-style: italic;
+                font-size: small;
+                height: 4.25rem;
+                background-color: #fffbf3;
+                overflow: hidden; /* Ensure overflow is hidden */
+                white-space: nowrap; /* Prevent text from wrapping */
+                text-overflow: ellipsis; /* Show ellipsis when text overflows */
+                overflow-y:auto;
+            }
+    
+            .clf-card-footer{
+                font-weight: bolder;
+                font-size: 12px;
+                background-color: rgb(255, 214, 139);
+            }
+    
+        }
+    }
+}
