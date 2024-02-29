@@ -166,6 +166,7 @@ export const EditRecipe = ({ loggedInUser }) => {
     const handleRemoveIngredient = (indexToRemove, recipeIngredientToRemove) => { //removes an ri bassed on index in the array
 
         console.log(indexToRemove) //logs index
+        console.log(recipeIngredientToRemove)
 
         setRecipeIngredientArray((prevArray) => { //REMOVES ri using on its index
           // Use filter to create a new array excluding the item with the specified index
@@ -548,7 +549,7 @@ export const EditRecipe = ({ loggedInUser }) => {
                                             <td className="cr-tbody-td">{ri.ingredientName}</td>
                                             <td className="cr-tbody-td">{ri.amount}</td>
                                             <td className="cr-tbody-td">{ri.measurementName}</td>
-                                            <td className="cr-tbody-td"><button className="cr-remove-btn" value={index} onClick={() => handleRemoveIngredient(index)} color="danger">X</button></td>
+                                            <td className="cr-tbody-td"><button className="cr-remove-btn" value={index} onClick={() => handleRemoveIngredient(index, ri)} color="danger">X</button></td>
 
                                         </tr>
                                     )
