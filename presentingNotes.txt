@@ -1,0 +1,94 @@
+---------------------------Create--------------------------
+
+Title: Lemonade
+
+Ingredients:
+
+Sugar | 1.75 | Cups
+Water | 1 | Cups
+Lemons | 9 | Whole
+iced Water | 7 | Cups
+
+Description: None
+
+Directions: 
+
+1. Gather all ingredients.
+2. Combine sugar and 1 cup water in a small saucepan. Stir to dissolve sugar while mixture comes to a boil. Set aside to cool slightly.
+3. Meanwhile, roll lemons around on your counter to soften. Cut in half lengthwise, and squeeze into a liquid measuring cup. Add pulp to the juice, but discard any seeds. Continue juicing until you have 1 1/2 cups fresh juice and pulp.
+4. Pour 7 cups ice-cold water into a pitcher. Stir in lemon juice and pulp, then add simple syrup to taste. Add ice as needed.
+
+Image: saved in
+
+---------------------------Edit--------------------------
+
+Title: Fancy Lemonade
+
+Ingredients:
+
+REMOVE: 
+ice water
+
+ADD: 
+Ginger | 2 | Tablespoons
+Cinnamon | 1/2 | Teaspoon
+Mint Leaves | 2 | Whole
+
+Description: Savor the joy of my special lemonade recipe, with a touch of freshly grated ginger, cinnamon, and mint, it has a cozy, homemade feel.
+
+Directions: 
+
+1. Gather all ingredients.
+2. Combine sugar and 1 cup water in a small saucepan. Stir to dissolve sugar while mixture comes to a boil. Add in ginger and cinnamon before setting aside to cool slightly.
+3. Meanwhile, roll lemons around on your counter to soften. Cut in half lengthwise, and squeeze into a liquid measuring cup. Add pulp to the juice, but discard any seeds. Continue juicing until you have 1 1/2 cups fresh juice and pulp.
+4. Pour 7 cups ice-cold water, along with the two large Mint Leaves, into a pitcher. Stir in lemon juice and pulp, then add simple syrup to taste. Add ice as needed.
+
+
+
+
+
+-----------------------------ZOOM INSTRUCTIONS-------------------------------
+
+
+2 minutes: Introductions
+
+5-10 minutes: Demoing your final capstone
+
+10-15 minutes: Q/A with you and the guest
+
+Last 5 minutes: Break and/or give you time to move to your next conversation
+
+-----------------------------TIPS-------------------------------
+
+Research the company and person you will be meeting! Take this seriously. You never know what could happen as an outcome of these conversations.
+
+Dress appropriately (from the waist up) and generally look appropriate.
+
+Make sure you have a notebook to take notes, as our guests may provide feedback.
+
+---------------------------Grant Boudreaux, AO SMITH--------------------------
+
+A. O. Smith is proud to be known as one of the world’s leading providers of water heating and water treatment solutions.
+As a leader, we refuse to sit quietly. Each and every day at A. O. Smith, we are working on developing state-of-the-art solutions that are pushing new boundaries and paving the way in our industry.
+
+Grant: BI Architect, works with companies to develop and implement data mining, storing and analysis methods to improve data management
+
+Questions:
+
+1. Being a BI Architect at AO smith, what is your day to day work like?
+
+2. Do you work remote or onsite, if so is that what you prefer, and what are the advantages?
+
+3. What skills or languages would you reccomend i pick up for both my own growth as a software engineer and for my job searching? Azure, Python, 
+
+---------------------------Allen Smith, Umbraco--------------------------
+
+Are you looking for a CMS that’ll give you full flexibility? 
+A CMS that doesn’t get in the way of things but instead lets you unfold your talent, ideas, and creations to build and manage your website? 
+An open-source CMS that’ll help you grow your business - or simply just work as intended?
+
+Allen Smith: Developer Relations Lead, process for nurturing mutually beneficial relationships between organisations and software developers.
+
+1. Describe that line of work, is it kinda like an HR role?
+
+2. What is something

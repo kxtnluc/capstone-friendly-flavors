@@ -1,9 +1,32 @@
 
+@keyframes slideInFromLeft {
+    from{
+        margin-left: -14rem;
+    }
+
+    to{
+        margin-left: 4rem;
+    }
+}
+
+@keyframes slideInFromRight {
+    from{
+        margin-right: -20rem;
+    }
+
+    to{
+        margin-right: 4rem;
+    }
+}
+
 @media (orientation: landscape)
 {
     .rl-main{
 
         .rl-section-header{
+
+            animation: slideInFromLeft 1s ease-out;
+
             margin-left: 4rem;
             overflow: hidden;
             .rl-header{
@@ -14,12 +37,13 @@
             }
             .rl-selects{
     
+                animation: slideInFromRight 1.5s ease-out;
                 border: 3px rgb(85, 76, 60) solid;
                 border-radius: 7px;
                 background-color: wheat;
                 padding: 1rem;
                 float: right;
-                margin-right: 8rem;
+                margin-right: 4rem;
                 margin-top: 0.5rem;
                 
                 .rl-complexity-div{

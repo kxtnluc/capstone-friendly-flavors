@@ -1,10 +1,49 @@
+@keyframes unLoad {
+    from{
+        margin-right: 0;
+    }
+    to{
+        margin-right: 170rem;
+    }
+}
+
+@keyframes fadeOut {
+    from{
+        opacity: 1;
+    }
+
+    to{
+        opacity: 0;
+    }
+}
+
+.anim-unload{
+    animation: unLoad 1.15s ease-in;
+    animation-fill-mode: forwards;
+}
+
+.anim-fadeout{
+    animation: fadeOut .75s ease;
+    animation-delay: 0.15s;
+    animation-fill-mode: forwards;
+}
+
 .h-main {
     display: flex;
+    position: absolute; /* or relative, depending on your layout */
+    left: -50rem; /* Adjust as needed to extend beyond the left edge */
+    right: -50rem; /* Adjust as needed to extend beyond the right edge */
+
     flex-direction: column;
     align-items: center;
 }
 
+.h-section{
+    /* margin-right: 100rem; */
+}
+
 .h-header {
+    max-height: 11rem;
     margin-top: 15rem;
     font-family: 'Helvetica', sans-serif;
     font-size: 100px;

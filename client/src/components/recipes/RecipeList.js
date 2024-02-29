@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react"
 import { getAllRecipes } from "../../managers/recipeManager"
-import { Input, Label } from "reactstrap"
+import { Input, Label, Spinner } from "reactstrap"
 import { useNavigate } from "react-router-dom"
 import { RecipeListFormat } from "./RecipeListFormat"
+import { Loading } from "../constants/Loading"
 
 
 export const RecipeList = () => {
@@ -90,7 +91,9 @@ export const RecipeList = () => {
                     </div>
                 </div>
             </section>
-            <RecipeListFormat recipes={filteredRecipes} />
+            {/* <Loading/> */}
+            {filteredRecipes.length > 0 ? (<RecipeListFormat recipes={filteredRecipes} />):(<Loading/>)}
+            
 
         </main>
     )
