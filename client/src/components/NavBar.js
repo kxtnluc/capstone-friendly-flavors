@@ -23,8 +23,8 @@ export default function NavBar({ loggedInUser, setLoggedInUser }) {
     const toggleNavbar = () => setOpen(!open);
     const navigate = useNavigate();
 
-    console.log(loggedInUser)
-    console.log("=====================================================================================")
+    //console.log(loggedInUser)
+    //console.log("=====================================================================================")
 
 
     return (

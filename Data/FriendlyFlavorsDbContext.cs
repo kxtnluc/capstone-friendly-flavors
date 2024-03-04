@@ -89,8 +89,8 @@ public class FriendlyFlavorsDbContext : IdentityDbContext<IdentityUser>
         );
 
         modelBuilder.Entity<CookBook>().HasData(
-            new CookBook {Id = 1, UserProfileId = 1, Title = "The First Cookbook"},
-            new CookBook {Id = 2, UserProfileId = 2, Title = "Karamel"}
+            new CookBook {Id = 1, UserProfileId = 1, Title = "The First Cookbook", Description = "the best cookbook"},
+            new CookBook {Id = 2, UserProfileId = 2, Title = "Karamel", Description = "the second best"}
             // new CookBook {Id = 3, UserProfileId = 3}
 
         );

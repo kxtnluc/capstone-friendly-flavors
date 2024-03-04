@@ -3,8 +3,13 @@ import { createCookBook, getCookBookByUserId, updateCookBook } from "../../manag
 import { getRecipesByCookBookId } from "../../managers/recipeManager"
 import { RecipeListFormat } from "../recipes/RecipeListFormat"
 import { Button, Input } from "reactstrap"
+import { Loading } from "../constants/Loading"
 
 export const MyCookBook = ({ loggedInUser }) => {
+
+    const [loadPage, setLoadPage] = useState(false);
+    const [loadRecipes, setLoadRecipes] = useState(false)
+    const [errorMessage, setErrorMessage] = useState(false)
 
     const [cookBook, setCookBook] = useState({})
     const [usersRecipes, setUsersRecipes] = useState([])
@@ -20,7 +25,13 @@ export const MyCookBook = ({ loggedInUser }) => {
     useEffect(() => {
 
         getCookBookByUserId(loggedInUser.id).then(setCookBook)
-        if (cookBook.id !== undefined) getRecipesByCookBookId(cookBook.id).then(setUsersRecipes)
+        if (cookBook.id !== undefined) {
+            getRecipesByCookBookId(cookBook.id).then((rArr) => {
+                setUsersRecipes(rArr)
+                setLoadRecipes(true)
+            })
+            setLoadPage(true);
+        }
         console.log(usersRecipes)
         setTitleInput(cookBook.title)
         setDescInput(cookBook.description)
@@ -38,8 +49,14 @@ export const MyCookBook = ({ loggedInUser }) => {
             description: desc
         }
         // console.log(cookBookToMake)
-        createCookBook(cookBookToMake)
-        // window.location.reload();
+        if (name !== "") {
+            setErrorMessage(false);
+            createCookBook(cookBookToMake)
+            window.location.reload();
+        }
+        else {
+            setErrorMessage(true);
+        }
     }
 
     const toggleEdit = () =>
@@ -72,11 +89,57 @@ export const MyCookBook = ({ loggedInUser }) => {
         window.location.reload();
     }
 
+    if (loadPage && loadRecipes) {
+        return (
+            <>
+                {editMode ?
+                        (
+                            <main className="cbp-main">
+                                <section className="cbp-section-header">
+                                    <div><Button color="primary" style={{ float: "right", marginRight: "1rem" }} onClick={handleUpdate}>Save</Button></div>
+                                    <div><Button color="danger" style={{ float: "right", marginRight: "1rem" }} onClick={toggleEdit}>Cancel</Button></div>
+                                    <Input onChange={handleTitleChange} style={{width: "50rem"}} type="text" placeholder="Cookbook Title..." value={titleInput} className="cbp-header"/>
+                                    <div className="cbp-subheader">by {cookBook.userProfile?.firstName} {cookBook.userProfile?.lastName}</div>
+                                </section>
+                                <div className="cbp-br"></div>
+                                <section className="cbp-section-body">
+                                    <div className="cbp-body-header">About</div>
+                                    <div className="cbp-body">
+                                        <Input onChange={handleDescChange} style={{width: "100%"}} type="textarea" placeholder="Description..." value={descInput} className="cbp-header"/>
+                                    </div>
+                                </section>
+                                <div className="cbp-br"></div>
+                                <div className="cbp-rl-header">Featured Recipes:</div>
+                                {usersRecipes.length !== 0 ? (<RecipeListFormat recipes={usersRecipes} />) : (<i style={{ display: "flex", justifyContent: "center" }}>No Recipes...</i>)}
+                            </main>
+                        ) : (
+                            <main className="cbp-main">
+                                <section className="cbp-section-header">
+                                    <div><Button color="success" style={{ float: "right", marginRight: "1rem" }} onClick={toggleEdit}>Edit</Button></div>
+                                    <div className="cbp-header">{cookBook.title}</div>
+                                    <div className="cbp-subheader">by {cookBook.userProfile?.firstName} {cookBook.userProfile?.lastName}</div>
+                                </section>
+                                <div className="cbp-br"></div>
+                                <section className="cbp-section-body">
+                                    <div className="cbp-body-header">About</div>
+                                    <div className="cbp-body">
+                                        {cookBook.description ? (`${cookBook.description}`) : (<i>No descritpion...</i>)}
+                                    </div>
+                                </section>
+                                <div className="cbp-br"></div>
+                                <div className="cbp-rl-header">Featured Recipes</div>
+                                {usersRecipes.length !== 0 ? (<RecipeListFormat recipes={usersRecipes} />) : (<i style={{ display: "flex", justifyContent: "center" }}>No Recipes...</i>)}
+                            </main>
+                        )
+                    }
+            </>
+        )
+    }
 
-
-    return (
-        <>
-            {cookBook.title === "Not Found" ? (
+    if (cookBook.title === "Not Found")
+    {
+        return (
+            <>
                 <main>
                     <section style={{ textAlign: "center", marginTop: "5rem" }}>
                         <strong>No Cookbook Found</strong>
@@ -103,53 +166,13 @@ export const MyCookBook = ({ loggedInUser }) => {
                             <Button onClick={handleCreate} color="primary">
                                 Create Your Cookbook
                             </Button>
+                            {errorMessage ? (<div style={{color: "red", fontWeight: "bold", marginTop: "3rem"}}>Please Input a Title</div>):("")}
                         </div>
                     </section>
 
                 </main>
-            ) : (
-                <>
-                    {editMode ? (
-                        <main className="cbp-main">
-                            <section className="cbp-section-header">
-                                <div><Button color="primary" style={{ float: "right", marginRight: "1rem" }} onClick={handleUpdate}>Save</Button></div>
-                                <div><Button color="danger" style={{ float: "right", marginRight: "1rem" }} onClick={toggleEdit}>Cancel</Button></div>
-                                <Input onChange={handleTitleChange} style={{width: "50rem"}} type="text" placeholder="Cookbook Title..." value={titleInput} className="cbp-header"/>
-                                <div className="cbp-subheader">by {cookBook.userProfile?.firstName} {cookBook.userProfile?.lastName}</div>
-                            </section>
-                            <div className="cbp-br"></div>
-                            <section className="cbp-section-body">
-                                <div className="cbp-body-header">About</div>
-                                <div className="cbp-body">
-                                    <Input onChange={handleDescChange} style={{width: "100%"}} type="textarea" placeholder="Description..." value={descInput} className="cbp-header"/>
-                                </div>
-                            </section>
-                            <div className="cbp-br"></div>
-                            <div className="cbp-rl-header">Featured Recipes:</div>
-                            {usersRecipes.length !== 0 ? (<RecipeListFormat recipes={usersRecipes} />) : (<i style={{ display: "flex", justifyContent: "center" }}>No Recipes...</i>)}
-                        </main>
-                    ) : (
-                        <main className="cbp-main">
-                            <section className="cbp-section-header">
-                                <div><Button color="success" style={{ float: "right", marginRight: "1rem" }} onClick={toggleEdit}>Edit</Button></div>
-                                <div className="cbp-header">{cookBook.title}</div>
-                                <div className="cbp-subheader">by {cookBook.userProfile?.firstName} {cookBook.userProfile?.lastName}</div>
-                            </section>
-                            <div className="cbp-br"></div>
-                            <section className="cbp-section-body">
-                                <div className="cbp-body-header">About</div>
-                                <div className="cbp-body">
-                                    {cookBook.description ? (`${cookBook.description}`) : (<i>No descritpion...</i>)}
-                                </div>
-                            </section>
-                            <div className="cbp-br"></div>
-                            <div className="cbp-rl-header">Featured Recipes</div>
-                            {usersRecipes.length !== 0 ? (<RecipeListFormat recipes={usersRecipes} />) : (<i style={{ display: "flex", justifyContent: "center" }}>No Recipes...</i>)}
-                        </main>
-                    )}
-                </>
-
-            )}
-        </>
-    )
+            </>
+        );
+    }
+    return <Loading/>
 }
