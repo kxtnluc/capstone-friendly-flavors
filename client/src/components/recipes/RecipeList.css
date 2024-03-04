@@ -1,3 +1,23 @@
+@keyframes dropDown {
+    from {
+        height: 4rem;
+    }
+
+    to {
+        height: 50rem;
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
 
 @keyframes slideInFromLeft {
     from{
@@ -90,6 +110,7 @@
         
         .rl-section-list{
     
+            animation: dropDown 1.5s ease;
             display: flex;
             flex-flow: row wrap;
             justify-content: space-evenly;
@@ -101,6 +122,10 @@
             border-radius: 7px;
             
             .rl-card{
+
+                animation: fadeIn 1.5s ease-out;
+                animation-delay: 0.75s;
+                animation-fill-mode: backwards;
                 
                 border: 3px rgb(141, 116, 73) solid;
                 width: 28%;

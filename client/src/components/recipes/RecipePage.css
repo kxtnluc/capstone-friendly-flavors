@@ -106,9 +106,10 @@
             }
         }
 
-        .rp-section-sidebar {
-            .rp-sidebar {
-
+        .rp-section-sidebar 
+        {
+            .rp-sidebar
+            {
                 position: fixed;
                 font-size: large;
                 right: 0;
@@ -121,12 +122,16 @@
                 border-radius: 6px;
                 border-top-right-radius: 0;
                 border-bottom-right-radius: 0;
+                overflow-y: scroll;
 
-                .rp-sidebar-header {
+
+                .rp-sidebar-header 
+                {
                     margin-top: 0.5rem;
                 }
 
-                .rp-sidebar-item {
+                .rp-sidebar-item 
+                {
                     margin-bottom: 0.25rem;
                     margin-top: 0.25rem;
                     background-color: rgb(234, 210, 165);
@@ -135,7 +140,23 @@
 
                 }
             }
+            .rp-sidebar::-webkit-scrollbar {
+                width: 8px;
+                transition: background-color 1s; /*not working for some reason ): */
+            }
+
+            .rp-sidebar::-webkit-scrollbar-thumb {
+                background-color: rgba(0, 0, 0, 0.2);
+                border-radius: 4px;
+            }
+
+            .rp-sidebar:hover::-webkit-scrollbar-thumb {
+                background-color: rgba(0, 0, 0, 0.5);
+            }
+
         }
+
+
 
         .rp-section-body {
 
@@ -175,6 +196,7 @@
     /* Your CSS File */
 
     .rp-main {
+        
 
         background-color: rgb(255, 236, 201);
         padding-bottom: 10rem;
@@ -190,13 +212,13 @@
             }
 
             .rp-edit-btn{
-                margin-right: 1rem;
-                margin-top: 1rem;
+                float: right;
+                margin-right: 0.5rem;
             }
 
-            .rp-delete-btn{
-                margin-right: 1rem;
-                margin-top: 1rem;
+            .rp-delete-btn {
+                float: right;
+                margin-right: 0.5rem;
             }
 
             .rp-title {
@@ -206,8 +228,8 @@
 
             .rp-card {
                 margin-top: 0;
-                margin-left: 0.5rem;
-                float: left;
+                margin-left: auto;
+                margin-right: auto;
                 height: 9rem;
                 width: 20rem;
                 background: linear-gradient(to right, rgb(194, 154, 79), rgb(150, 104, 18));
@@ -224,11 +246,11 @@
 
             .rp-image-div {
 
-                float: left;
                 width: 20rem;
                 height: 13rem;
                 margin-top: 1rem;
-                margin-left: 0.5rem;
+                margin-left: auto;
+                margin-right: auto;
                 position: relative;
                 overflow: hidden;
                 background: linear-gradient(to right, rgb(223, 200, 156), rgb(194, 154, 79));
@@ -296,6 +318,7 @@
                 border-radius: 6px;
                 border-top-right-radius: 0;
                 border-bottom-right-radius: 0;
+                
 
                 .rp-sidebar-header {
                     margin-top: 0.5rem;
@@ -325,6 +348,7 @@
                 border-radius: 6px;
                 border-top-right-radius: 0;
                 border-bottom-right-radius: 0;
+                overflow-y: scroll;
 
                 .rp-sidebar-header {
                     margin-top: 0.5rem;
@@ -344,7 +368,7 @@
 
         .rp-section-body {
 
-            margin-top: 25rem;
+            margin-top: 1rem;
             margin-left: 1rem;
             margin-right: 1rem;
 

@@ -6,10 +6,14 @@ import { getMeasurements } from "../../managers/measurementManager";
 import { getCookBookByUserId } from "../../managers/cookBookManager";
 import { postCompositeRecipe } from "../../managers/recipeManager";
 import { useNavigate } from "react-router-dom";
+import { Loading } from "../constants/Loading";
 
 export const CreateRecipe = ({ loggedInUser }) => { //if you want comments on how everything works, checkout the editRecipe.js
 
     const navigate = useNavigate();
+
+    const [loadPage, setLoadPage] = useState(false);
+    const [submitError, setSubmitError] = useState(false)
 
     const [ingredientTextInput, setIngredientTextInput] = useState('')
     const [suggestions, setSuggestions] = useState([]);
@@ -42,8 +46,14 @@ export const CreateRecipe = ({ loggedInUser }) => { //if you want comments on ho
     
     useEffect(() => {
         getCookBookByUserId(loggedInUser.id).then((cObj) => {
-            if(cObj.title === "Not Found") navigate("/cookbook")
-            else setCookbook(cObj)
+            if (cObj.title === "Not Found") {
+                navigate("/cookbook")
+            }
+            else
+            {
+                setCookbook(cObj);
+                setLoadPage(true);
+            }
         })
         getAllIngredients().then(setIngredients)
         getMeasurements().then(setMeasurements)
@@ -103,11 +113,11 @@ export const CreateRecipe = ({ loggedInUser }) => { //if you want comments on ho
 
         console.log(ingredientTextInput);
 
-        console.log(measurement)
-        console.log(measurement.id)
+        //console.log(measurement)
+        //console.log(measurement.id)
         console.log(measurement.type)
 
-        if (ingredientTextInput === '' || isNaN(measurement.id) || measurement.type === undefined || amount <= 0) {
+        if (!ingredients.some((i) => i.name === ingredientTextInput) || isNaN(measurement.id) || measurement.type === undefined || amount <= 0) {
             console.log('try again shmucko')
         }
         else {
@@ -167,7 +177,7 @@ export const CreateRecipe = ({ loggedInUser }) => { //if you want comments on ho
         console.log("=====imageUrl=====")
         console.log(imageUrl)
 
-        if (recipeIngredientArray.length >= 1 && title !== '' && body !== '' && cookbook.id !== null) {
+        if (recipeIngredientArray.length >= 1 && title !== '' && body !== '' && cookbook.id !== null && complexity !== 0 && cookTime !== 0) {
             console.log("adding recipe...")
             //first create the perfectly formated JSON package that has both the recipe as well as all its recipeIngredients
             const compositeJSONPackage =
@@ -202,293 +212,300 @@ export const CreateRecipe = ({ loggedInUser }) => { //if you want comments on ho
         }
         else {
             console.log("invalid inputs, try again.")
+            setSubmitError(true);
         }
 
     }
 
-    return (
-        <main className="cr-main">
-            <section className="cr-section-header">
-                <h1 className="cr-header">{cookbook.title}</h1>
-            </section>
-            <section className="cr-section-form">
-                <h3>New Recipe</h3>
-                <Form className="cr-form">
-                    <FormGroup row className="cr-formgroup-title">
-                        <Label
-                            className="cr-label-title cr-label"
-                            for="Title"
-                            sm={2}
-                        >
-                            Title
-                        </Label>
-                        <Col sm={10}>
-                            <Input
-                                placeholder="Title..."
-                                className="cr-input-title"
-                                id="Title"
-                                name="title"
-                                type="text"
-                                value={title}
-                                onChange={(e) => setTitle(e.target.value)}
-                            />
-                        </Col>
-                    </FormGroup>
-                    <FormGroup row className="cr-formgroup-cooktime">
-                        <Label
-                            className="cr-label cr-label-cooktime"
-                            for="CookTime"
-                            sm={2}
-                        >
-                            Cook Time
-                        </Label>
-                        <Col sm={10}>
-                            <Input
-                                className="cr-input-cooktime"
-                                id="cooktime"
-                                name="cooktime"
-                                type="number"
-                                value={cookTime}
-                                onChange={(e) => setCookTime(parseInt(e.target.value))}
-                            />
-                        </Col>
-                    </FormGroup>
-                    <FormGroup row className="cr-formgroup-complexity">
-                        <Label
-                            className="cr-label cr-label-complexity"
-                            for="Complexity"
-                            sm={2}
-                        >
-                            Complexity
-                        </Label>
-                        <Col sm={10}>
-                            <Input
-                                placeholder="(1-5)"
-                                className="cr-input-complexity"
-                                id="complexity"
-                                name="complexity"
-                                type="number"
-                                value={complexity}
-                                onChange={(e) => setComplexity(parseInt(e.target.value))}
-                            />
-                        </Col>
-                    </FormGroup>
-                    <div className="cr-br"></div>
-                    <FormGroup row className="cr-formgroup-ingredient">
-                        <Label
-                            className="cr-label cr-label-ingredient"
-                            for="Ingredient"
-                            sm={2}
-                        >
-                            Ingredient
-                        </Label>
-                        <Col sm={10} style={{ position: 'relative' }}>
-                            <Input
-                                className="cr-input-ingredient"
-                                id="ingredient"
-                                name="ingredient"
-                                placeholder="Ingredient..."
-                                type="text"
-                                maxLength={25}
-                                onChange={handleIngredientInputChange}
-                                value={ingredientTextInput}
-                                onBlur={handleInputBlur}
-                                invalid={ingredientInputInvalid}
-                            />
-                            {suggestions.length > 0 && (
-                                <ListGroup
-                                    className="suggestion-list"
-                                    style={{
-                                        position: 'absolute',
-                                        top: '100%',
-                                        zIndex: 1000, // Set a higher z-index to appear above other elements
+    if (loadPage) {
+        return (
+            <main className="cr-main">
+                <section className="cr-section-header">
+                    <h1 className="cr-header">{cookbook.title}</h1>
+                </section>
+                <section className="cr-section-form">
+                    <h3>New Recipe</h3>
+                    <Form className="cr-form">
+                        <FormGroup row className="cr-formgroup-title">
+                            <Label
+                                className="cr-label-title cr-label"
+                                for="Title"
+                                sm={2}
+                            >
+                                Title
+                            </Label>
+                            <Col sm={10}>
+                                <Input
+                                    placeholder="Title..."
+                                    className="cr-input-title"
+                                    id="Title"
+                                    name="title"
+                                    type="text"
+                                    value={title}
+                                    onChange={(e) => setTitle(e.target.value)}
+                                />
+                            </Col>
+                        </FormGroup>
+                        <FormGroup row className="cr-formgroup-cooktime">
+                            <Label
+                                className="cr-label cr-label-cooktime"
+                                for="CookTime"
+                                sm={2}
+                            >
+                                Cook Time
+                            </Label>
+                            <Col sm={10}>
+                                <Input
+                                    className="cr-input-cooktime"
+                                    id="cooktime"
+                                    name="cooktime"
+                                    type="number"
+                                    value={cookTime}
+                                    onChange={(e) => setCookTime(parseInt(e.target.value))}
+                                />
+                            </Col>
+                        </FormGroup>
+                        <FormGroup row className="cr-formgroup-complexity">
+                            <Label
+                                className="cr-label cr-label-complexity"
+                                for="Complexity"
+                                sm={2}
+                            >
+                                Complexity
+                            </Label>
+                            <Col sm={10}>
+                                <Input
+                                    placeholder="(1-5)"
+                                    className="cr-input-complexity"
+                                    id="complexity"
+                                    name="complexity"
+                                    type="number"
+                                    value={complexity}
+                                    onChange={(e) => setComplexity(parseInt(e.target.value))}
+                                />
+                            </Col>
+                        </FormGroup>
+                        <div className="cr-br"></div>
+                        <FormGroup row className="cr-formgroup-ingredient">
+                            <Label
+                                className="cr-label cr-label-ingredient"
+                                for="Ingredient"
+                                sm={2}
+                            >
+                                Ingredient
+                            </Label>
+                            <Col sm={10} style={{ position: 'relative' }}>
+                                <Input
+                                    className="cr-input-ingredient"
+                                    id="ingredient"
+                                    name="ingredient"
+                                    placeholder="Ingredient..."
+                                    type="text"
+                                    maxLength={25}
+                                    onChange={handleIngredientInputChange}
+                                    value={ingredientTextInput}
+                                    onBlur={handleInputBlur}
+                                    invalid={ingredientInputInvalid}
+                                />
+                                {suggestions.length > 0 && (
+                                    <ListGroup
+                                        className="suggestion-list"
+                                        style={{
+                                            position: 'absolute',
+                                            top: '100%',
+                                            zIndex: 1000, // Set a higher z-index to appear above other elements
+                                        }}
+                                    >
+                                        {suggestions.map((suggestion, index) => (
+                                            <ListGroupItem
+                                                key={index}
+                                                onMouseDown={() => handleSuggestionClick(suggestion)}
+                                                active={selectedSuggestion === index}
+                                                className="suggestion-item"
+                                            >
+                                                {suggestion.name}
+                                            </ListGroupItem>
+                                        ))}
+                                    </ListGroup>
+                                )}
+                                <FormFeedback>
+                                    Ingredient Not Found!
+                                </FormFeedback>
+                            </Col>
+                        </FormGroup>
+                        <FormGroup row className="cr-formgroup-amount">
+                            <Label
+                                className="cr-label cr-label-amount"
+                                for="amount"
+                                sm={2}
+                            >
+                                Amount
+                            </Label>
+                            <Col sm={10}>
+                                <Input
+                                    placeholder="Amount..."
+                                    className="cr-input-amount"
+                                    id="amount"
+                                    multiple
+                                    name="amount"
+                                    type="number"
+                                    invalid={amountInputInvalid}
+                                    onChange={(e) => setAmount(parseFloat(e.target.value))}
+                                />
+                                <FormFeedback>
+                                    No Value Given!
+                                </FormFeedback>
+                            </Col>
+                        </FormGroup>
+                        <FormGroup row className="cr-formgroup-measurement">
+                            <Label
+                                className="cr-label cr-label-measurement"
+                                for="measurement"
+                                sm={2}
+                            >
+                                Measurement
+                            </Label>
+                            <Col sm={10}>
+                                <Input
+                                    className="cr-input-measurement"
+                                    id="measurement"
+                                    name="measurement"
+                                    type="select"
+                                    onChange={(e) => {
+                                        setMeasurement(measurements.find((m) => m.id === parseInt(e.target.value)))
                                     }}
                                 >
-                                    {suggestions.map((suggestion, index) => (
-                                        <ListGroupItem
-                                            key={index}
-                                            onMouseDown={() => handleSuggestionClick(suggestion)}
-                                            active={selectedSuggestion === index}
-                                            className="suggestion-item"
-                                        >
-                                            {suggestion.name}
-                                        </ListGroupItem>
-                                    ))}
-                                </ListGroup>
-                            )}
-                            <FormFeedback>
-                                Ingredient Not Found!
-                            </FormFeedback>
-                        </Col>
-                    </FormGroup>
-                    <FormGroup row className="cr-formgroup-amount">
-                        <Label
-                            className="cr-label cr-label-amount"
-                            for="amount"
-                            sm={2}
-                        >
-                            Amount
-                        </Label>
-                        <Col sm={10}>
-                            <Input
-                                placeholder="Amount..."
-                                className="cr-input-amount"
-                                id="amount"
-                                multiple
-                                name="amount"
-                                type="number"
-                                invalid={amountInputInvalid}
-                                onChange={(e) => setAmount(parseFloat(e.target.value))}
-                            />
-                            <FormFeedback>
-                                No Value Given!
-                            </FormFeedback>
-                        </Col>
-                    </FormGroup>
-                    <FormGroup row className="cr-formgroup-measurement">
-                        <Label
-                            className="cr-label cr-label-measurement"
-                            for="measurement"
-                            sm={2}
-                        >
-                            Measurement
-                        </Label>
-                        <Col sm={10}>
-                            <Input
-                                className="cr-input-measurement"
-                                id="measurement"
-                                name="measurement"
-                                type="select"
-                                onChange={(e) => {
-                                    setMeasurement(measurements.find((m) => m.id === parseInt(e.target.value)))
-                                }}
+                                    <option value={0}>- No Measurement -</option>
+                                    {measurements.map((m) => {
+                                        return (
+                                            <option key={m.id} value={m.id}>{m.type}</option>
+                                        )
+                                    })}
+                                </Input>
+                            </Col>
+                        </FormGroup>
+
+                        <Button className="cr-button-addingredient" type="button" onClick={handleAddRecipeIngredient} size="sm" color="success">Add Recipe Ingredient</Button>
+
+                        <div className="cr-br"></div>
+
+                        <FormGroup row className="cr-formgroup-description">
+                            <Label
+                                className="cr-label cr-label-description"
+                                for="Body"
+                                sm={2}
                             >
-                                <option value={0}>- No Measurement -</option>
-                                {measurements.map((m) => {
-                                    return (
-                                        <option key={m.id} value={m.id}>{m.type}</option>
-                                    )
-                                })}
-                            </Input>
-                        </Col>
-                    </FormGroup>
+                                Description:
+                            </Label>
+                            <Col sm={10}>
+                                <Input
+                                    maxLength={180}
+                                    className="cr-input-description"
+                                    placeholder="Short Description..."
+                                    id="Description"
+                                    name="description"
+                                    type="text"
+                                    value={description}
+                                    onChange={(e) => setDescription(e.target.value)}
+                                />
+                            </Col>
+                        </FormGroup>
 
-                    <Button className="cr-button-addingredient" type="button" onClick={handleAddRecipeIngredient} size="sm" color="success">Add Recipe Ingredient</Button>
-
-                    <div className="cr-br"></div>
-
-                    <FormGroup row className="cr-formgroup-description">
-                        <Label
-                            className="cr-label cr-label-description"
-                            for="Body"
-                            sm={2}
-                        >
-                            Description:
-                        </Label>
-                        <Col sm={10}>
-                            <Input
-                                className="cr-input-description"
-                                placeholder="Short Description..."
-                                id="Description"
-                                name="description"
-                                type="text"
-                                value={description}
-                                onChange={(e) => setDescription(e.target.value)}
-                            />
-                        </Col>
-                    </FormGroup>
-
-                    <FormGroup row className="cr-formgroup-body">
-                        <Label
-                            className="cr-label cr-label-body"
-                            for="Body"
-                            sm={2}
-                        >
-                            Directions
-                        </Label>
-                        <Col sm={10}>
-                            <Input
-                                className="cr-input-body"
-                                placeholder="Recipe Instructions..."
-                                id="Body"
-                                name="body"
-                                type="textarea"
-                                value={body}
-                                onChange={(e) => setBody(e.target.value)}
-                            />
-                        </Col>
-                    </FormGroup>
+                        <FormGroup row className="cr-formgroup-body">
+                            <Label
+                                className="cr-label cr-label-body"
+                                for="Body"
+                                sm={2}
+                            >
+                                Directions
+                            </Label>
+                            <Col sm={10}>
+                                <Input
+                                    className="cr-input-body"
+                                    placeholder="Recipe Instructions..."
+                                    id="Body"
+                                    name="body"
+                                    type="textarea"
+                                    value={body}
+                                    onChange={(e) => setBody(e.target.value)}
+                                />
+                            </Col>
+                        </FormGroup>
 
 
-                    <FormGroup row className="cr-formgroup-fileupload">
-                        <Label
-                            className="cr-label cr-label-fileupload"
-                            for="exampleFile"
-                            sm={2}
-                        >
-                            Cover Image:
-                        </Label>
-                        <Col sm={10}>
-                            <Input
-                                className="cr-input-fileupload"
-                                id="exampleFile"
-                                name="file"
-                                type="file"
-                                onChange={handleImgChange}
-                                accept="image/png, image/jpeg"
-                            />
-                            {/* <FormText className="cr-formtext-fileupload">
-                                An image is not nessesary for subbmission, but showing off your recipe through a cover image is a great way to get people to try your stuff!
-                            </FormText> */}
-                        </Col>
-                    </FormGroup>
+                        <FormGroup row className="cr-formgroup-fileupload">
+                            <Label
+                                className="cr-label cr-label-fileupload"
+                                for="exampleFile"
+                                sm={2}
+                            >
+                                Cover Image:
+                            </Label>
+                            <Col sm={10}>
+                                <Input
+                                    className="cr-input-fileupload"
+                                    id="exampleFile"
+                                    name="file"
+                                    type="file"
+                                    onChange={handleImgChange}
+                                    accept="image/png, image/jpeg"
+                                />
+                                {/* <FormText className="cr-formtext-fileupload">
+                                    An image is not nessesary for subbmission, but showing off your recipe through a cover image is a great way to get people to try your stuff!
+                                </FormText> */}
+                            </Col>
+                        </FormGroup>
 
-                    <div className="cr-br"></div>
+                        <div className="cr-br"></div>
 
 
-                    <FormGroup className="cr-formgroup-submit">
-                        <Col>
-                            <Button type="button" className="cr-button-submit" onClick={submitForm}>
-                                Submit
-                            </Button>
-                        </Col>
-                    </FormGroup>
-                </Form>
-            </section>
-            <section className="cr-section-table">
-                <Card onClick={handleActive} className={isActive ? 'cr-card-active' : 'cr-card'}>
-                    <CardHeader className="cr-card-header"><th>Recipe Ingredients</th></CardHeader>
-                    <CardBody className="cr-card-body">
-                        <Table className="cr-table-recipeingredients">
-                            <thead className="cr-thead">
-                                <tr className="cr-thead-row">
-                                    <th className="cr-th">#</th>
-                                    <th className="cr-thead-th">Ingredient</th>
-                                    <th className="cr-thead-th">Amount</th>
-                                    <th className="cr-thead-th">Measurement</th>
-                                    <th className="cr-thead-th"></th>
-                                </tr>
-                            </thead>
-                            <tbody className="cr-tbody">
-                                {recipeIngredientArray.map((ri, index) => {
-                                    return (
-                                        <tr className="cr-tbody-row" key={ri.ingredientName}>
+                        <FormGroup className="cr-formgroup-submit">
+                            <Col>
+                                <Button type="button" className="cr-button-submit" onClick={submitForm}>
+                                    Submit
+                                </Button>
+                                {submitError ? (<div style={{ color: "red", fontWeight: "bold", marginTop: "1rem", fontSize: "1rem", textAlign: "center" }}>Required Input Fields Missing</div>) : ("")}
+                            </Col>
+                        </FormGroup>
+                    </Form>
 
-                                            <th className="cr-tbody-td">{index + 1}</th>
-                                            <td className="cr-tbody-td">{ri.ingredientName}</td>
-                                            <td className="cr-tbody-td">{ri.amount}</td>
-                                            <td className="cr-tbody-td">{ri.measurementName}</td>
-                                            <td className="cr-tbody-td"><button className="cr-remove-btn" value={index} onClick={() => handleRemoveIngredient(index)} color="danger">X</button></td>
+                </section>
+                <section className="cr-section-table">
+                    <Card onClick={handleActive} className={isActive ? 'cr-card-active' : 'cr-card'}>
+                        <CardHeader className="cr-card-header"><th>Recipe Ingredients</th></CardHeader>
+                        <CardBody className="cr-card-body">
+                            <Table className="cr-table-recipeingredients">
+                                <thead className="cr-thead">
+                                    <tr className="cr-thead-row">
+                                        <th className="cr-th">#</th>
+                                        <th className="cr-thead-th">Ingredient</th>
+                                        <th className="cr-thead-th">Amount</th>
+                                        <th className="cr-thead-th">Measurement</th>
+                                        <th className="cr-thead-th"></th>
+                                    </tr>
+                                </thead>
+                                <tbody className="cr-tbody">
+                                    {recipeIngredientArray.map((ri, index) => {
+                                        return (
+                                            <tr className="cr-tbody-row" key={ri.ingredientName}>
 
-                                        </tr>
-                                    )
-                                })}
-                            </tbody>
-                        </Table>
-                    </CardBody>
-                </Card>
-            </section>
-            <div className="cr-br">-</div>
-        </main>
-    )
+                                                <th className="cr-tbody-td">{index + 1}</th>
+                                                <td className="cr-tbody-td">{ri.ingredientName}</td>
+                                                <td className="cr-tbody-td">{ri.amount}</td>
+                                                <td className="cr-tbody-td">{ri.measurementName}</td>
+                                                <td className="cr-tbody-td"><button className="cr-remove-btn" value={index} onClick={() => handleRemoveIngredient(index)} color="danger">X</button></td>
+
+                                            </tr>
+                                        )
+                                    })}
+                                </tbody>
+                            </Table>
+                        </CardBody>
+                    </Card>
+                </section>
+                <div className="cr-br">-</div>
+            </main>
+        )
+    }
+    return <Loading/>
 }
