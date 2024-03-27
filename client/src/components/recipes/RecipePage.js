@@ -101,7 +101,7 @@ export const RecipePage = ({loggedInUser}) => {
         <main className="rp-main">
             <section className="rp-section-header">
                 {loggedInUser?.id === recipe.cookBook.userProfileId || loggedInUser?.roles.includes("Admin") ? (<><Button className="rp-edit-btn" color="success" onClick={handleEdit}>Edit</Button><Button color="danger" onClick={handleDelete} className="rp-delete-btn">Delete Recipe</Button></>):("")}
-                <span><h1 className="rp-title">{recipe.title}</h1><h5>From ~ <Link style={{textDecoration: "none"}} to={`/cookbook/${recipe.cookBookId}`}><i className="rp-i">{recipe.cookBook.title}</i></Link></h5></span>
+                <span><h1 className="rp-title">{recipe.title}</h1><h5>From ~ <Link style={{textDecoration: "none"}} to={`/cookbook/${recipe.cookBook.userProfileId}`}><i className="rp-i">{recipe.cookBook.title}</i></Link></h5></span>
                     <div className="rp-image-div">
                         <div className="rp-image-container">
                             {recipe.coverImageUrl ? (<img className="rp-img" src={recipe.coverImageUrl} alt="recipeCover"/>):(<img className="rp-img" src="https://burst.shopifycdn.com/photos/flatlay-iron-skillet-with-meat-and-other-food.jpg?width=1000&format=pjpg&exif=0&iptc=0" alt="FoodImage"/>)}

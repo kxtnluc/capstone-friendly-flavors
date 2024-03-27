@@ -50,14 +50,96 @@ namespace CapstoneFriendlyFlavors.Migrations
                         new
                         {
                             Id = 1,
+                            Description = "the best cookbook",
                             Title = "The First Cookbook",
                             UserProfileId = 1
                         },
                         new
                         {
                             Id = 2,
+                            Description = "the second best",
                             Title = "Karamel",
                             UserProfileId = 2
+                        });
+                });
+
+            modelBuilder.Entity("FriendlyFlavors.Models.Follows", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("FollowerUserId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("FollowingUserId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("FollowerUserId");
+
+                    b.HasIndex("FollowingUserId");
+
+                    b.ToTable("Follows");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            FollowerUserId = 2,
+                            FollowingUserId = 3
+                        });
+                });
+
+            modelBuilder.Entity("FriendlyFlavors.Models.Friends", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<bool>("Accepted")
+                        .HasColumnType("boolean");
+
+                    b.Property<int>("FriendUserOneId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("FriendUserTwoId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("FriendUserOneId");
+
+                    b.HasIndex("FriendUserTwoId");
+
+                    b.ToTable("Friends");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Accepted = false,
+                            FriendUserOneId = 2,
+                            FriendUserTwoId = 3
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Accepted = false,
+                            FriendUserOneId = 3,
+                            FriendUserTwoId = 4
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Accepted = true,
+                            FriendUserOneId = 1,
+                            FriendUserTwoId = 2
                         });
                 });
 
@@ -472,7 +554,7 @@ namespace CapstoneFriendlyFlavors.Migrations
                         new
                         {
                             Id = "c3aaeb97-d2ba-4a53-a521-4eea61e59b35",
-                            ConcurrencyStamp = "add41ae3-9b63-4bab-b9f7-148f739191d1",
+                            ConcurrencyStamp = "6c4817b0-80e3-4cd2-aea6-afd28c961228",
                             Name = "Admin",
                             NormalizedName = "admin"
                         });
@@ -571,13 +653,13 @@ namespace CapstoneFriendlyFlavors.Migrations
                         {
                             Id = "dbc40bc6-0829-4ac5-a3ed-180f5e916a5f",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "cc94f587-efdd-41b8-aef7-2a870b08e505",
+                            ConcurrencyStamp = "e92789c5-e886-4dc6-b437-dd6f614a17ea",
                             Email = "admina@strator.comx",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
-                            PasswordHash = "AQAAAAEAACcQAAAAEDiZR4WpvxvPUN4nnMqBZ1+5/htgp/PR8Wxr41kBwEu4AAij95QUVz0CHx0GGGJHkQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEAJyLBmrXA1dackfPfZegQLGXSupcWmAJAFGYcHxK0MKhKCJJSpQ0QrbR1pspfOpuw==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "fb63df8e-3a08-4a2d-802a-75ef285d53d9",
+                            SecurityStamp = "eafe0416-2196-4355-a576-8fea92d867af",
                             TwoFactorEnabled = false,
                             UserName = "Administrator"
                         });
@@ -680,6 +762,44 @@ namespace CapstoneFriendlyFlavors.Migrations
                         .IsRequired();
 
                     b.Navigation("UserProfile");
+                });
+
+            modelBuilder.Entity("FriendlyFlavors.Models.Follows", b =>
+                {
+                    b.HasOne("FriendlyFlavors.Models.UserProfile", "FollowerUser")
+                        .WithMany()
+                        .HasForeignKey("FollowerUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("FriendlyFlavors.Models.UserProfile", "FollowingUser")
+                        .WithMany()
+                        .HasForeignKey("FollowingUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("FollowerUser");
+
+                    b.Navigation("FollowingUser");
+                });
+
+            modelBuilder.Entity("FriendlyFlavors.Models.Friends", b =>
+                {
+                    b.HasOne("FriendlyFlavors.Models.UserProfile", "FriendUserOne")
+                        .WithMany()
+                        .HasForeignKey("FriendUserOneId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("FriendlyFlavors.Models.UserProfile", "FriendUserTwo")
+                        .WithMany()
+                        .HasForeignKey("FriendUserTwoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("FriendUserOne");
+
+                    b.Navigation("FriendUserTwo");
                 });
 
             modelBuilder.Entity("FriendlyFlavors.Models.Recipe", b =>
