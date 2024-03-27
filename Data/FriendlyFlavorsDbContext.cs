@@ -13,6 +13,9 @@ public class FriendlyFlavorsDbContext : IdentityDbContext<IdentityUser>
     public DbSet<RecipeIngredient> RecipeIngredients { get; set; }
     public DbSet<Ingredient> Ingredients { get; set; }
     public DbSet<Measurement> Measurements { get; set; }
+    public DbSet <Friends> Friends { get; set; }
+    public DbSet<Follows> Follows { get; set; }
+
 
 
     public FriendlyFlavorsDbContext(DbContextOptions<FriendlyFlavorsDbContext> context, IConfiguration config) : base(context)
@@ -141,6 +144,39 @@ public class FriendlyFlavorsDbContext : IdentityDbContext<IdentityUser>
                 Amount = 2 //2 Whole Eggs
             }
         );
+
+        modelBuilder.Entity<Friends>().HasData(
+            new Friends
+            {
+                Id = 1,
+                FriendUserOneId = 2,
+                FriendUserTwoId = 3,
+                Accepted = false
+            },
+            new Friends
+            {
+                Id = 2,
+                FriendUserOneId = 3,
+                FriendUserTwoId = 4,
+                Accepted = false
+            },
+            new Friends
+            {
+                Id = 3,
+                FriendUserOneId = 1,
+                FriendUserTwoId = 2,
+                Accepted = true
+            }
+        );
+        modelBuilder.Entity<Follows>().HasData(
+            new Follows
+            {
+                Id = 1,
+                FollowerUserId = 2,
+                FollowingUserId = 3
+            }
+        );
+
 
     }
 }

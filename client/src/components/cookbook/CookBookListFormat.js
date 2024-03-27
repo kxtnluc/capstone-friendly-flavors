@@ -11,7 +11,7 @@ export const CookBookListFormat = ({cookBooks}) =>
         <section className="clf-section">
             {cookBooks.map((c) => {
                 return(
-                    <Card onClick={()=>navigate(`/cookbook/${c.userProfileId}`)} className="clf-card">
+                    <Card onClick={()=>navigate(`/cookbook/${c.userProfileId}`)} className="clf-card"> {/*someday, if users can have multiple cookbooks, this should be changed to c.id*/}
                         <CardHeader className="clf-card-header">{c.title}</CardHeader>
                         <CardBody className="clf-card-body">{c.description}</CardBody>
                         <CardFooter className="clf-card-footer">(recipe count?)</CardFooter>

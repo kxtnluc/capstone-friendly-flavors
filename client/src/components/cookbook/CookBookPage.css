@@ -10,12 +10,15 @@
                 font-weight: 600;
                 
             }
-    
+
             .cbp-subheader {
                 font-style: italic;
                 font-size: 24px;
                 margin-left: 1rem;
             }
+                .cbp-subhead-btn{
+                    margin-top: 0.2rem;
+                }
         }
     
         .cbp-br {
